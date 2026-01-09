@@ -47,7 +47,7 @@ class ContactFlowBuilder:
     # General vertical spacing (non-conditional)
     VERTICAL_SPACING = VERTICAL_SPACING_COND_1_OPT
     
-    COLLISION_PADDING = BLOCK_WIDTH_STANDARD * 0.8  # Minimum safe distance (smaller than horizontal spacing)
+    COLLISION_PADDING = HORIZONTAL_CENTER_SPACING  # Minimum safe distance
     
     START_X = 150
     START_Y = 40
@@ -218,7 +218,11 @@ class ContactFlowBuilder:
         return next((b for b in self.blocks if b.identifier == block_id), None)
     
     def _has_collision(self, positions: Dict[str, dict], x: int, y: int, exclude_id: str = None) -> bool:
-        """Check if position collides with existing blocks."""
+        """Check if position collides with existing blocks.
+        
+        Blocks are considered colliding if they're too close together.
+        Allow for proper horizontal spacing of HORIZONTAL_CENTER_SPACING.
+        """
         for block_id, pos in positions.items():
             if exclude_id and block_id == exclude_id:
                 continue
@@ -226,8 +230,12 @@ class ContactFlowBuilder:
             x_dist = abs(x - pos["x"])
             y_dist = abs(y - pos["y"])
             
-            # Check if within collision zone
-            if x_dist < self.COLLISION_PADDING and y_dist < self.COLLISION_PADDING:
+            # Same Y level: allow proper horizontal spacing, but prevent too-close placement
+            if abs(y - pos["y"]) < self.GRID_UNIT:  # Same row (within 1 grid unit)
+                if x_dist < (self.HORIZONTAL_CENTER_SPACING * 0.9):  # Too close horizontally
+                    return True
+            # Different Y levels: use standard collision padding
+            elif x_dist < self.COLLISION_PADDING and y_dist < self.COLLISION_PADDING:
                 return True
         
         return False
