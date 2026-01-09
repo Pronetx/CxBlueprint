@@ -121,7 +121,7 @@ def create_burger_order_flow():
     agent_thanks.then(disconnect_agent).on_error("NoMatchingError", disconnect_agent)
     
     # Compile
-    flow.compile_to_file("../src/output/code_generated_burger.json")
+    flow.compile_to_file("../src/output/burger.json")
     
     return flow
 

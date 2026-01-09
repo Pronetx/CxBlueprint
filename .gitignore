@@ -40,6 +40,13 @@ htmlcov/
 examples/*.json
 examples/output/
 
+# Source output (ignore all except specific examples)
+src/output/*
+!src/output/burger.json
+!src/output/menu.json
+!src/output/simple.json
+!src/output/student_loan_ivr.json
+
 # Terraform example
 terraform_example/counter_flow.json
 terraform_example/terraform/.terraform/

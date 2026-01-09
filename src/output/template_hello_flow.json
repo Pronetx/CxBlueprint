@@ -1,6 +1,6 @@
 {
   "Version": "2019-10-30",
-  "StartAction": "e0a94548-fff1-481a-9bc8-ae53335893cc",
+  "StartAction": "4f1e6229-f5dd-4b5e-9fd6-37408f9ba36d",
   "Metadata": {
     "entryPointPosition": {
       "x": 0,
@@ -8,16 +8,16 @@
     },
     "snapToGrid": false,
     "ActionMetadata": {
-      "e0a94548-fff1-481a-9bc8-ae53335893cc": {
+      "4f1e6229-f5dd-4b5e-9fd6-37408f9ba36d": {
         "position": {
-          "x": 150,
-          "y": 40
+          "x": 153.6,
+          "y": 38.4
         }
       },
-      "06906cf5-5900-4fdc-aa81-444b10cadfa8": {
+      "7ef090d2-315c-4abc-965c-add1e308c2ae": {
         "position": {
-          "x": 150,
-          "y": 290
+          "x": 614.4,
+          "y": 230.39999999999998
         }
       }
     },
@@ -25,17 +25,17 @@
   },
   "Actions": [
     {
-      "Identifier": "e0a94548-fff1-481a-9bc8-ae53335893cc",
+      "Identifier": "4f1e6229-f5dd-4b5e-9fd6-37408f9ba36d",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "Hello! Welcome to our system."
       },
       "Transitions": {
-        "NextAction": "06906cf5-5900-4fdc-aa81-444b10cadfa8"
+        "NextAction": "7ef090d2-315c-4abc-965c-add1e308c2ae"
       }
     },
     {
-      "Identifier": "06906cf5-5900-4fdc-aa81-444b10cadfa8",
+      "Identifier": "7ef090d2-315c-4abc-965c-add1e308c2ae",
       "Type": "TransferToFlow",
       "Parameters": {
         "ContactFlowId": "{{GOODBYE_FLOW_ARN}}"

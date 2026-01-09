@@ -1,6 +1,6 @@
 {
   "Version": "2019-10-30",
-  "StartAction": "c6f733fb-6b5a-460b-a22b-17b799d822e7",
+  "StartAction": "3cf3ef2b-b8b4-4a08-9bf9-79fd5ba9d02f",
   "Metadata": {
     "entryPointPosition": {
       "x": 0,
@@ -8,16 +8,16 @@
     },
     "snapToGrid": false,
     "ActionMetadata": {
-      "c6f733fb-6b5a-460b-a22b-17b799d822e7": {
+      "3cf3ef2b-b8b4-4a08-9bf9-79fd5ba9d02f": {
         "position": {
-          "x": 150,
-          "y": 40
+          "x": 153.6,
+          "y": 38.4
         }
       },
-      "fab1e927-e5ef-4f89-8480-a4b205cc9b80": {
+      "0d2e4b89-1af0-487e-ab65-64ef3c2e3bb3": {
         "position": {
-          "x": 150,
-          "y": 290
+          "x": 614.4,
+          "y": 230.39999999999998
         }
       }
     },
@@ -25,17 +25,17 @@
   },
   "Actions": [
     {
-      "Identifier": "c6f733fb-6b5a-460b-a22b-17b799d822e7",
+      "Identifier": "3cf3ef2b-b8b4-4a08-9bf9-79fd5ba9d02f",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "Goodbye! Thank you for calling. Have a great day!"
       },
       "Transitions": {
-        "NextAction": "fab1e927-e5ef-4f89-8480-a4b205cc9b80"
+        "NextAction": "0d2e4b89-1af0-487e-ab65-64ef3c2e3bb3"
       }
     },
     {
-      "Identifier": "fab1e927-e5ef-4f89-8480-a4b205cc9b80",
+      "Identifier": "0d2e4b89-1af0-487e-ab65-64ef3c2e3bb3",
       "Type": "DisconnectParticipant",
       "Parameters": {},
       "Transitions": {}

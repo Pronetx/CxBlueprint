@@ -1,6 +1,6 @@
 {
   "Version": "2019-10-30",
-  "StartAction": "31d3cbc9-1954-4d7c-ba54-4899429c2bb4",
+  "StartAction": "c36321a2-1c31-466f-8f96-1c1f9a2636fa",
   "Metadata": {
     "entryPointPosition": {
       "x": 0,
@@ -8,46 +8,46 @@
     },
     "snapToGrid": false,
     "ActionMetadata": {
-      "31d3cbc9-1954-4d7c-ba54-4899429c2bb4": {
+      "c36321a2-1c31-466f-8f96-1c1f9a2636fa": {
         "position": {
-          "x": 150,
-          "y": 40
+          "x": 153.6,
+          "y": 38.4
         }
       },
-      "84dcb4a3-1962-425e-819a-03555800a10b": {
+      "7f04cac0-150e-4a32-a3e8-d1fb779dc121": {
         "position": {
-          "x": 150,
-          "y": 290
+          "x": 614.4,
+          "y": 230.39999999999998
         }
       },
-      "1a5413bb-a691-4bfc-b075-1e62592a2a43": {
+      "d821893f-49e4-449f-a0fd-7d9c073c3f35": {
         "position": {
-          "x": 150,
-          "y": 540
+          "x": 1075.2,
+          "y": 422.4
         }
       },
-      "edbf271a-6c4d-4af4-b1f6-5da252fbcb12": {
+      "c26b8784-fb6e-4b6a-a248-25fb76b08315": {
         "position": {
-          "x": 350,
-          "y": 540
+          "x": 1305.6,
+          "y": 422.4
         }
       },
-      "8b3dafcd-f38a-43b1-8b97-57293a035840": {
+      "064b592e-4266-4cdb-9186-9d89ece59636": {
         "position": {
-          "x": 550,
-          "y": 540
+          "x": 1536.0,
+          "y": 422.4
         }
       },
-      "8a63cf0b-bb1f-4835-85a4-22468b75460d": {
+      "ecfc96cc-cf6a-4acb-ae16-5b65332a52be": {
         "position": {
-          "x": 750,
-          "y": 540
+          "x": 1766.3999999999999,
+          "y": 422.4
         }
       },
-      "bb7e9d0b-4893-44d0-8af9-cf99af2bcc07": {
+      "1b749dc4-a42a-4fa6-8e9c-139377d28800": {
         "position": {
-          "x": 750,
-          "y": 790
+          "x": 1996.8,
+          "y": 633.6
         }
       }
     },
@@ -55,43 +55,43 @@
   },
   "Actions": [
     {
-      "Identifier": "31d3cbc9-1954-4d7c-ba54-4899429c2bb4",
+      "Identifier": "c36321a2-1c31-466f-8f96-1c1f9a2636fa",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "Welcome! Let's test edge cases."
       },
       "Transitions": {
-        "NextAction": "84dcb4a3-1962-425e-819a-03555800a10b"
+        "NextAction": "7f04cac0-150e-4a32-a3e8-d1fb779dc121"
       }
     },
     {
-      "Identifier": "8a63cf0b-bb1f-4835-85a4-22468b75460d",
+      "Identifier": "ecfc96cc-cf6a-4acb-ae16-5b65332a52be",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "Thank you for calling. Goodbye."
       },
       "Transitions": {
-        "NextAction": "bb7e9d0b-4893-44d0-8af9-cf99af2bcc07"
+        "NextAction": "1b749dc4-a42a-4fa6-8e9c-139377d28800"
       }
     },
     {
-      "Identifier": "bb7e9d0b-4893-44d0-8af9-cf99af2bcc07",
+      "Identifier": "1b749dc4-a42a-4fa6-8e9c-139377d28800",
       "Type": "DisconnectParticipant",
       "Parameters": {},
       "Transitions": {}
     },
     {
-      "Identifier": "84dcb4a3-1962-425e-819a-03555800a10b",
+      "Identifier": "7f04cac0-150e-4a32-a3e8-d1fb779dc121",
       "Type": "GetParticipantInput",
       "Parameters": {
         "Text": "Press 1 for account info, 2 for support, or 9 to repeat this menu",
-        "StoreInput": "False",
-        "InputTimeLimitSeconds": "10"
+        "InputTimeLimitSeconds": "10",
+        "StoreInput": "False"
       },
       "Transitions": {
         "Conditions": [
           {
-            "NextAction": "84dcb4a3-1962-425e-819a-03555800a10b",
+            "NextAction": "7f04cac0-150e-4a32-a3e8-d1fb779dc121",
             "Condition": {
               "Operator": "Equals",
               "Operands": [
@@ -100,7 +100,7 @@
             }
           },
           {
-            "NextAction": "1a5413bb-a691-4bfc-b075-1e62592a2a43",
+            "NextAction": "d821893f-49e4-449f-a0fd-7d9c073c3f35",
             "Condition": {
               "Operator": "Equals",
               "Operands": [
@@ -109,7 +109,7 @@
             }
           },
           {
-            "NextAction": "edbf271a-6c4d-4af4-b1f6-5da252fbcb12",
+            "NextAction": "c26b8784-fb6e-4b6a-a248-25fb76b08315",
             "Condition": {
               "Operator": "Equals",
               "Operands": [
@@ -120,44 +120,44 @@
         ],
         "Errors": [
           {
-            "NextAction": "8b3dafcd-f38a-43b1-8b97-57293a035840",
+            "NextAction": "064b592e-4266-4cdb-9186-9d89ece59636",
             "ErrorType": "NoMatchError"
           },
           {
-            "NextAction": "8a63cf0b-bb1f-4835-85a4-22468b75460d",
+            "NextAction": "ecfc96cc-cf6a-4acb-ae16-5b65332a52be",
             "ErrorType": "Timeout"
           }
         ]
       }
     },
     {
-      "Identifier": "8b3dafcd-f38a-43b1-8b97-57293a035840",
+      "Identifier": "064b592e-4266-4cdb-9186-9d89ece59636",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "I didn't receive your selection. Let me try again."
       },
       "Transitions": {
-        "NextAction": "84dcb4a3-1962-425e-819a-03555800a10b"
+        "NextAction": "7f04cac0-150e-4a32-a3e8-d1fb779dc121"
       }
     },
     {
-      "Identifier": "1a5413bb-a691-4bfc-b075-1e62592a2a43",
+      "Identifier": "d821893f-49e4-449f-a0fd-7d9c073c3f35",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "Your account balance is $1,234.56"
       },
       "Transitions": {
-        "NextAction": "8a63cf0b-bb1f-4835-85a4-22468b75460d"
+        "NextAction": "ecfc96cc-cf6a-4acb-ae16-5b65332a52be"
       }
     },
     {
-      "Identifier": "edbf271a-6c4d-4af4-b1f6-5da252fbcb12",
+      "Identifier": "c26b8784-fb6e-4b6a-a248-25fb76b08315",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "Transferring you to our support team"
       },
       "Transitions": {
-        "NextAction": "8a63cf0b-bb1f-4835-85a4-22468b75460d"
+        "NextAction": "ecfc96cc-cf6a-4acb-ae16-5b65332a52be"
       }
     }
   ]

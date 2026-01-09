@@ -32,7 +32,7 @@ def create_menu_flow():
     option_apples.then(disconnect).on_error("NoMatchingError", disconnect)
     
     # Compile to file
-    flow.compile_to_file("../src/output/code_generated_menu.json")
+    flow.compile_to_file("../src/output/menu.json")
     
     return flow
 

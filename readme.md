@@ -31,7 +31,7 @@ menu.when("1", classic) \
     .on_error("NoMatchingCondition", error_msg) \
     .on_error("NoMatchingError", error_msg)
 
-# Or you can do it like this:
+# Or without chaining:
 # menu.when("1", classic)
 # menu.when("2", veggie)
 # menu.otherwise(error_msg)
@@ -75,10 +75,13 @@ flow.compile_to_file("counter_flow.json")
 ## Features
 
 - Fluent Python API for building flows
-- BFS-based layout algorithm (handles loops and complex flows)
+- Naive block positioning for AWS Connect visual canvas
+- Automatic UUID generation for blocks
+- Error/Conditional handling support
+- Integration with AWS Lambda and lexv2 bots
 - Template placeholder support for Terraform/IaC
 - Decompile existing flows to Python
-- All Amazon Connect block types supported
+- Majority of Amazon Connect block types supported
 - Shell scripts to download, validate, and test flows against Connect
 
 ## Quick Start
@@ -101,6 +104,14 @@ src/
   flow_builder.py       # Main builder API
   decompiler.py         # JSON to Python
   blocks/               # All Connect block types
+    contact_actions/    # Actions like CreateTask
+      readme.md         # Contains progress on supported blocks
+     flow_control_actions/ # Flow control blocks
+      readme.md         # Contains progress on supported blocks
+     interactions/      # Interaction blocks
+      readme.md         # Contains progress on supported blocks
+     participant_actions/  # Participant blocks
+      readme.md         # Contains progress on supported blocks
 examples/               # Sample flows
 terraform_example/      # Complete deployment example
 docs/                   # API reference

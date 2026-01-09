@@ -1,6 +1,6 @@
 {
   "Version": "2019-10-30",
-  "StartAction": "260281ee-e37b-432c-974a-7bcc6e27676f",
+  "StartAction": "995c1365-775e-4953-8600-4142df1a8822",
   "Metadata": {
     "entryPointPosition": {
       "x": 0,
@@ -8,106 +8,106 @@
     },
     "snapToGrid": false,
     "ActionMetadata": {
-      "260281ee-e37b-432c-974a-7bcc6e27676f": {
+      "995c1365-775e-4953-8600-4142df1a8822": {
         "position": {
-          "x": 150,
-          "y": 40
+          "x": 153.6,
+          "y": 38.4
         }
       },
-      "5256138a-3895-4f96-bcad-2d36e6763744": {
+      "a1091532-dbda-4ace-b40f-d4ed5c9336b4": {
         "position": {
-          "x": 150,
-          "y": 290
+          "x": 614.4,
+          "y": 230.39999999999998
         }
       },
-      "c5c52448-7b75-46e0-a021-0f354a3da430": {
+      "513f23d3-f61b-4600-af23-4b54e15f8e42": {
         "position": {
-          "x": 150,
-          "y": 540
+          "x": 1075.2,
+          "y": 422.4
         }
       },
-      "0f7ee46e-d430-48e8-a2c7-72a46830ce10": {
+      "f71bc7a6-9657-4805-bbc9-514eb5827a14": {
         "position": {
-          "x": 350,
-          "y": 540
+          "x": 1305.6,
+          "y": 422.4
         }
       },
-      "4494e713-9605-4d07-be3c-0b24f2790366": {
+      "667dde44-f17c-429c-8074-ec4f9c52b42a": {
         "position": {
-          "x": 550,
-          "y": 540
+          "x": 1536.0,
+          "y": 422.4
         }
       },
-      "59487def-bf58-4da3-94ba-4b5db747a9db": {
+      "dcd1df95-ca21-4d41-b351-72ea10ceddb9": {
         "position": {
-          "x": 750,
-          "y": 540
+          "x": 1766.3999999999999,
+          "y": 422.4
         }
       },
-      "b2f72b7b-cb66-4c88-9a32-e97913f59602": {
+      "1502734b-bea5-4495-b4e9-8a5ef9f313a8": {
         "position": {
-          "x": 150,
-          "y": 790
+          "x": 1996.8,
+          "y": 633.6
         }
       },
-      "811c2c9b-c4b0-496a-b53f-4fbc93243abc": {
+      "61c793a1-cd10-477b-a638-459354f6b4f9": {
         "position": {
-          "x": 350,
-          "y": 790
+          "x": 2227.2,
+          "y": 633.6
         }
       },
-      "310d1bc9-efa2-482e-bd43-654d0af27cc5": {
+      "95b43f58-21b3-4e2a-8fe3-6c506568c074": {
         "position": {
-          "x": 550,
-          "y": 790
+          "x": 2457.6,
+          "y": 633.6
         }
       },
-      "519aa5b3-a147-4736-b5fb-a029c6fbf50d": {
+      "071ba84e-bcf7-4c07-9b35-6593799cdfdf": {
         "position": {
-          "x": 750,
-          "y": 790
+          "x": 2688.0,
+          "y": 633.6
         }
       },
-      "143184e6-094c-4de0-a938-6fe86adb0130": {
+      "ef1d65ab-838e-4305-b345-ddb7b13036aa": {
         "position": {
-          "x": 150,
-          "y": 1040
+          "x": 2918.4,
+          "y": 825.6
         }
       },
-      "dfe3f398-762a-4633-8c21-227cf40d3198": {
+      "5c4dfb17-f587-414d-88e9-a83ff35edb56": {
         "position": {
-          "x": 350,
-          "y": 1040
+          "x": 3148.7999999999997,
+          "y": 825.6
         }
       },
-      "80b115c6-7896-43a5-86d9-6b7b265009ab": {
+      "b373b85d-3e69-4f20-a902-9d8113d83cc2": {
         "position": {
-          "x": 550,
-          "y": 1040
+          "x": 3379.2,
+          "y": 825.6
         }
       },
-      "3d531f99-f9b8-4d0f-bdf4-c7c3dd00348d": {
+      "eee9adf7-17af-4ffa-9afe-d1fe29e9936f": {
         "position": {
-          "x": 750,
-          "y": 1040
+          "x": 3609.6,
+          "y": 825.6
         }
       },
-      "221246aa-3d63-4efc-a0a3-537a065e9179": {
+      "a8dd6470-0d2b-4ff6-95cb-18734c19d1ce": {
         "position": {
-          "x": 150,
-          "y": 1290
+          "x": 3840.0,
+          "y": 1017.5999999999999
         }
       },
-      "bbb3de0f-af3a-4fda-8307-e016c374e927": {
+      "ec24e3ac-311e-4921-af3d-66fd01c6abbe": {
         "position": {
-          "x": 350,
-          "y": 1290
+          "x": 4070.3999999999996,
+          "y": 1017.5999999999999
         }
       },
-      "e7729105-0bcd-4fc8-a316-16544cc5c3e8": {
+      "d110ead3-9aeb-45c0-891d-610fff0533ba": {
         "position": {
-          "x": 150,
-          "y": 1540
+          "x": 4300.8,
+          "y": 1209.6
         }
       }
     },
@@ -115,17 +115,17 @@
   },
   "Actions": [
     {
-      "Identifier": "260281ee-e37b-432c-974a-7bcc6e27676f",
+      "Identifier": "995c1365-775e-4953-8600-4142df1a8822",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "Welcome to our advanced support system."
       },
       "Transitions": {
-        "NextAction": "5256138a-3895-4f96-bcad-2d36e6763744"
+        "NextAction": "a1091532-dbda-4ace-b40f-d4ed5c9336b4"
       }
     },
     {
-      "Identifier": "5256138a-3895-4f96-bcad-2d36e6763744",
+      "Identifier": "a1091532-dbda-4ace-b40f-d4ed5c9336b4",
       "Type": "GetParticipantInput",
       "Parameters": {
         "Text": "Press 1 for account info, 2 for technical support, or 3 for billing.",
@@ -135,7 +135,7 @@
       "Transitions": {
         "Conditions": [
           {
-            "NextAction": "c5c52448-7b75-46e0-a021-0f354a3da430",
+            "NextAction": "513f23d3-f61b-4600-af23-4b54e15f8e42",
             "Condition": {
               "Operator": "Equals",
               "Operands": [
@@ -144,7 +144,7 @@
             }
           },
           {
-            "NextAction": "0f7ee46e-d430-48e8-a2c7-72a46830ce10",
+            "NextAction": "f71bc7a6-9657-4805-bbc9-514eb5827a14",
             "Condition": {
               "Operator": "Equals",
               "Operands": [
@@ -153,7 +153,7 @@
             }
           },
           {
-            "NextAction": "4494e713-9605-4d07-be3c-0b24f2790366",
+            "NextAction": "667dde44-f17c-429c-8074-ec4f9c52b42a",
             "Condition": {
               "Operator": "Equals",
               "Operands": [
@@ -164,55 +164,55 @@
         ],
         "Errors": [
           {
-            "NextAction": "59487def-bf58-4da3-94ba-4b5db747a9db",
+            "NextAction": "dcd1df95-ca21-4d41-b351-72ea10ceddb9",
             "ErrorType": "NoMatchError"
           }
         ]
       }
     },
     {
-      "Identifier": "c5c52448-7b75-46e0-a021-0f354a3da430",
+      "Identifier": "513f23d3-f61b-4600-af23-4b54e15f8e42",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "Let me check your balance..."
       },
       "Transitions": {
-        "NextAction": "b2f72b7b-cb66-4c88-9a32-e97913f59602"
+        "NextAction": "1502734b-bea5-4495-b4e9-8a5ef9f313a8"
       }
     },
     {
-      "Identifier": "b2f72b7b-cb66-4c88-9a32-e97913f59602",
+      "Identifier": "1502734b-bea5-4495-b4e9-8a5ef9f313a8",
       "Type": "InvokeLambdaFunction",
       "Parameters": {
         "LambdaFunctionARN": "{{BALANCE_LAMBDA_ARN}}",
         "InvocationTimeLimitSeconds": "10"
       },
       "Transitions": {
-        "NextAction": "143184e6-094c-4de0-a938-6fe86adb0130"
+        "NextAction": "ef1d65ab-838e-4305-b345-ddb7b13036aa"
       }
     },
     {
-      "Identifier": "143184e6-094c-4de0-a938-6fe86adb0130",
+      "Identifier": "ef1d65ab-838e-4305-b345-ddb7b13036aa",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "Your current balance is..."
       },
       "Transitions": {
-        "NextAction": "221246aa-3d63-4efc-a0a3-537a065e9179"
+        "NextAction": "a8dd6470-0d2b-4ff6-95cb-18734c19d1ce"
       }
     },
     {
-      "Identifier": "0f7ee46e-d430-48e8-a2c7-72a46830ce10",
+      "Identifier": "f71bc7a6-9657-4805-bbc9-514eb5827a14",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "Connecting you to our AI technical assistant..."
       },
       "Transitions": {
-        "NextAction": "811c2c9b-c4b0-496a-b53f-4fbc93243abc"
+        "NextAction": "61c793a1-cd10-477b-a638-459354f6b4f9"
       }
     },
     {
-      "Identifier": "811c2c9b-c4b0-496a-b53f-4fbc93243abc",
+      "Identifier": "61c793a1-cd10-477b-a638-459354f6b4f9",
       "Type": "ConnectParticipantWithLexBot",
       "Parameters": {
         "Text": "How can I help you with technical support today?",
@@ -226,7 +226,7 @@
       "Transitions": {
         "Conditions": [
           {
-            "NextAction": "dfe3f398-762a-4633-8c21-227cf40d3198",
+            "NextAction": "5c4dfb17-f587-414d-88e9-a83ff35edb56",
             "Condition": {
               "Operator": "Equals",
               "Operands": [
@@ -238,38 +238,38 @@
       }
     },
     {
-      "Identifier": "dfe3f398-762a-4633-8c21-227cf40d3198",
+      "Identifier": "5c4dfb17-f587-414d-88e9-a83ff35edb56",
       "Type": "InvokeLambdaFunction",
       "Parameters": {
         "LambdaFunctionARN": "{{RESET_PASSWORD_LAMBDA_ARN}}",
         "InvocationTimeLimitSeconds": "8"
       },
       "Transitions": {
-        "NextAction": "bbb3de0f-af3a-4fda-8307-e016c374e927"
+        "NextAction": "ec24e3ac-311e-4921-af3d-66fd01c6abbe"
       }
     },
     {
-      "Identifier": "bbb3de0f-af3a-4fda-8307-e016c374e927",
+      "Identifier": "ec24e3ac-311e-4921-af3d-66fd01c6abbe",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "I've sent a password reset link to your email."
       },
       "Transitions": {
-        "NextAction": "221246aa-3d63-4efc-a0a3-537a065e9179"
+        "NextAction": "a8dd6470-0d2b-4ff6-95cb-18734c19d1ce"
       }
     },
     {
-      "Identifier": "4494e713-9605-4d07-be3c-0b24f2790366",
+      "Identifier": "667dde44-f17c-429c-8074-ec4f9c52b42a",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "Let me pull up your billing information..."
       },
       "Transitions": {
-        "NextAction": "310d1bc9-efa2-482e-bd43-654d0af27cc5"
+        "NextAction": "95b43f58-21b3-4e2a-8fe3-6c506568c074"
       }
     },
     {
-      "Identifier": "310d1bc9-efa2-482e-bd43-654d0af27cc5",
+      "Identifier": "95b43f58-21b3-4e2a-8fe3-6c506568c074",
       "Type": "ShowView",
       "Parameters": {
         "ViewResource": {
@@ -282,31 +282,31 @@
         }
       },
       "Transitions": {
-        "NextAction": "80b115c6-7896-43a5-86d9-6b7b265009ab"
+        "NextAction": "b373b85d-3e69-4f20-a902-9d8113d83cc2"
       }
     },
     {
-      "Identifier": "80b115c6-7896-43a5-86d9-6b7b265009ab",
+      "Identifier": "b373b85d-3e69-4f20-a902-9d8113d83cc2",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "I've displayed your billing details."
       },
       "Transitions": {
-        "NextAction": "221246aa-3d63-4efc-a0a3-537a065e9179"
+        "NextAction": "a8dd6470-0d2b-4ff6-95cb-18734c19d1ce"
       }
     },
     {
-      "Identifier": "59487def-bf58-4da3-94ba-4b5db747a9db",
+      "Identifier": "dcd1df95-ca21-4d41-b351-72ea10ceddb9",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "I didn't understand your selection. Let me create a support ticket."
       },
       "Transitions": {
-        "NextAction": "519aa5b3-a147-4736-b5fb-a029c6fbf50d"
+        "NextAction": "071ba84e-bcf7-4c07-9b35-6593799cdfdf"
       }
     },
     {
-      "Identifier": "519aa5b3-a147-4736-b5fb-a029c6fbf50d",
+      "Identifier": "071ba84e-bcf7-4c07-9b35-6593799cdfdf",
       "Type": "CreateTask",
       "Parameters": {
         "Name": "Customer Support Request",
@@ -315,31 +315,31 @@
         "Priority": "2"
       },
       "Transitions": {
-        "NextAction": "3d531f99-f9b8-4d0f-bdf4-c7c3dd00348d"
+        "NextAction": "eee9adf7-17af-4ffa-9afe-d1fe29e9936f"
       }
     },
     {
-      "Identifier": "3d531f99-f9b8-4d0f-bdf4-c7c3dd00348d",
+      "Identifier": "eee9adf7-17af-4ffa-9afe-d1fe29e9936f",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "A support representative will contact you shortly."
       },
       "Transitions": {
-        "NextAction": "221246aa-3d63-4efc-a0a3-537a065e9179"
+        "NextAction": "a8dd6470-0d2b-4ff6-95cb-18734c19d1ce"
       }
     },
     {
-      "Identifier": "221246aa-3d63-4efc-a0a3-537a065e9179",
+      "Identifier": "a8dd6470-0d2b-4ff6-95cb-18734c19d1ce",
       "Type": "MessageParticipant",
       "Parameters": {
         "Text": "Thank you for contacting us. Goodbye!"
       },
       "Transitions": {
-        "NextAction": "e7729105-0bcd-4fc8-a316-16544cc5c3e8"
+        "NextAction": "d110ead3-9aeb-45c0-891d-610fff0533ba"
       }
     },
     {
-      "Identifier": "e7729105-0bcd-4fc8-a316-16544cc5c3e8",
+      "Identifier": "d110ead3-9aeb-45c0-891d-610fff0533ba",
       "Type": "DisconnectParticipant",
       "Parameters": {},
       "Transitions": {}

@@ -20,7 +20,7 @@ def create_simple_flow():
     welcome.then(disconnect).on_error("NoMatchingError", disconnect)
     
     # Compile to file
-    flow.compile_to_file("../src/output/code_generated_simple.json")
+    flow.compile_to_file("../src/output/simple.json")
     
     return flow
 
