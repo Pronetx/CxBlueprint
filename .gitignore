@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Examples output
+examples/*.json
+examples/output/
+
+# Full example
+full_example/counter_flow.json
+full_example/terraform/.terraform/
+full_example/terraform/*.tfstate
+full_example/terraform/*.tfstate.*
+full_example/terraform/*.tfplan
+full_example/terraform/*.tfvars
+full_example/terraform/counter_lambda.zip
+full_example/terraform/.terraform.lock.hcl
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+*.tfvars
+*.tfplan
+
+# Logs
+*.log
+
+# Documentation
+CLAUDE.md
+
+# Input/output directories (keep example.json only)
+input/*
+!input/example.json
+output/*
+!output/Cx_example.json

@@ -4,23 +4,55 @@ Programmatic Amazon Connect contact flow generation using Python.
 
 ## What It Does
 
-Generate Amazon Connect flows from Python code instead of the visual editor:
+Generate Amazon Connect flows from Python code instead of the visual editor.
+
+### Simple Example
 
 ```python
 from flow_builder import ContactFlowBuilder
 
-flow = ContactFlowBuilder("Customer Support")
+flow = ContactFlowBuilder("Burger Order")
 
-welcome = flow.play_prompt("Welcome! Press 1 for sales, 2 for support.")
-menu = flow.get_input("Please make your selection", timeout=5)
+welcome = flow.play_prompt("Welcome to Burger Palace!")
+menu = flow.get_input("Press 1 for Classic Burger or 2 for Veggie Burger", timeout=10)
 welcome.then(menu)
 
-sales = flow.play_prompt("Connecting to sales...")
-support = flow.play_prompt("Connecting to support...")
+classic = flow.play_prompt("You selected Classic Burger. Your order is confirmed!")
+veggie = flow.play_prompt("You selected Veggie Burger. Your order is confirmed!")
 
-menu.when("1", sales).when("2", support)
+menu.when("1", classic).when("2", veggie)
 
-flow.compile_to_file("support_flow.json")
+disconnect = flow.disconnect()
+classic.then(disconnect)
+veggie.then(disconnect)
+
+flow.compile_to_file("burger_order.json")
+```
+
+### Terraform Template Example
+
+Use placeholders for dynamic resource ARNs:
+
+```python
+from flow_builder import ContactFlowBuilder
+
+flow = ContactFlowBuilder("Counter Flow")
+
+welcome = flow.play_prompt("Thank you for calling!")
+invoke_counter = flow.invoke_lambda(
+    function_arn="${COUNTER_LAMBDA_ARN}",  # Resolved by Terraform
+    timeout_seconds="8"
+)
+welcome.then(invoke_counter)
+
+say_count = flow.play_prompt("You are caller number $.External.count")
+invoke_counter.then(say_count)
+
+disconnect = flow.disconnect()
+say_count.then(disconnect)
+invoke_counter.on_error("NoMatchingError", disconnect)
+
+flow.compile_to_file("counter_flow.json")
 ```
 
 ## Features
