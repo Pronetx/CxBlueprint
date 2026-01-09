@@ -268,8 +268,8 @@ class ContactFlowBuilder:
         visited = set()
         queued = set()  # Track what's already in queue
         
-        # BFS queue: (block_id, suggested_x, level)
-        queue = deque([(self._start_action, self.START_X, 0)])
+        # BFS queue: (block_id, suggested_x, level, explicit_y=None)
+        queue = deque([(self._start_action, self.START_X, 0, None)])
         queued.add(self._start_action)
         
         while queue:
@@ -279,15 +279,23 @@ class ContactFlowBuilder:
             level_y = self.START_Y + (current_level * self.VERTICAL_SPACING)
             
             for _ in range(level_size):
-                block_id, suggested_x, level = queue.popleft()
+                item = queue.popleft()
+                if len(item) == 4:
+                    block_id, suggested_x, level, explicit_y = item
+                else:
+                    block_id, suggested_x, level = item
+                    explicit_y = None
                 
                 if block_id in visited:
                     continue
                 
                 visited.add(block_id)
                 
+                # Use explicit Y if provided, otherwise use level-based Y
+                target_y = explicit_y if explicit_y is not None else level_y
+                
                 # Find safe position for this block
-                x, y = self._find_safe_position(positions, suggested_x, level_y)
+                x, y = self._find_safe_position(positions, suggested_x, target_y)
                 
                 # Round to grid unit (19.2)
                 x = round(x / self.GRID_UNIT) * self.GRID_UNIT
@@ -324,15 +332,18 @@ class ContactFlowBuilder:
                                 children.append(child)
                 
                 # Queue children
-                # NextAction goes horizontally (same level), others go vertically (next level)
+                # NextAction goes horizontally (same level), others stack vertically
                 next_action = transitions.get("NextAction")
+                condition_index = 0
                 for child_id in children:
                     if child_id == next_action:
                         # NextAction: Place horizontally to the right at same level
-                        queue.append((child_id, x + self.HORIZONTAL_CENTER_SPACING, level))
+                        queue.append((child_id, x + self.HORIZONTAL_CENTER_SPACING, level, None))
                     else:
-                        # Conditions/Errors: Place vertically on next level
-                        queue.append((child_id, x, level + 1))
+                        # Conditions/Errors: Stack vertically below parent at increasing Y positions
+                        child_y = target_y + self.VERTICAL_SPACING + (condition_index * self.VERTICAL_SPACING)
+                        queue.append((child_id, x, level + 1, child_y))
+                        condition_index += 1
                     queued.add(child_id)
         
         if self.debug:

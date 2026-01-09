@@ -1,0 +1,441 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "2a274718-d017-4f6c-957b-f17236cbaaf4",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "2a274718-d017-4f6c-957b-f17236cbaaf4": {
+        "position": {
+          "x": 153.6,
+          "y": 38.4
+        }
+      },
+      "e906808d-74b7-4253-b1f0-259b385b8e2f": {
+        "position": {
+          "x": 384.0,
+          "y": 38.4
+        }
+      },
+      "495b054c-8bdf-45db-ab72-e37b6ef5bf64": {
+        "position": {
+          "x": 614.4,
+          "y": 38.4
+        }
+      },
+      "45629254-2dd4-4350-86ab-a2db3787eec8": {
+        "position": {
+          "x": 844.8,
+          "y": 38.4
+        }
+      },
+      "2cd96cbf-5384-49d3-baec-1506acbaa386": {
+        "position": {
+          "x": 1075.2,
+          "y": 230.39999999999998
+        }
+      },
+      "6b22fe95-9f39-411b-8054-15fefb968f8f": {
+        "position": {
+          "x": 614.4,
+          "y": 422.4
+        }
+      },
+      "5ccfce62-a32e-4dfc-91ae-151e7ae5df9e": {
+        "position": {
+          "x": 1075.2,
+          "y": 633.6
+        }
+      },
+      "a54f4985-eae8-432b-95b1-443c753c955a": {
+        "position": {
+          "x": 614.4,
+          "y": 825.6
+        }
+      },
+      "a4829c8c-204f-47c3-a94a-f4f7a699f9da": {
+        "position": {
+          "x": 1305.6,
+          "y": 38.4
+        }
+      },
+      "a532734e-731f-4d99-879e-1b132b2d2c0d": {
+        "position": {
+          "x": 1536.0,
+          "y": 38.4
+        }
+      },
+      "97c2c5de-5151-4609-ad79-a1468d7c5d07": {
+        "position": {
+          "x": 1766.3999999999999,
+          "y": 38.4
+        }
+      },
+      "661b3c8e-0532-44cf-a373-3db19a70b925": {
+        "position": {
+          "x": 1996.8,
+          "y": 38.4
+        }
+      },
+      "80be0e6b-625c-4466-932c-5238be6ae743": {
+        "position": {
+          "x": 2246.4,
+          "y": 38.4
+        }
+      },
+      "6590755b-af4b-4fea-831e-0c7ff77ee3ab": {
+        "position": {
+          "x": 2457.6,
+          "y": 38.4
+        }
+      },
+      "e8ad2d42-2e2b-4c7a-896a-c41177c19602": {
+        "position": {
+          "x": 2688.0,
+          "y": 38.4
+        }
+      },
+      "65de013d-3e1a-468a-8a1e-8a84085be876": {
+        "position": {
+          "x": 2918.4,
+          "y": 38.4
+        }
+      },
+      "c515ea23-8542-4e3d-8ee7-7a460af9c556": {
+        "position": {
+          "x": 3148.7999999999997,
+          "y": 38.4
+        }
+      }
+    },
+    "Annotations": []
+  },
+  "Actions": [
+    {
+      "Identifier": "2a274718-d017-4f6c-957b-f17236cbaaf4",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Thank you for calling federal student aid"
+      },
+      "Transitions": {
+        "NextAction": "e906808d-74b7-4253-b1f0-259b385b8e2f"
+      }
+    },
+    {
+      "Identifier": "e906808d-74b7-4253-b1f0-259b385b8e2f",
+      "Type": "UpdateContactAttributes",
+      "Parameters": {
+        "Attributes": {
+          "caller_intent": "main_menu",
+          "loan_intent": "foreclosed"
+        }
+      },
+      "Transitions": {
+        "NextAction": "495b054c-8bdf-45db-ab72-e37b6ef5bf64"
+      }
+    },
+    {
+      "Identifier": "495b054c-8bdf-45db-ab72-e37b6ef5bf64",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "How much is your loan balance remaining? Press 1 for 10k, 2 for 50k, 3 for 100k, 4 for unknown",
+        "InputTimeLimitSeconds": "10",
+        "StoreInput": "False"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "2cd96cbf-5384-49d3-baec-1506acbaa386",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "6b22fe95-9f39-411b-8054-15fefb968f8f",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "5ccfce62-a32e-4dfc-91ae-151e7ae5df9e",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          },
+          {
+            "NextAction": "a54f4985-eae8-432b-95b1-443c753c955a",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "4"
+              ]
+            }
+          }
+        ],
+        "NextAction": "45629254-2dd4-4350-86ab-a2db3787eec8",
+        "Errors": [
+          {
+            "NextAction": "45629254-2dd4-4350-86ab-a2db3787eec8",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "45629254-2dd4-4350-86ab-a2db3787eec8",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "45629254-2dd4-4350-86ab-a2db3787eec8",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "I didn't receive your input. Please try again. Press 1 for 10k, 2 for 50k, 3 for 100k, 4 for unknown",
+        "InputTimeLimitSeconds": "10",
+        "StoreInput": "False"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "2cd96cbf-5384-49d3-baec-1506acbaa386",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "6b22fe95-9f39-411b-8054-15fefb968f8f",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "5ccfce62-a32e-4dfc-91ae-151e7ae5df9e",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          },
+          {
+            "NextAction": "a54f4985-eae8-432b-95b1-443c753c955a",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "4"
+              ]
+            }
+          }
+        ],
+        "NextAction": "a4829c8c-204f-47c3-a94a-f4f7a699f9da",
+        "Errors": [
+          {
+            "NextAction": "a4829c8c-204f-47c3-a94a-f4f7a699f9da",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "a4829c8c-204f-47c3-a94a-f4f7a699f9da",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "a4829c8c-204f-47c3-a94a-f4f7a699f9da",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Last chance. Please press 1 for 10k, 2 for 50k, 3 for 100k, 4 for unknown",
+        "InputTimeLimitSeconds": "10",
+        "StoreInput": "False"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "2cd96cbf-5384-49d3-baec-1506acbaa386",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "6b22fe95-9f39-411b-8054-15fefb968f8f",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "5ccfce62-a32e-4dfc-91ae-151e7ae5df9e",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          },
+          {
+            "NextAction": "a54f4985-eae8-432b-95b1-443c753c955a",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "4"
+              ]
+            }
+          }
+        ],
+        "NextAction": "6590755b-af4b-4fea-831e-0c7ff77ee3ab",
+        "Errors": [
+          {
+            "NextAction": "6590755b-af4b-4fea-831e-0c7ff77ee3ab",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "6590755b-af4b-4fea-831e-0c7ff77ee3ab",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "2cd96cbf-5384-49d3-baec-1506acbaa386",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Your loan balance is 10k"
+      },
+      "Transitions": {
+        "NextAction": "a532734e-731f-4d99-879e-1b132b2d2c0d"
+      }
+    },
+    {
+      "Identifier": "a532734e-731f-4d99-879e-1b132b2d2c0d",
+      "Type": "UpdateContactAttributes",
+      "Parameters": {
+        "Attributes": {
+          "loan_balance": "10k"
+        }
+      },
+      "Transitions": {
+        "NextAction": "e8ad2d42-2e2b-4c7a-896a-c41177c19602"
+      }
+    },
+    {
+      "Identifier": "6b22fe95-9f39-411b-8054-15fefb968f8f",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Your loan balance is 50k"
+      },
+      "Transitions": {
+        "NextAction": "97c2c5de-5151-4609-ad79-a1468d7c5d07"
+      }
+    },
+    {
+      "Identifier": "97c2c5de-5151-4609-ad79-a1468d7c5d07",
+      "Type": "UpdateContactAttributes",
+      "Parameters": {
+        "Attributes": {
+          "loan_balance": "50k"
+        }
+      },
+      "Transitions": {
+        "NextAction": "e8ad2d42-2e2b-4c7a-896a-c41177c19602"
+      }
+    },
+    {
+      "Identifier": "5ccfce62-a32e-4dfc-91ae-151e7ae5df9e",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Your loan balance is 100k"
+      },
+      "Transitions": {
+        "NextAction": "661b3c8e-0532-44cf-a373-3db19a70b925"
+      }
+    },
+    {
+      "Identifier": "661b3c8e-0532-44cf-a373-3db19a70b925",
+      "Type": "UpdateContactAttributes",
+      "Parameters": {
+        "Attributes": {
+          "loan_balance": "100k"
+        }
+      },
+      "Transitions": {
+        "NextAction": "e8ad2d42-2e2b-4c7a-896a-c41177c19602"
+      }
+    },
+    {
+      "Identifier": "a54f4985-eae8-432b-95b1-443c753c955a",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Your loan balance is unknown"
+      },
+      "Transitions": {
+        "NextAction": "80be0e6b-625c-4466-932c-5238be6ae743"
+      }
+    },
+    {
+      "Identifier": "80be0e6b-625c-4466-932c-5238be6ae743",
+      "Type": "UpdateContactAttributes",
+      "Parameters": {
+        "Attributes": {
+          "loan_balance": "unknown"
+        }
+      },
+      "Transitions": {
+        "NextAction": "e8ad2d42-2e2b-4c7a-896a-c41177c19602"
+      }
+    },
+    {
+      "Identifier": "e8ad2d42-2e2b-4c7a-896a-c41177c19602",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Thank you for providing your loan balance information"
+      },
+      "Transitions": {
+        "NextAction": "c515ea23-8542-4e3d-8ee7-7a460af9c556"
+      }
+    },
+    {
+      "Identifier": "c515ea23-8542-4e3d-8ee7-7a460af9c556",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "6590755b-af4b-4fea-831e-0c7ff77ee3ab",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "We were unable to process your input. Please call back and try again. Goodbye"
+      },
+      "Transitions": {
+        "NextAction": "65de013d-3e1a-468a-8a1e-8a84085be876"
+      }
+    },
+    {
+      "Identifier": "65de013d-3e1a-468a-8a1e-8a84085be876",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}
