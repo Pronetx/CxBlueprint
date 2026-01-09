@@ -21,9 +21,7 @@ def create_advanced_flow():
     
     flow = ContactFlowBuilder("Advanced Flow Demo", debug=True)
     
-    # =================================================================
     # PATTERN 1: FLUENT API (Simple, common blocks)
-    # =================================================================
     
     welcome = flow.play_prompt("Welcome to our advanced support system.")
     
@@ -31,9 +29,7 @@ def create_advanced_flow():
     main_menu = flow.get_input("Press 1 for account info, 2 for technical support, or 3 for billing.", timeout=10)
     welcome.then(main_menu)
     
-    # =================================================================
     # PATTERN 2: CONVENIENCE METHODS (Common complex blocks)
-    # =================================================================
     
     # Option 1: Account balance via Lambda
     balance_check = flow.play_prompt("Let me check your balance...")
@@ -84,9 +80,7 @@ def create_advanced_flow():
     billing_msg = flow.play_prompt("I've displayed your billing details.")
     billing_view.then(billing_msg)
     
-    # =================================================================
     # PATTERN 3: DIRECT INSTANTIATION (Specialized/custom blocks)
-    # =================================================================
     
     # Handle invalid input - create a task for follow-up
     invalid_input = flow.play_prompt("I didn't understand your selection. Let me create a support ticket.")
@@ -109,9 +103,7 @@ def create_advanced_flow():
     task_confirm = flow.play_prompt("A support representative will contact you shortly.")
     task_block.then(task_confirm)
     
-    # =================================================================
     # COMMON ENDING
-    # =================================================================
     
     # All paths converge to thank you
     thank_you = flow.play_prompt("Thank you for contacting us. Goodbye!")
@@ -129,15 +121,7 @@ def create_advanced_flow():
     return flow
 
 
-def main():
-    print("🚀 ADVANCED FLOW PATTERNS")
-    print("="*60)
-    print("\nThis example demonstrates three ways to use blocks:")
-    print("  1️⃣  Fluent API - play_prompt(), disconnect()")
-    print("  2️⃣  Convenience Methods - lex_bot(), invoke_lambda()")
-    print("  3️⃣  Direct + add() - Custom blocks with full control")
-    print()
-    
+def main():    
     flow = create_advanced_flow()
     
     # Compile and save
@@ -152,7 +136,7 @@ def main():
     print(f"   Total blocks: {len(compiled['Actions'])}")
     print(f"   Positioned blocks: {len(compiled['Metadata']['ActionMetadata'])}")
     
-    print("\n📊 BLOCK TYPE BREAKDOWN:")
+    print("\n BLOCK TYPE BREAKDOWN:")
     block_types = {}
     for action in compiled['Actions']:
         block_type = action['Type']
@@ -161,39 +145,7 @@ def main():
     for block_type, count in sorted(block_types.items()):
         print(f"   {block_type}: {count}")
     
-    print("\n🎯 TEMPLATE REFERENCES:")
-    print("   {{BALANCE_LAMBDA_ARN}}")
-    print("   {{LEX_BOT_ARN}}")
-    print("   {{RESET_PASSWORD_LAMBDA_ARN}}")
-    print("   {{BILLING_VIEW_ID}}")
-    print("   {{SUPPORT_TASK_TEMPLATE}}")
-    
-    print("\n💡 USAGE PATTERNS DEMONSTRATED:")
-    print("   ✓ Menu-based navigation (press 1, 2, 3)")
-    print("   ✓ Lex bot integration with intents")
-    print("   ✓ Multiple Lambda function invocations")
-    print("   ✓ Agent workspace views")
-    print("   ✓ Task creation for follow-up")
-    print("   ✓ Error handling with fallback")
-    print("   ✓ Multiple merge points")
-    print("   ✓ Template-based resource references")
-    
-    print("\n" + "="*60)
-    print("🎓 WHEN TO USE EACH PATTERN:")
-    print("="*60)
-    print("Fluent API (play_prompt, disconnect, get_input):")
-    print("  → Simple, commonly-used blocks")
-    print("  → Clean, readable flow definitions")
-    print()
-    print("Convenience Methods (lex_bot, invoke_lambda, show_view):")
-    print("  → Complex blocks with sensible defaults")
-    print("  → Most common configuration patterns")
-    print()
-    print("Direct + add() (CreateTask with custom parameters):")
-    print("  → Specialized blocks with custom configs")
-    print("  → Full control over all parameters")
-    print("  → Blocks not yet in convenience layer")
-
+  
 
 if __name__ == "__main__":
     main()

@@ -56,15 +56,6 @@ def create_edge_case_flow():
 
 
 def main():
-    print("\n" + "="*70)
-    print("EDGE CASE TEST FLOW")
-    print("="*70)
-    print("\nEdge cases being tested:")
-    print("  • Loop back (press 9 → main menu)")
-    print("  • Retry logic (1 attempt)")
-    print("  • Merge points (multiple paths → thank_you)")
-    print("  • Shared disconnect block")
-    print()
     
     flow = create_edge_case_flow()
     
@@ -80,30 +71,6 @@ def main():
     with open(output_path, 'w') as f:
         json.dump(compiled, f, indent=2)
     
-    print(f"\nFlow manually compiled to: {output_path}")
-    print(f"   Total Actions: {len(compiled['Actions'])}")
-    print(f"   Positioned blocks: {len(compiled['Metadata']['ActionMetadata'])}")
-    
-    print(f"\nFlow compiled to: {output_path}")
-    print("\n" + "="*70)
-    print("FLOW STRUCTURE")
-    print("="*70)
-    print("""
-Main Menu (press 1, 2, or 9)
-    ├─ 1 → Account Info → Thank You → Disconnect
-    ├─ 2 → Support → Thank You → Disconnect (MERGE)
-    ├─ 9 → Main Menu (LOOP BACK)
-    ├─ NoMatchError → Retry → Main Menu (RETRY LOOP)
-    └─ Timeout → Thank You → Disconnect (MERGE + ERROR PATH)
-
-Key observations:
-  • Main menu can loop back to itself (press 9)
-  • Retry creates a small loop back to main menu
-  • Thank You is a merge point (3 paths converge here)
-  • Disconnect is the final merge point
-  • One error path skips retry and goes straight to thank_you
-""")
-    print("="*70)
 
 
 if __name__ == "__main__":

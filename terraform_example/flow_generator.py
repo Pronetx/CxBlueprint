@@ -29,10 +29,34 @@ def generate_counter_flow():
     say_count = flow.play_prompt("You are caller number $.External.count")
     invoke_counter.then(say_count)
     
-    # Step 4: Disconnect (end of flow)
+    # Step 4: Ask for feedback rating
+    rating_menu = flow.get_input("Please rate your experience. Press 1 for excellent, 2 for good, or 3 for poor", timeout=10)
+    say_count.then(rating_menu)
+    
+    # Step 5: Handle rating responses
+    thanks_excellent = flow.play_prompt("Thank you for your excellent rating!")
+    thanks_good = flow.play_prompt("Thank you for your feedback!")
+    thanks_poor = flow.play_prompt("We apologize. Your feedback helps us improve.")
+    
+    # Step 6: Disconnect (end of flow)
     disconnect = flow.disconnect()
-    say_count.then(disconnect)
-    invoke_counter.on_error("NoMatchingError", disconnect)  # Handle Lambda errors
+    
+    # Wire rating menu branches
+    rating_menu.when("1", thanks_excellent) \
+        .when("2", thanks_good) \
+        .when("3", thanks_poor) \
+        .otherwise(disconnect) \
+        .on_error("InputTimeLimitExceeded", disconnect) \
+        .on_error("NoMatchingCondition", disconnect) \
+        .on_error("NoMatchingError", disconnect)
+    
+    # All thank you messages lead to disconnect
+    thanks_excellent.then(disconnect)
+    thanks_good.then(disconnect)
+    thanks_poor.then(disconnect)
+    
+    # Handle Lambda errors
+    invoke_counter.on_error("NoMatchingError", disconnect)
     
     return flow
 
