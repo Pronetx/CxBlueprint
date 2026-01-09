@@ -31,6 +31,14 @@ menu.when("1", classic) \
     .on_error("NoMatchingCondition", error_msg) \
     .on_error("NoMatchingError", error_msg)
 
+# Or you can do it like this:
+# menu.when("1", classic)
+# menu.when("2", veggie)
+# menu.otherwise(error_msg)
+# menu.on_error("InputTimeLimitExceeded", error_msg)
+# menu.on_error("NoMatchingCondition", error_msg)
+# menu.on_error("NoMatchingError", error_msg)
+
 classic.then(disconnect)
 veggie.then(disconnect)
 error_msg.then(disconnect)
