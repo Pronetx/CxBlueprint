@@ -1,0 +1,114 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "83365b10-2cb8-4f8c-a196-8cd76cb44e18",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "83365b10-2cb8-4f8c-a196-8cd76cb44e18": {
+        "position": {
+          "x": 150,
+          "y": 40
+        }
+      },
+      "85a13729-3801-4b21-aec2-43cf00ea09c3": {
+        "position": {
+          "x": 450,
+          "y": 40
+        }
+      },
+      "217df164-78aa-4d76-b38f-9447a18ec291": {
+        "position": {
+          "x": 750,
+          "y": -80
+        }
+      },
+      "54eca4e2-01e3-4691-8739-64d7af59a32f": {
+        "position": {
+          "x": 750,
+          "y": 160
+        }
+      },
+      "39a3e3fe-5e84-4044-aa1d-d14836476dad": {
+        "position": {
+          "x": 1050,
+          "y": 40
+        }
+      }
+    },
+    "Annotations": []
+  },
+  "Actions": [
+    {
+      "Identifier": "83365b10-2cb8-4f8c-a196-8cd76cb44e18",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Welcome"
+      },
+      "Transitions": {
+        "NextAction": "85a13729-3801-4b21-aec2-43cf00ea09c3"
+      }
+    },
+    {
+      "Identifier": "85a13729-3801-4b21-aec2-43cf00ea09c3",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Press 1 or 2",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "5"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "217df164-78aa-4d76-b38f-9447a18ec291",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "54eca4e2-01e3-4691-8739-64d7af59a32f",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          }
+        ],
+        "NextAction": "39a3e3fe-5e84-4044-aa1d-d14836476dad"
+      }
+    },
+    {
+      "Identifier": "217df164-78aa-4d76-b38f-9447a18ec291",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Option 1"
+      },
+      "Transitions": {
+        "NextAction": "39a3e3fe-5e84-4044-aa1d-d14836476dad"
+      }
+    },
+    {
+      "Identifier": "54eca4e2-01e3-4691-8739-64d7af59a32f",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Option 2"
+      },
+      "Transitions": {
+        "NextAction": "39a3e3fe-5e84-4044-aa1d-d14836476dad"
+      }
+    },
+    {
+      "Identifier": "39a3e3fe-5e84-4044-aa1d-d14836476dad",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

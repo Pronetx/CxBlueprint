@@ -1,0 +1,164 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "31d3cbc9-1954-4d7c-ba54-4899429c2bb4",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "31d3cbc9-1954-4d7c-ba54-4899429c2bb4": {
+        "position": {
+          "x": 150,
+          "y": 40
+        }
+      },
+      "84dcb4a3-1962-425e-819a-03555800a10b": {
+        "position": {
+          "x": 150,
+          "y": 290
+        }
+      },
+      "1a5413bb-a691-4bfc-b075-1e62592a2a43": {
+        "position": {
+          "x": 150,
+          "y": 540
+        }
+      },
+      "edbf271a-6c4d-4af4-b1f6-5da252fbcb12": {
+        "position": {
+          "x": 350,
+          "y": 540
+        }
+      },
+      "8b3dafcd-f38a-43b1-8b97-57293a035840": {
+        "position": {
+          "x": 550,
+          "y": 540
+        }
+      },
+      "8a63cf0b-bb1f-4835-85a4-22468b75460d": {
+        "position": {
+          "x": 750,
+          "y": 540
+        }
+      },
+      "bb7e9d0b-4893-44d0-8af9-cf99af2bcc07": {
+        "position": {
+          "x": 750,
+          "y": 790
+        }
+      }
+    },
+    "Annotations": []
+  },
+  "Actions": [
+    {
+      "Identifier": "31d3cbc9-1954-4d7c-ba54-4899429c2bb4",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Welcome! Let's test edge cases."
+      },
+      "Transitions": {
+        "NextAction": "84dcb4a3-1962-425e-819a-03555800a10b"
+      }
+    },
+    {
+      "Identifier": "8a63cf0b-bb1f-4835-85a4-22468b75460d",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Thank you for calling. Goodbye."
+      },
+      "Transitions": {
+        "NextAction": "bb7e9d0b-4893-44d0-8af9-cf99af2bcc07"
+      }
+    },
+    {
+      "Identifier": "bb7e9d0b-4893-44d0-8af9-cf99af2bcc07",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "84dcb4a3-1962-425e-819a-03555800a10b",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Press 1 for account info, 2 for support, or 9 to repeat this menu",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "10"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "84dcb4a3-1962-425e-819a-03555800a10b",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "9"
+              ]
+            }
+          },
+          {
+            "NextAction": "1a5413bb-a691-4bfc-b075-1e62592a2a43",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "edbf271a-6c4d-4af4-b1f6-5da252fbcb12",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          }
+        ],
+        "Errors": [
+          {
+            "NextAction": "8b3dafcd-f38a-43b1-8b97-57293a035840",
+            "ErrorType": "NoMatchError"
+          },
+          {
+            "NextAction": "8a63cf0b-bb1f-4835-85a4-22468b75460d",
+            "ErrorType": "Timeout"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "8b3dafcd-f38a-43b1-8b97-57293a035840",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "I didn't receive your selection. Let me try again."
+      },
+      "Transitions": {
+        "NextAction": "84dcb4a3-1962-425e-819a-03555800a10b"
+      }
+    },
+    {
+      "Identifier": "1a5413bb-a691-4bfc-b075-1e62592a2a43",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Your account balance is $1,234.56"
+      },
+      "Transitions": {
+        "NextAction": "8a63cf0b-bb1f-4835-85a4-22468b75460d"
+      }
+    },
+    {
+      "Identifier": "edbf271a-6c4d-4af4-b1f6-5da252fbcb12",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Transferring you to our support team"
+      },
+      "Transitions": {
+        "NextAction": "8a63cf0b-bb1f-4835-85a4-22468b75460d"
+      }
+    }
+  ]
+}

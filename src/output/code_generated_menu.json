@@ -1,0 +1,146 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "9a4c3c2a-e6b6-4a6b-8d63-2da321429aa3",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "9a4c3c2a-e6b6-4a6b-8d63-2da321429aa3": {
+        "position": {
+          "x": 150,
+          "y": 40
+        }
+      },
+      "2d58dd66-e9da-4371-9a3e-8b1b13807c8b": {
+        "position": {
+          "x": 380,
+          "y": 40
+        }
+      },
+      "894112e0-41b4-4e98-823c-c76317e74560": {
+        "position": {
+          "x": 610,
+          "y": -180
+        }
+      },
+      "31d47b10-73ad-4333-a584-8eb18aa9078a": {
+        "position": {
+          "x": 840,
+          "y": -180
+        }
+      },
+      "ecb5ce8c-e4d2-463b-a4ae-b55c7bd28115": {
+        "position": {
+          "x": 610,
+          "y": 20
+        }
+      }
+    },
+    "Annotations": []
+  },
+  "Actions": [
+    {
+      "Identifier": "9a4c3c2a-e6b6-4a6b-8d63-2da321429aa3",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Thank you for calling"
+      },
+      "Transitions": {
+        "NextAction": "2d58dd66-e9da-4371-9a3e-8b1b13807c8b",
+        "Errors": [
+          {
+            "NextAction": "31d47b10-73ad-4333-a584-8eb18aa9078a",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "2d58dd66-e9da-4371-9a3e-8b1b13807c8b",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Please press 1 or 2",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "8"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "894112e0-41b4-4e98-823c-c76317e74560",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "ecb5ce8c-e4d2-463b-a4ae-b55c7bd28115",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          }
+        ],
+        "NextAction": "31d47b10-73ad-4333-a584-8eb18aa9078a",
+        "Errors": [
+          {
+            "NextAction": "31d47b10-73ad-4333-a584-8eb18aa9078a",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "31d47b10-73ad-4333-a584-8eb18aa9078a",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "31d47b10-73ad-4333-a584-8eb18aa9078a",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "894112e0-41b4-4e98-823c-c76317e74560",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Oranges"
+      },
+      "Transitions": {
+        "NextAction": "31d47b10-73ad-4333-a584-8eb18aa9078a",
+        "Errors": [
+          {
+            "NextAction": "31d47b10-73ad-4333-a584-8eb18aa9078a",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "ecb5ce8c-e4d2-463b-a4ae-b55c7bd28115",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Apples"
+      },
+      "Transitions": {
+        "NextAction": "31d47b10-73ad-4333-a584-8eb18aa9078a",
+        "Errors": [
+          {
+            "NextAction": "31d47b10-73ad-4333-a584-8eb18aa9078a",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "31d47b10-73ad-4333-a584-8eb18aa9078a",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

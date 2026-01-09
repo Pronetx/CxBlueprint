@@ -1,0 +1,46 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "cb0f572e-ce0b-4dac-8558-178beb7a1c3e",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "cb0f572e-ce0b-4dac-8558-178beb7a1c3e": {
+        "position": {
+          "x": 150,
+          "y": 40
+        }
+      },
+      "d7c5be21-f1d8-4bc9-ab9b-41a2da06d2e4": {
+        "position": {
+          "x": 150,
+          "y": 290
+        }
+      }
+    },
+    "Annotations": []
+  },
+  "Actions": [
+    {
+      "Identifier": "cb0f572e-ce0b-4dac-8558-178beb7a1c3e",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Hello! Welcome to our system."
+      },
+      "Transitions": {
+        "NextAction": "d7c5be21-f1d8-4bc9-ab9b-41a2da06d2e4"
+      }
+    },
+    {
+      "Identifier": "d7c5be21-f1d8-4bc9-ab9b-41a2da06d2e4",
+      "Type": "TransferToFlow",
+      "Parameters": {
+        "ContactFlowId": "arn:aws:connect:us-east-1:123456789012:instance/12345678-1234-1234-1234-123456789012/contact-flow/goodbye-flow-id"
+      },
+      "Transitions": {}
+    }
+  ]
+}

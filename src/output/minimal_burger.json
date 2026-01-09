@@ -1,0 +1,140 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "c3562f59-7459-4789-bd32-c1189a3ba0d8",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "c3562f59-7459-4789-bd32-c1189a3ba0d8": {
+        "position": {
+          "x": 150,
+          "y": 40
+        }
+      },
+      "d3e2366c-db1a-4202-a8b0-7d2c5d62db81": {
+        "position": {
+          "x": 450,
+          "y": 40
+        }
+      },
+      "243c12f0-15db-445f-849f-7437a2a08ae0": {
+        "position": {
+          "x": 750,
+          "y": -80
+        }
+      },
+      "e78f55df-5d00-4efd-9338-00b2f1c4f74c": {
+        "position": {
+          "x": 750,
+          "y": 160
+        }
+      },
+      "0e30e00f-5ee5-4a35-8746-04745fb321df": {
+        "position": {
+          "x": 1050,
+          "y": 40
+        }
+      },
+      "4f0ed014-dbb5-4256-9e7a-5dd78d58de58": {
+        "position": {
+          "x": 1050,
+          "y": 240
+        }
+      }
+    },
+    "Annotations": []
+  },
+  "Actions": [
+    {
+      "Identifier": "c3562f59-7459-4789-bd32-c1189a3ba0d8",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Welcome"
+      },
+      "Transitions": {
+        "NextAction": "d3e2366c-db1a-4202-a8b0-7d2c5d62db81"
+      }
+    },
+    {
+      "Identifier": "d3e2366c-db1a-4202-a8b0-7d2c5d62db81",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Press 1 for ordering or 2 for tracking",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "10"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "243c12f0-15db-445f-849f-7437a2a08ae0",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "e78f55df-5d00-4efd-9338-00b2f1c4f74c",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          }
+        ],
+        "NextAction": "0e30e00f-5ee5-4a35-8746-04745fb321df",
+        "Errors": [
+          {
+            "NextAction": "0e30e00f-5ee5-4a35-8746-04745fb321df",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "0e30e00f-5ee5-4a35-8746-04745fb321df",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "0e30e00f-5ee5-4a35-8746-04745fb321df",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "243c12f0-15db-445f-849f-7437a2a08ae0",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Thank you for your order"
+      },
+      "Transitions": {
+        "NextAction": "0e30e00f-5ee5-4a35-8746-04745fb321df"
+      }
+    },
+    {
+      "Identifier": "0e30e00f-5ee5-4a35-8746-04745fb321df",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "e78f55df-5d00-4efd-9338-00b2f1c4f74c",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Checking your order status"
+      },
+      "Transitions": {
+        "NextAction": "4f0ed014-dbb5-4256-9e7a-5dd78d58de58"
+      }
+    },
+    {
+      "Identifier": "4f0ed014-dbb5-4256-9e7a-5dd78d58de58",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

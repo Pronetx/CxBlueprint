@@ -1,0 +1,955 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "5cfb3fa1-78a7-4133-b553-ca7198181192",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 15,
+      "y": 28.41892501396316
+    },
+    "snapToGrid": false,
+    "name": "Sample queue configurations flow",
+    "description": "Puts a voice, chat, or task in queue and gives the option to be first or last in queue.",
+    "type": "contactFlow",
+    "status": "published",
+    "hash": "afb326821380892686666ffa77cfdc6227891611e105af7f82c09bcbbdc47399",
+    "ActionMetadata": {
+      "dbb742ec-5005-403b-896b-30b7cbf63732": {
+        "position": {
+          "x": 464,
+          "y": 53.41892501396316
+        },
+        "contactFlow": {
+          "id": "arn:aws:connect:us-east-1:299145661157:instance/082e847c-8736-4d4d-b74b-2ca68376897a/contact-flow/090e57fb-d694-4c84-bfae-7af999ef687e",
+          "text": "Default customer queue"
+        },
+        "customerOrAgent": true,
+        "useDynamic": false
+      },
+      "0f25b37e-67d2-4897-9e44-1d2cc91f73d9": {
+        "position": {
+          "x": 719,
+          "y": 44.41892501396316
+        },
+        "conditionMetadata": [
+          {
+            "id": "cadd260b-56d7-40b8-9b32-05f5ac451272",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "TASK"
+          }
+        ]
+      },
+      "440f1e67-dbad-40c5-a7c8-30f95de6b193": {
+        "position": {
+          "x": 1803,
+          "y": 42.41892501396316
+        }
+      },
+      "9476ea1a-6016-4d55-8346-f69b5b559cc2": {
+        "position": {
+          "x": 1329,
+          "y": 42.41892501396316
+        }
+      },
+      "4684c135-0d73-48fe-8fd0-6fde15beb1d9": {
+        "position": {
+          "x": 1015,
+          "y": 41.41892501396316
+        },
+        "conditionMetadata": [
+          {
+            "id": "7d9d4ce7-db02-481f-8935-5c4f2e90b814",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "High"
+          },
+          {
+            "id": "6daae702-ed99-454c-8ba4-ae56da9079df",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "Low"
+          }
+        ]
+      },
+      "551d5654-99ff-4174-9817-a6c3c25159a2": {
+        "position": {
+          "x": 1328,
+          "y": 253.41892501396316
+        },
+        "adjustUnit": "minutes"
+      },
+      "30ac4093-7e55-4bdc-825b-37dbeb237d9b": {
+        "position": {
+          "x": 1576,
+          "y": 54.41892501396316
+        },
+        "useDynamic": false
+      },
+      "80341111-9853-40db-aa90-2f9dcff12344": {
+        "position": {
+          "x": 1667,
+          "y": 586.4189250139632
+        },
+        "useDynamic": false
+      },
+      "5cfb3fa1-78a7-4133-b553-ca7198181192": {
+        "position": {
+          "x": 170,
+          "y": 36.41892501396316
+        },
+        "useDynamic": false,
+        "queue": {
+          "id": "arn:aws:connect:us-east-1:299145661157:instance/082e847c-8736-4d4d-b74b-2ca68376897a/queue/b14944d1-2487-4c16-ad39-072ad6d670c3",
+          "text": "BasicQueue"
+        }
+      },
+      "1761a5fd-0eab-46c6-801f-1df5ec18ea56": {
+        "position": {
+          "x": 1023,
+          "y": 327.4189250139632
+        }
+      },
+      "f48561e5-3d02-4380-8031-8139cee399d2": {
+        "position": {
+          "x": 4519,
+          "y": 1330.4189250139632
+        }
+      },
+      "3746a42c-0735-4668-ade2-9335496f495e": {
+        "position": {
+          "x": 1358,
+          "y": 427.4189250139632
+        },
+        "conditionMetadata": [
+          {
+            "id": "60daf103-235f-4f57-a117-cf48a41cea22",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "CHAT"
+          }
+        ]
+      },
+      "a91b0f5f-71dc-4d99-adbe-827db4b13591": {
+        "position": {
+          "x": 2293,
+          "y": 580.4189250139632
+        }
+      },
+      "ec7862fb-30fc-45b3-8ac6-776cbe055068": {
+        "position": {
+          "x": 1959,
+          "y": 586.4189250139632
+        },
+        "conditionMetadata": [
+          {
+            "id": "9a4c67b7-23ff-4b28-8885-08317d03156d",
+            "value": "1"
+          },
+          {
+            "id": "839d43c7-ef81-47b9-8fa6-6e0e7912fce0",
+            "value": "2"
+          }
+        ],
+        "useDynamic": false
+      },
+      "76f56182-8786-42d7-960e-d99b54a45a45": {
+        "position": {
+          "x": 2520,
+          "y": 173.41892501396316
+        },
+        "adjustUnit": "minutes"
+      },
+      "3c52961e-581a-42b5-87b9-41c7fee5dbf9": {
+        "position": {
+          "x": 2783,
+          "y": 167.41892501396316
+        },
+        "conditionMetadata": [
+          {
+            "id": "cb0d177d-1aca-49ff-8382-6c6eb2fc7fd7",
+            "attribute": {
+              "name": "Time in Queue",
+              "value": "Time in Queue"
+            },
+            "operator": {
+              "name": "Is less than",
+              "value": "LessThan",
+              "shortDisplay": "<"
+            },
+            "value": "300",
+            "time": "sec."
+          }
+        ],
+        "useDynamic": false
+      },
+      "15445378-0358-427c-8e3e-d4693a07cf8d": {
+        "position": {
+          "x": 3118,
+          "y": 407.4189250139632
+        },
+        "useDynamic": false
+      },
+      "84e7e723-838f-4012-bafe-ffbda3b81d51": {
+        "position": {
+          "x": 3081,
+          "y": 179.41892501396316
+        },
+        "useDynamic": false
+      },
+      "58ecb14e-0970-4d5b-9d4c-f2cb7d23bf12": {
+        "position": {
+          "x": 5325,
+          "y": 687.4189250139632
+        },
+        "useDynamic": false
+      },
+      "9155d755-b5fb-4c17-a560-8a9d1095eedf": {
+        "position": {
+          "x": 5062,
+          "y": 494.4189250139632
+        }
+      },
+      "b5a7030b-23c9-4570-80d2-a9ec4c17e806": {
+        "position": {
+          "x": 5327,
+          "y": 477.4189250139632
+        },
+        "useDynamic": false
+      },
+      "0af94805-014a-4fb1-8a35-070fa35e2e22": {
+        "position": {
+          "x": 5920,
+          "y": 239.41892501396316
+        }
+      },
+      "9ec9348c-c517-403f-935b-9c3bb8e35c1b": {
+        "position": {
+          "x": 5607,
+          "y": 244.41892501396316
+        },
+        "useDynamic": false
+      },
+      "c69c6e6e-8707-42e5-b8bc-d79d64385234": {
+        "position": {
+          "x": 5321,
+          "y": 241.41892501396316
+        },
+        "useDynamic": false
+      },
+      "67f2d6ed-c5bc-42cf-9011-b0589ef14103": {
+        "position": {
+          "x": 4707,
+          "y": 263.4189250139632
+        },
+        "useDynamic": false
+      },
+      "43d31362-47a0-4897-8592-32ffc70b3b3c": {
+        "position": {
+          "x": 5978,
+          "y": 446.4189250139632
+        },
+        "useDynamic": false
+      },
+      "220a5a3b-1792-40dd-9c08-08b6bc122541": {
+        "position": {
+          "x": 4781,
+          "y": 485.4189250139632
+        },
+        "useDynamic": false,
+        "useDynamicForEncryptionKeys": true,
+        "countryCodePrefix": "+1"
+      },
+      "cad6d3f7-e39e-426f-bf32-b99aa549a34b": {
+        "position": {
+          "x": 4095,
+          "y": 1344.4189250139632
+        },
+        "useDynamic": false
+      },
+      "05c9b198-6508-4fb2-af45-8526c535a05c": {
+        "position": {
+          "x": 3494,
+          "y": 416.4189250139632
+        },
+        "conditionMetadata": [
+          {
+            "id": "70511bf0-be52-462d-8a6c-a289f5490fe5",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "CHAT"
+          }
+        ]
+      },
+      "da46c982-772f-43be-a034-8402e4d7afea": {
+        "position": {
+          "x": 4907,
+          "y": 965.4189250139632
+        },
+        "useDynamic": false
+      },
+      "35d19e2a-432e-41a6-838d-bb9949910869": {
+        "position": {
+          "x": 4307,
+          "y": 400.4189250139632
+        },
+        "conditionMetadata": [
+          {
+            "id": "ac0502ec-d58b-4f9c-9817-a6976c625076",
+            "value": "2"
+          },
+          {
+            "id": "4fb3a37f-be2b-4907-ab2b-15e0a14056b3",
+            "value": "1"
+          }
+        ],
+        "useDynamic": false
+      },
+      "049d9571-48bf-4fa9-9b63-683288ddb456": {
+        "position": {
+          "x": 4548,
+          "y": 877.4189250139632
+        },
+        "contactFlow": {
+          "id": "arn:aws:connect:us-east-1:299145661157:instance/082e847c-8736-4d4d-b74b-2ca68376897a/contact-flow/dcc0df35-917d-4ffd-bdc2-3a1fcca80b02",
+          "text": "Sample interruptible queue flow with callback"
+        },
+        "customerOrAgent": true,
+        "useDynamic": false
+      }
+    }
+  },
+  "Actions": [
+    {
+      "Identifier": "dbb742ec-5005-403b-896b-30b7cbf63732",
+      "Type": "UpdateContactEventHooks",
+      "Parameters": {
+        "EventHooks": {
+          "CustomerQueue": "arn:aws:connect:us-east-1:299145661157:instance/082e847c-8736-4d4d-b74b-2ca68376897a/contact-flow/090e57fb-d694-4c84-bfae-7af999ef687e"
+        }
+      },
+      "Transitions": {
+        "NextAction": "0f25b37e-67d2-4897-9e44-1d2cc91f73d9",
+        "Errors": [
+          {
+            "NextAction": "0f25b37e-67d2-4897-9e44-1d2cc91f73d9",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "0f25b37e-67d2-4897-9e44-1d2cc91f73d9",
+      "Type": "Compare",
+      "Parameters": {
+        "ComparisonValue": "$.Channel"
+      },
+      "Transitions": {
+        "NextAction": "1761a5fd-0eab-46c6-801f-1df5ec18ea56",
+        "Errors": [
+          {
+            "NextAction": "1761a5fd-0eab-46c6-801f-1df5ec18ea56",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ],
+        "Conditions": [
+          {
+            "NextAction": "4684c135-0d73-48fe-8fd0-6fde15beb1d9",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "TASK"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "440f1e67-dbad-40c5-a7c8-30f95de6b193",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "9476ea1a-6016-4d55-8346-f69b5b559cc2",
+      "Type": "UpdateContactRoutingBehavior",
+      "Parameters": {
+        "QueuePriority": "1"
+      },
+      "Transitions": {
+        "NextAction": "30ac4093-7e55-4bdc-825b-37dbeb237d9b",
+        "Errors": [],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "4684c135-0d73-48fe-8fd0-6fde15beb1d9",
+      "Type": "Compare",
+      "Parameters": {
+        "ComparisonValue": "$.Attributes.Priority"
+      },
+      "Transitions": {
+        "NextAction": "30ac4093-7e55-4bdc-825b-37dbeb237d9b",
+        "Errors": [
+          {
+            "NextAction": "30ac4093-7e55-4bdc-825b-37dbeb237d9b",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ],
+        "Conditions": [
+          {
+            "NextAction": "9476ea1a-6016-4d55-8346-f69b5b559cc2",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "High"
+              ]
+            }
+          },
+          {
+            "NextAction": "551d5654-99ff-4174-9817-a6c3c25159a2",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "Low"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "551d5654-99ff-4174-9817-a6c3c25159a2",
+      "Type": "UpdateContactRoutingBehavior",
+      "Parameters": {
+        "QueueTimeAdjustmentSeconds": "600"
+      },
+      "Transitions": {
+        "NextAction": "30ac4093-7e55-4bdc-825b-37dbeb237d9b",
+        "Errors": [],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "30ac4093-7e55-4bdc-825b-37dbeb237d9b",
+      "Type": "TransferContactToQueue",
+      "Parameters": {},
+      "Transitions": {
+        "NextAction": "440f1e67-dbad-40c5-a7c8-30f95de6b193",
+        "Errors": [
+          {
+            "NextAction": "440f1e67-dbad-40c5-a7c8-30f95de6b193",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "440f1e67-dbad-40c5-a7c8-30f95de6b193",
+            "ErrorType": "QueueAtCapacity"
+          }
+        ],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "80341111-9853-40db-aa90-2f9dcff12344",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "This flow demonstrates changing the priority of an individual contact in the queue and will allow you to request a callback and be called when an agent is available."
+      },
+      "Transitions": {
+        "NextAction": "ec7862fb-30fc-45b3-8ac6-776cbe055068",
+        "Errors": [],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "5cfb3fa1-78a7-4133-b553-ca7198181192",
+      "Type": "UpdateContactTargetQueue",
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:299145661157:instance/082e847c-8736-4d4d-b74b-2ca68376897a/queue/b14944d1-2487-4c16-ad39-072ad6d670c3"
+      },
+      "Transitions": {
+        "NextAction": "dbb742ec-5005-403b-896b-30b7cbf63732",
+        "Errors": [
+          {
+            "NextAction": "cad6d3f7-e39e-426f-bf32-b99aa549a34b",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "1761a5fd-0eab-46c6-801f-1df5ec18ea56",
+      "Type": "CheckHoursOfOperation",
+      "Parameters": {},
+      "Transitions": {
+        "NextAction": "cad6d3f7-e39e-426f-bf32-b99aa549a34b",
+        "Errors": [
+          {
+            "NextAction": "cad6d3f7-e39e-426f-bf32-b99aa549a34b",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": [
+          {
+            "NextAction": "3746a42c-0735-4668-ade2-9335496f495e",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "True"
+              ]
+            }
+          },
+          {
+            "NextAction": "cad6d3f7-e39e-426f-bf32-b99aa549a34b",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "False"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "f48561e5-3d02-4380-8031-8139cee399d2",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "3746a42c-0735-4668-ade2-9335496f495e",
+      "Type": "Compare",
+      "Parameters": {
+        "ComparisonValue": "$.Channel"
+      },
+      "Transitions": {
+        "NextAction": "80341111-9853-40db-aa90-2f9dcff12344",
+        "Errors": [
+          {
+            "NextAction": "80341111-9853-40db-aa90-2f9dcff12344",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ],
+        "Conditions": [
+          {
+            "NextAction": "3c52961e-581a-42b5-87b9-41c7fee5dbf9",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "CHAT"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "a91b0f5f-71dc-4d99-adbe-827db4b13591",
+      "Type": "UpdateContactRoutingBehavior",
+      "Parameters": {
+        "QueuePriority": "1"
+      },
+      "Transitions": {
+        "NextAction": "3c52961e-581a-42b5-87b9-41c7fee5dbf9",
+        "Errors": [],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "ec7862fb-30fc-45b3-8ac6-776cbe055068",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Press 1 to move to the front of the queue or press 2 to move behind existing contacts already in queue.",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "5"
+      },
+      "Transitions": {
+        "NextAction": "3c52961e-581a-42b5-87b9-41c7fee5dbf9",
+        "Errors": [
+          {
+            "NextAction": "cad6d3f7-e39e-426f-bf32-b99aa549a34b",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "3c52961e-581a-42b5-87b9-41c7fee5dbf9",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "3c52961e-581a-42b5-87b9-41c7fee5dbf9",
+            "ErrorType": "InputTimeLimitExceeded"
+          }
+        ],
+        "Conditions": [
+          {
+            "NextAction": "a91b0f5f-71dc-4d99-adbe-827db4b13591",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "76f56182-8786-42d7-960e-d99b54a45a45",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "76f56182-8786-42d7-960e-d99b54a45a45",
+      "Type": "UpdateContactRoutingBehavior",
+      "Parameters": {
+        "QueueTimeAdjustmentSeconds": "600"
+      },
+      "Transitions": {
+        "NextAction": "3c52961e-581a-42b5-87b9-41c7fee5dbf9",
+        "Errors": [],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "3c52961e-581a-42b5-87b9-41c7fee5dbf9",
+      "Type": "CheckMetricData",
+      "Parameters": {
+        "MetricType": "OldestContactInQueueAgeSeconds"
+      },
+      "Transitions": {
+        "NextAction": "cad6d3f7-e39e-426f-bf32-b99aa549a34b",
+        "Errors": [
+          {
+            "NextAction": "15445378-0358-427c-8e3e-d4693a07cf8d",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "cad6d3f7-e39e-426f-bf32-b99aa549a34b",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": [
+          {
+            "NextAction": "84e7e723-838f-4012-bafe-ffbda3b81d51",
+            "Condition": {
+              "Operator": "NumberLessThan",
+              "Operands": [
+                "300000"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "15445378-0358-427c-8e3e-d4693a07cf8d",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "The time in queue is more than 5 minutes."
+      },
+      "Transitions": {
+        "NextAction": "05c9b198-6508-4fb2-af45-8526c535a05c",
+        "Errors": [],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "84e7e723-838f-4012-bafe-ffbda3b81d51",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "The time in queue is less than 5 minutes."
+      },
+      "Transitions": {
+        "NextAction": "05c9b198-6508-4fb2-af45-8526c535a05c",
+        "Errors": [],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "58ecb14e-0970-4d5b-9d4c-f2cb7d23bf12",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "The number entered is invalid. Please try again."
+      },
+      "Transitions": {
+        "NextAction": "220a5a3b-1792-40dd-9c08-08b6bc122541",
+        "Errors": [],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "9155d755-b5fb-4c17-a560-8a9d1095eedf",
+      "Type": "UpdateContactCallbackNumber",
+      "Parameters": {
+        "CallbackNumber": "$.StoredCustomerInput"
+      },
+      "Transitions": {
+        "NextAction": "b5a7030b-23c9-4570-80d2-a9ec4c17e806",
+        "Errors": [
+          {
+            "NextAction": "58ecb14e-0970-4d5b-9d4c-f2cb7d23bf12",
+            "ErrorType": "InvalidCallbackNumber"
+          },
+          {
+            "NextAction": "58ecb14e-0970-4d5b-9d4c-f2cb7d23bf12",
+            "ErrorType": "CallbackNumberNotDialable"
+          }
+        ],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "b5a7030b-23c9-4570-80d2-a9ec4c17e806",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "You will be called back when the next agent is available."
+      },
+      "Transitions": {
+        "NextAction": "9ec9348c-c517-403f-935b-9c3bb8e35c1b",
+        "Errors": [],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "0af94805-014a-4fb1-8a35-070fa35e2e22",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "9ec9348c-c517-403f-935b-9c3bb8e35c1b",
+      "Type": "CreateCallbackContact",
+      "Parameters": {
+        "InitialCallDelaySeconds": "5",
+        "MaximumConnectionAttempts": "1",
+        "RetryDelaySeconds": "600"
+      },
+      "Transitions": {
+        "NextAction": "0af94805-014a-4fb1-8a35-070fa35e2e22",
+        "Errors": [
+          {
+            "NextAction": "43d31362-47a0-4897-8592-32ffc70b3b3c",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "c69c6e6e-8707-42e5-b8bc-d79d64385234",
+      "Type": "TransferContactToQueue",
+      "Parameters": {},
+      "Transitions": {
+        "NextAction": "43d31362-47a0-4897-8592-32ffc70b3b3c",
+        "Errors": [
+          {
+            "NextAction": "43d31362-47a0-4897-8592-32ffc70b3b3c",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "43d31362-47a0-4897-8592-32ffc70b3b3c",
+            "ErrorType": "QueueAtCapacity"
+          }
+        ],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "67f2d6ed-c5bc-42cf-9011-b0589ef14103",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "You are now being placed in queue to chat with an agent."
+      },
+      "Transitions": {
+        "NextAction": "c69c6e6e-8707-42e5-b8bc-d79d64385234",
+        "Errors": [],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "43d31362-47a0-4897-8592-32ffc70b3b3c",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Something went wrong. Goodbye."
+      },
+      "Transitions": {
+        "NextAction": "0af94805-014a-4fb1-8a35-070fa35e2e22",
+        "Errors": [],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "220a5a3b-1792-40dd-9c08-08b6bc122541",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Enter the number you would like to be called back at.",
+        "StoreInput": "True",
+        "InputTimeLimitSeconds": "6",
+        "InputValidation": {
+          "PhoneNumberValidation": {
+            "NumberFormat": "Local",
+            "CountryCode": "US"
+          }
+        }
+      },
+      "Transitions": {
+        "NextAction": "9155d755-b5fb-4c17-a560-8a9d1095eedf",
+        "Errors": [
+          {
+            "NextAction": "43d31362-47a0-4897-8592-32ffc70b3b3c",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "58ecb14e-0970-4d5b-9d4c-f2cb7d23bf12",
+            "ErrorType": "InvalidPhoneNumber"
+          }
+        ],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "cad6d3f7-e39e-426f-bf32-b99aa549a34b",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "We are not able to take your call right now. Goodbye."
+      },
+      "Transitions": {
+        "NextAction": "f48561e5-3d02-4380-8031-8139cee399d2",
+        "Errors": [],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "05c9b198-6508-4fb2-af45-8526c535a05c",
+      "Type": "Compare",
+      "Parameters": {
+        "ComparisonValue": "$.Channel"
+      },
+      "Transitions": {
+        "NextAction": "35d19e2a-432e-41a6-838d-bb9949910869",
+        "Errors": [
+          {
+            "NextAction": "35d19e2a-432e-41a6-838d-bb9949910869",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ],
+        "Conditions": [
+          {
+            "NextAction": "67f2d6ed-c5bc-42cf-9011-b0589ef14103",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "CHAT"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "da46c982-772f-43be-a034-8402e4d7afea",
+      "Type": "TransferContactToQueue",
+      "Parameters": {},
+      "Transitions": {
+        "NextAction": "43d31362-47a0-4897-8592-32ffc70b3b3c",
+        "Errors": [
+          {
+            "NextAction": "43d31362-47a0-4897-8592-32ffc70b3b3c",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "43d31362-47a0-4897-8592-32ffc70b3b3c",
+            "ErrorType": "QueueAtCapacity"
+          }
+        ],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "35d19e2a-432e-41a6-838d-bb9949910869",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Press 1 to go into queue or 2 to enter a callback number.",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "5"
+      },
+      "Transitions": {
+        "NextAction": "049d9571-48bf-4fa9-9b63-683288ddb456",
+        "Errors": [
+          {
+            "NextAction": "cad6d3f7-e39e-426f-bf32-b99aa549a34b",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "049d9571-48bf-4fa9-9b63-683288ddb456",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "049d9571-48bf-4fa9-9b63-683288ddb456",
+            "ErrorType": "InputTimeLimitExceeded"
+          }
+        ],
+        "Conditions": [
+          {
+            "NextAction": "220a5a3b-1792-40dd-9c08-08b6bc122541",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "049d9571-48bf-4fa9-9b63-683288ddb456",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "049d9571-48bf-4fa9-9b63-683288ddb456",
+      "Type": "UpdateContactEventHooks",
+      "Parameters": {
+        "EventHooks": {
+          "CustomerQueue": "arn:aws:connect:us-east-1:299145661157:instance/082e847c-8736-4d4d-b74b-2ca68376897a/contact-flow/dcc0df35-917d-4ffd-bdc2-3a1fcca80b02"
+        }
+      },
+      "Transitions": {
+        "NextAction": "da46c982-772f-43be-a034-8402e4d7afea",
+        "Errors": [
+          {
+            "NextAction": "da46c982-772f-43be-a034-8402e4d7afea",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": []
+      }
+    }
+  ]
+}

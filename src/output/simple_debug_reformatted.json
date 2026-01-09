@@ -1,0 +1,114 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "a47c97e3-4754-420d-a778-ab8cf0b6efcb",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "a47c97e3-4754-420d-a778-ab8cf0b6efcb": {
+        "position": {
+          "x": 150,
+          "y": 40
+        }
+      },
+      "630a6610-9c89-4dc7-be82-33d454d69bda": {
+        "position": {
+          "x": 450,
+          "y": 40
+        }
+      },
+      "9efbd7b4-9c77-4662-aa33-b6d95a888511": {
+        "position": {
+          "x": 750,
+          "y": -80
+        }
+      },
+      "8d352cc0-beb6-4735-be95-544fd1f5c71c": {
+        "position": {
+          "x": 750,
+          "y": 160
+        }
+      },
+      "6ea1aef1-7e2c-4fb6-ab86-45639bd73be6": {
+        "position": {
+          "x": 1050,
+          "y": 40
+        }
+      }
+    },
+    "Annotations": []
+  },
+  "Actions": [
+    {
+      "Identifier": "a47c97e3-4754-420d-a778-ab8cf0b6efcb",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Welcome"
+      },
+      "Transitions": {
+        "NextAction": "630a6610-9c89-4dc7-be82-33d454d69bda"
+      }
+    },
+    {
+      "Identifier": "630a6610-9c89-4dc7-be82-33d454d69bda",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Press 1 for oranges or 2 for apples",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "5"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "9efbd7b4-9c77-4662-aa33-b6d95a888511",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "8d352cc0-beb6-4735-be95-544fd1f5c71c",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          }
+        ],
+        "NextAction": "6ea1aef1-7e2c-4fb6-ab86-45639bd73be6"
+      }
+    },
+    {
+      "Identifier": "9efbd7b4-9c77-4662-aa33-b6d95a888511",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "You selected oranges"
+      },
+      "Transitions": {
+        "NextAction": "6ea1aef1-7e2c-4fb6-ab86-45639bd73be6"
+      }
+    },
+    {
+      "Identifier": "8d352cc0-beb6-4735-be95-544fd1f5c71c",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "You selected apples"
+      },
+      "Transitions": {
+        "NextAction": "6ea1aef1-7e2c-4fb6-ab86-45639bd73be6"
+      }
+    },
+    {
+      "Identifier": "6ea1aef1-7e2c-4fb6-ab86-45639bd73be6",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

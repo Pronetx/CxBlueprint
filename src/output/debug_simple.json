@@ -1,0 +1,128 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "b339f65f-5ada-40b2-b58e-84081ff9062c",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "b339f65f-5ada-40b2-b58e-84081ff9062c": {
+        "position": {
+          "x": 150,
+          "y": 40
+        }
+      },
+      "36c960ba-eb7e-4282-b096-3acf7f3ccb73": {
+        "position": {
+          "x": 450,
+          "y": 40
+        }
+      },
+      "26e07856-45be-4866-82ee-6ad0a067667b": {
+        "position": {
+          "x": 750,
+          "y": -80
+        }
+      },
+      "80c7d891-bc8d-4561-a8ff-abef6b7eb436": {
+        "position": {
+          "x": 750,
+          "y": 160
+        }
+      },
+      "9c099683-97e0-42e7-8150-88ef3d0a7c2a": {
+        "position": {
+          "x": 1050,
+          "y": 40
+        }
+      }
+    },
+    "Annotations": []
+  },
+  "Actions": [
+    {
+      "Identifier": "b339f65f-5ada-40b2-b58e-84081ff9062c",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Welcome"
+      },
+      "Transitions": {
+        "NextAction": "36c960ba-eb7e-4282-b096-3acf7f3ccb73"
+      }
+    },
+    {
+      "Identifier": "36c960ba-eb7e-4282-b096-3acf7f3ccb73",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Press 1 or 2",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "5"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "26e07856-45be-4866-82ee-6ad0a067667b",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "80c7d891-bc8d-4561-a8ff-abef6b7eb436",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          }
+        ],
+        "NextAction": "9c099683-97e0-42e7-8150-88ef3d0a7c2a",
+        "Errors": [
+          {
+            "NextAction": "9c099683-97e0-42e7-8150-88ef3d0a7c2a",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "9c099683-97e0-42e7-8150-88ef3d0a7c2a",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "9c099683-97e0-42e7-8150-88ef3d0a7c2a",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "26e07856-45be-4866-82ee-6ad0a067667b",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Option 1"
+      },
+      "Transitions": {
+        "NextAction": "9c099683-97e0-42e7-8150-88ef3d0a7c2a"
+      }
+    },
+    {
+      "Identifier": "80c7d891-bc8d-4561-a8ff-abef6b7eb436",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Option 2"
+      },
+      "Transitions": {
+        "NextAction": "9c099683-97e0-42e7-8150-88ef3d0a7c2a"
+      }
+    },
+    {
+      "Identifier": "9c099683-97e0-42e7-8150-88ef3d0a7c2a",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

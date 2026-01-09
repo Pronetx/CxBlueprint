@@ -1,0 +1,611 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "5f93eae1-d03d-45d8-b07b-77a897a741bd",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "5f93eae1-d03d-45d8-b07b-77a897a741bd": {
+        "position": {
+          "x": 150,
+          "y": 40
+        }
+      },
+      "bafa25b5-b0f4-4274-ae64-5a35d045ae0a": {
+        "position": {
+          "x": 380,
+          "y": 40
+        }
+      },
+      "d8f31068-3de8-42fe-bb49-e0b6ad70abfb": {
+        "position": {
+          "x": 600,
+          "y": -360
+        }
+      },
+      "d9dd2a46-5055-4c0f-95c9-356c8cc99edc": {
+        "position": {
+          "x": 600,
+          "y": 40
+        }
+      },
+      "7a30355a-f5b9-4578-a8b0-f42dd9cd127f": {
+        "position": {
+          "x": 600,
+          "y": 440
+        }
+      },
+      "22b8944d-111c-4149-a9a9-d0a22f2045fe": {
+        "position": {
+          "x": 820,
+          "y": -360
+        }
+      },
+      "c91b17d3-0938-47dd-b198-574dada2669f": {
+        "position": {
+          "x": 820,
+          "y": 40
+        }
+      },
+      "776deae3-40b7-4ae3-a146-7dbedf096e1f": {
+        "position": {
+          "x": 820,
+          "y": 440
+        }
+      },
+      "d7c1a000-5ef5-403d-a487-6632cd4411f1": {
+        "position": {
+          "x": 1050,
+          "y": -760
+        }
+      },
+      "f8e9f3dc-6fe8-4b40-bd02-87ea5b8579b2": {
+        "position": {
+          "x": 1050,
+          "y": -360
+        }
+      },
+      "a43a20f1-65ed-44d5-a5d0-ff5c15781cb4": {
+        "position": {
+          "x": 1050,
+          "y": 40
+        }
+      },
+      "8c602a72-8a0c-4735-924a-6035f94a04f3": {
+        "position": {
+          "x": 1050,
+          "y": 360
+        }
+      },
+      "b4c88cdc-856c-4778-9a01-413bed7b7116": {
+        "position": {
+          "x": 1280,
+          "y": -1160
+        }
+      },
+      "7d391273-30f3-48f4-acfb-6db74548bf50": {
+        "position": {
+          "x": 1280,
+          "y": -760
+        }
+      },
+      "fe838c71-d2a3-4f2f-a292-b872264f383c": {
+        "position": {
+          "x": 1280,
+          "y": -360
+        }
+      },
+      "a223cfbe-d450-41ab-ae03-9f2122cecb95": {
+        "position": {
+          "x": 1280,
+          "y": 440
+        }
+      },
+      "3731f831-ed51-432f-b9c6-d2ce8e407924": {
+        "position": {
+          "x": 1500,
+          "y": -1160
+        }
+      },
+      "d4dbbcf4-7bfc-4f3f-a7af-5eb3715e0855": {
+        "position": {
+          "x": 1500,
+          "y": 360
+        }
+      },
+      "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6": {
+        "position": {
+          "x": 1720,
+          "y": 840
+        }
+      },
+      "19023819-0f79-434f-90bc-b7ee1d13956b": {
+        "position": {
+          "x": 1950,
+          "y": -1160
+        }
+      }
+    },
+    "Annotations": []
+  },
+  "Actions": [
+    {
+      "Identifier": "5f93eae1-d03d-45d8-b07b-77a897a741bd",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Welcome to Burger Palace! Thank you for calling."
+      },
+      "Transitions": {
+        "NextAction": "bafa25b5-b0f4-4274-ae64-5a35d045ae0a",
+        "Errors": [
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "bafa25b5-b0f4-4274-ae64-5a35d045ae0a",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Press 1 to place an order, 2 to track your order, or 3 to speak with an agent",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "10"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "d8f31068-3de8-42fe-bb49-e0b6ad70abfb",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "d9dd2a46-5055-4c0f-95c9-356c8cc99edc",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "7a30355a-f5b9-4578-a8b0-f42dd9cd127f",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          }
+        ],
+        "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+        "Errors": [
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "d8f31068-3de8-42fe-bb49-e0b6ad70abfb",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Great! Let's get your order started."
+      },
+      "Transitions": {
+        "NextAction": "22b8944d-111c-4149-a9a9-d0a22f2045fe",
+        "Errors": [
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "22b8944d-111c-4149-a9a9-d0a22f2045fe",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Press 1 for Classic Burger, 2 for Deluxe Burger, or 3 for Veggie Burger",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "10"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "d7c1a000-5ef5-403d-a487-6632cd4411f1",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "f8e9f3dc-6fe8-4b40-bd02-87ea5b8579b2",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "a43a20f1-65ed-44d5-a5d0-ff5c15781cb4",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          }
+        ],
+        "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+        "Errors": [
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "d7c1a000-5ef5-403d-a487-6632cd4411f1",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "You selected Classic Burger. Press 1 for Small, 2 for Medium, or 3 for Large",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "10"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "b4c88cdc-856c-4778-9a01-413bed7b7116",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "b4c88cdc-856c-4778-9a01-413bed7b7116",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "b4c88cdc-856c-4778-9a01-413bed7b7116",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          }
+        ],
+        "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+        "Errors": [
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "b4c88cdc-856c-4778-9a01-413bed7b7116",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Perfect! Your Classic Burger has been added to your order."
+      },
+      "Transitions": {
+        "NextAction": "3731f831-ed51-432f-b9c6-d2ce8e407924",
+        "Errors": [
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "f8e9f3dc-6fe8-4b40-bd02-87ea5b8579b2",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "You selected Deluxe Burger. Press 1 for Small, 2 for Medium, or 3 for Large",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "10"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "7d391273-30f3-48f4-acfb-6db74548bf50",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "7d391273-30f3-48f4-acfb-6db74548bf50",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "7d391273-30f3-48f4-acfb-6db74548bf50",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          }
+        ],
+        "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+        "Errors": [
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "7d391273-30f3-48f4-acfb-6db74548bf50",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Excellent choice! Your Deluxe Burger has been added to your order."
+      },
+      "Transitions": {
+        "NextAction": "3731f831-ed51-432f-b9c6-d2ce8e407924",
+        "Errors": [
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "a43a20f1-65ed-44d5-a5d0-ff5c15781cb4",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "You selected Veggie Burger. Press 1 for Small, 2 for Medium, or 3 for Large",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "10"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "fe838c71-d2a3-4f2f-a292-b872264f383c",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "fe838c71-d2a3-4f2f-a292-b872264f383c",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "fe838c71-d2a3-4f2f-a292-b872264f383c",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          }
+        ],
+        "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+        "Errors": [
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "fe838c71-d2a3-4f2f-a292-b872264f383c",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Great! Your Veggie Burger has been added to your order."
+      },
+      "Transitions": {
+        "NextAction": "3731f831-ed51-432f-b9c6-d2ce8e407924",
+        "Errors": [
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "d9dd2a46-5055-4c0f-95c9-356c8cc99edc",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Please hold while we look up your order status."
+      },
+      "Transitions": {
+        "NextAction": "c91b17d3-0938-47dd-b198-574dada2669f",
+        "Errors": [
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "c91b17d3-0938-47dd-b198-574dada2669f",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Your order is being prepared and will be ready in 15 minutes."
+      },
+      "Transitions": {
+        "NextAction": "8c602a72-8a0c-4735-924a-6035f94a04f3",
+        "Errors": [
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "7a30355a-f5b9-4578-a8b0-f42dd9cd127f",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Please hold while we connect you to an agent."
+      },
+      "Transitions": {
+        "NextAction": "776deae3-40b7-4ae3-a146-7dbedf096e1f",
+        "Errors": [
+          {
+            "NextAction": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "3731f831-ed51-432f-b9c6-d2ce8e407924",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Thank you for your order! You will receive a confirmation text shortly."
+      },
+      "Transitions": {
+        "NextAction": "19023819-0f79-434f-90bc-b7ee1d13956b",
+        "Errors": [
+          {
+            "NextAction": "19023819-0f79-434f-90bc-b7ee1d13956b",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "8c602a72-8a0c-4735-924a-6035f94a04f3",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Thank you for calling Burger Palace!"
+      },
+      "Transitions": {
+        "NextAction": "d4dbbcf4-7bfc-4f3f-a7af-5eb3715e0855",
+        "Errors": [
+          {
+            "NextAction": "d4dbbcf4-7bfc-4f3f-a7af-5eb3715e0855",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "776deae3-40b7-4ae3-a146-7dbedf096e1f",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Thank you for calling. Goodbye."
+      },
+      "Transitions": {
+        "NextAction": "a223cfbe-d450-41ab-ae03-9f2122cecb95",
+        "Errors": [
+          {
+            "NextAction": "a223cfbe-d450-41ab-ae03-9f2122cecb95",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "19023819-0f79-434f-90bc-b7ee1d13956b",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "d4dbbcf4-7bfc-4f3f-a7af-5eb3715e0855",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "a223cfbe-d450-41ab-ae03-9f2122cecb95",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "c1cc53d4-8fa2-41ff-b26b-3640ca6806a6",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

@@ -1,0 +1,325 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "b4082b2d-ea05-464e-b00c-eab4843e85cf",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "b4082b2d-ea05-464e-b00c-eab4843e85cf": {
+        "position": {
+          "x": 150,
+          "y": 40
+        }
+      },
+      "4f143d41-d908-4d9e-bcc1-554e9154f73f": {
+        "position": {
+          "x": 450,
+          "y": 40
+        }
+      },
+      "486307f4-f026-429a-93de-3d08d80f3cfc": {
+        "position": {
+          "x": 750,
+          "y": -210
+        }
+      },
+      "11935cb7-95e3-432d-8d00-106c9014aca7": {
+        "position": {
+          "x": 750,
+          "y": 40
+        }
+      },
+      "eb2e97a4-54d6-410c-9885-dc94fe9329a9": {
+        "position": {
+          "x": 750,
+          "y": 290
+        }
+      },
+      "84ff8d41-8f9e-4df0-8698-daa6e6b9f47a": {
+        "position": {
+          "x": 1050,
+          "y": -210
+        }
+      },
+      "5729aeec-b84a-47d5-ad36-93202ae44927": {
+        "position": {
+          "x": 1050,
+          "y": 40
+        }
+      },
+      "1c6a3c60-3489-4e7d-8169-702e7baaf431": {
+        "position": {
+          "x": 1050,
+          "y": 240
+        }
+      },
+      "c4de7e9a-496c-4f7c-b52e-9a90074a7a0a": {
+        "position": {
+          "x": 1050,
+          "y": 440
+        }
+      },
+      "a6d1df1f-bb55-4cbf-8a64-338228009cc4": {
+        "position": {
+          "x": 1350,
+          "y": -340
+        }
+      },
+      "84714d4a-d68f-4c7f-8bb1-2c9c3dd3845b": {
+        "position": {
+          "x": 1350,
+          "y": -80
+        }
+      },
+      "99aa2184-711d-44d2-8e3a-71f0a76bd3ac": {
+        "position": {
+          "x": 1350,
+          "y": 320
+        }
+      },
+      "9b5ab6a6-72d7-4130-ab6e-1290c94468b1": {
+        "position": {
+          "x": 1350,
+          "y": 560
+        }
+      },
+      "8c748767-aceb-43da-bd33-87d1f1bddc81": {
+        "position": {
+          "x": 1650,
+          "y": -210
+        }
+      },
+      "2bf3b145-3618-4fe0-b665-ea60ca2da325": {
+        "position": {
+          "x": 1650,
+          "y": 440
+        }
+      }
+    },
+    "Annotations": []
+  },
+  "Actions": [
+    {
+      "Identifier": "b4082b2d-ea05-464e-b00c-eab4843e85cf",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Welcome to our service"
+      },
+      "Transitions": {
+        "NextAction": "4f143d41-d908-4d9e-bcc1-554e9154f73f"
+      }
+    },
+    {
+      "Identifier": "4f143d41-d908-4d9e-bcc1-554e9154f73f",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Press 1 for Sales, 2 for Support, or 3 for Billing",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "10"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "486307f4-f026-429a-93de-3d08d80f3cfc",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "11935cb7-95e3-432d-8d00-106c9014aca7",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "eb2e97a4-54d6-410c-9885-dc94fe9329a9",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          }
+        ],
+        "NextAction": "5729aeec-b84a-47d5-ad36-93202ae44927",
+        "Errors": [
+          {
+            "NextAction": "5729aeec-b84a-47d5-ad36-93202ae44927",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "5729aeec-b84a-47d5-ad36-93202ae44927",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "486307f4-f026-429a-93de-3d08d80f3cfc",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Connecting you to Sales"
+      },
+      "Transitions": {
+        "NextAction": "84ff8d41-8f9e-4df0-8698-daa6e6b9f47a"
+      }
+    },
+    {
+      "Identifier": "84ff8d41-8f9e-4df0-8698-daa6e6b9f47a",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Press 1 for New Customers, 2 for Existing",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "5"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "a6d1df1f-bb55-4cbf-8a64-338228009cc4",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "84714d4a-d68f-4c7f-8bb1-2c9c3dd3845b",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          }
+        ],
+        "NextAction": "8c748767-aceb-43da-bd33-87d1f1bddc81"
+      }
+    },
+    {
+      "Identifier": "a6d1df1f-bb55-4cbf-8a64-338228009cc4",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "New customer sales team"
+      },
+      "Transitions": {
+        "NextAction": "8c748767-aceb-43da-bd33-87d1f1bddc81"
+      }
+    },
+    {
+      "Identifier": "84714d4a-d68f-4c7f-8bb1-2c9c3dd3845b",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Existing customer sales team"
+      },
+      "Transitions": {
+        "NextAction": "8c748767-aceb-43da-bd33-87d1f1bddc81"
+      }
+    },
+    {
+      "Identifier": "8c748767-aceb-43da-bd33-87d1f1bddc81",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "11935cb7-95e3-432d-8d00-106c9014aca7",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Connecting you to Support"
+      },
+      "Transitions": {
+        "NextAction": "1c6a3c60-3489-4e7d-8169-702e7baaf431"
+      }
+    },
+    {
+      "Identifier": "1c6a3c60-3489-4e7d-8169-702e7baaf431",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "eb2e97a4-54d6-410c-9885-dc94fe9329a9",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Connecting you to Billing"
+      },
+      "Transitions": {
+        "NextAction": "c4de7e9a-496c-4f7c-b52e-9a90074a7a0a"
+      }
+    },
+    {
+      "Identifier": "c4de7e9a-496c-4f7c-b52e-9a90074a7a0a",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Press 1 for Payments, 2 for Invoices",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "5"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "99aa2184-711d-44d2-8e3a-71f0a76bd3ac",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "9b5ab6a6-72d7-4130-ab6e-1290c94468b1",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          }
+        ],
+        "NextAction": "2bf3b145-3618-4fe0-b665-ea60ca2da325"
+      }
+    },
+    {
+      "Identifier": "99aa2184-711d-44d2-8e3a-71f0a76bd3ac",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Payment department"
+      },
+      "Transitions": {
+        "NextAction": "2bf3b145-3618-4fe0-b665-ea60ca2da325"
+      }
+    },
+    {
+      "Identifier": "9b5ab6a6-72d7-4130-ab6e-1290c94468b1",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Invoice department"
+      },
+      "Transitions": {
+        "NextAction": "2bf3b145-3618-4fe0-b665-ea60ca2da325"
+      }
+    },
+    {
+      "Identifier": "2bf3b145-3618-4fe0-b665-ea60ca2da325",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "5729aeec-b84a-47d5-ad36-93202ae44927",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

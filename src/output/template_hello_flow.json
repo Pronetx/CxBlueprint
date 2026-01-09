@@ -1,0 +1,46 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "e0a94548-fff1-481a-9bc8-ae53335893cc",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "e0a94548-fff1-481a-9bc8-ae53335893cc": {
+        "position": {
+          "x": 150,
+          "y": 40
+        }
+      },
+      "06906cf5-5900-4fdc-aa81-444b10cadfa8": {
+        "position": {
+          "x": 150,
+          "y": 290
+        }
+      }
+    },
+    "Annotations": []
+  },
+  "Actions": [
+    {
+      "Identifier": "e0a94548-fff1-481a-9bc8-ae53335893cc",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Hello! Welcome to our system."
+      },
+      "Transitions": {
+        "NextAction": "06906cf5-5900-4fdc-aa81-444b10cadfa8"
+      }
+    },
+    {
+      "Identifier": "06906cf5-5900-4fdc-aa81-444b10cadfa8",
+      "Type": "TransferToFlow",
+      "Parameters": {
+        "ContactFlowId": "{{GOODBYE_FLOW_ARN}}"
+      },
+      "Transitions": {}
+    }
+  ]
+}

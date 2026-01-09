@@ -1,0 +1,145 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "2b6ee9f2-0f1a-417c-91c7-bdc12cfc6a07",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 75,
+      "y": 20
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "35dde84a-f902-4a2b-9e0d-b6079d2a5260": {
+        "position": {
+          "x": 928,
+          "y": 85
+        },
+        "useDynamic": false
+      },
+      "8f9f6aa6-88bc-4bbe-8920-5d2ca2d5cfb4": {
+        "position": {
+          "x": 1373,
+          "y": 231
+        }
+      },
+      "8595ce23-0af7-49e3-8324-22accebefd0d": {
+        "position": {
+          "x": 696,
+          "y": 72
+        },
+        "useDynamic": false,
+        "queue": {
+          "id": "arn:aws:connect:us-east-1:299145661157:instance/082e847c-8736-4d4d-b74b-2ca68376897a/queue/b14944d1-2487-4c16-ad39-072ad6d670c3",
+          "text": "BasicQueue"
+        }
+      },
+      "e8f664fd-3e86-4aaa-915f-c1fa4a4d4dd0": {
+        "position": {
+          "x": 1147,
+          "y": 155
+        },
+        "useDynamic": false
+      },
+      "e1aff3c4-01f1-43aa-864e-371a6af4095f": {
+        "position": {
+          "x": 448,
+          "y": 94
+        },
+        "useDynamic": false
+      },
+      "2b6ee9f2-0f1a-417c-91c7-bdc12cfc6a07": {
+        "position": {
+          "x": 209,
+          "y": 61
+        },
+        "useDynamic": false
+      }
+    }
+  },
+  "Actions": [
+    {
+      "Identifier": "35dde84a-f902-4a2b-9e0d-b6079d2a5260",
+      "Type": "TransferContactToQueue",
+      "Parameters": {},
+      "Transitions": {
+        "NextAction": "e8f664fd-3e86-4aaa-915f-c1fa4a4d4dd0",
+        "Errors": [
+          {
+            "NextAction": "e8f664fd-3e86-4aaa-915f-c1fa4a4d4dd0",
+            "ErrorType": "NoMatchingError"
+          },
+          {
+            "NextAction": "e8f664fd-3e86-4aaa-915f-c1fa4a4d4dd0",
+            "ErrorType": "QueueAtCapacity"
+          }
+        ],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "8f9f6aa6-88bc-4bbe-8920-5d2ca2d5cfb4",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "8595ce23-0af7-49e3-8324-22accebefd0d",
+      "Type": "UpdateContactTargetQueue",
+      "Parameters": {
+        "QueueId": "arn:aws:connect:us-east-1:299145661157:instance/082e847c-8736-4d4d-b74b-2ca68376897a/queue/b14944d1-2487-4c16-ad39-072ad6d670c3"
+      },
+      "Transitions": {
+        "NextAction": "35dde84a-f902-4a2b-9e0d-b6079d2a5260",
+        "Errors": [
+          {
+            "NextAction": "e8f664fd-3e86-4aaa-915f-c1fa4a4d4dd0",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "e8f664fd-3e86-4aaa-915f-c1fa4a4d4dd0",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "An error ocurred. Goodbye."
+      },
+      "Transitions": {
+        "NextAction": "8f9f6aa6-88bc-4bbe-8920-5d2ca2d5cfb4",
+        "Errors": [],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "e1aff3c4-01f1-43aa-864e-371a6af4095f",
+      "Type": "UpdateContactAttributes",
+      "Parameters": {
+        "Attributes": {
+          "note": "This note demonstrates how attributes can appear in the screen pop."
+        }
+      },
+      "Transitions": {
+        "NextAction": "8595ce23-0af7-49e3-8324-22accebefd0d",
+        "Errors": [
+          {
+            "NextAction": "e8f664fd-3e86-4aaa-915f-c1fa4a4d4dd0",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": []
+      }
+    },
+    {
+      "Identifier": "2b6ee9f2-0f1a-417c-91c7-bdc12cfc6a07",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "This sets a note attribute for use in a screenpop."
+      },
+      "Transitions": {
+        "NextAction": "e1aff3c4-01f1-43aa-864e-371a6af4095f",
+        "Errors": [],
+        "Conditions": []
+      }
+    }
+  ]
+}

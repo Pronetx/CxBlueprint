@@ -1,0 +1,46 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "718e0d15-f901-47d3-8cf6-377bb8502694",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "718e0d15-f901-47d3-8cf6-377bb8502694": {
+        "position": {
+          "x": 150,
+          "y": 40
+        }
+      },
+      "4cee3510-d19f-41a1-81a9-5d88040e5017": {
+        "position": {
+          "x": 150,
+          "y": 290
+        }
+      }
+    },
+    "Annotations": []
+  },
+  "Actions": [
+    {
+      "Identifier": "718e0d15-f901-47d3-8cf6-377bb8502694",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Hello! Welcome to our demo system."
+      },
+      "Transitions": {
+        "NextAction": "4cee3510-d19f-41a1-81a9-5d88040e5017"
+      }
+    },
+    {
+      "Identifier": "4cee3510-d19f-41a1-81a9-5d88040e5017",
+      "Type": "TransferToFlow",
+      "Parameters": {
+        "ContactFlowId": "arn:aws:connect:us-east-1:123456789012:instance/demo-instance/contact-flow/9f25e127-14f8-4f5f-86db-c4dffdceb62d"
+      },
+      "Transitions": {}
+    }
+  ]
+}

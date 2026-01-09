@@ -1,0 +1,432 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "17224508-4fa8-4f8c-affa-70b13da73538",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "17224508-4fa8-4f8c-affa-70b13da73538": {
+        "position": {
+          "x": 150,
+          "y": 40
+        }
+      },
+      "1da912e5-b5ac-40de-8b10-bb062b8017fb": {
+        "position": {
+          "x": 450,
+          "y": 40
+        }
+      },
+      "7edb9dbd-034b-41ad-b29c-8ca9daef9bfd": {
+        "position": {
+          "x": 750,
+          "y": -560
+        }
+      },
+      "0678fc8b-cf22-45be-b6cd-c2e3f19eede4": {
+        "position": {
+          "x": 750,
+          "y": -160
+        }
+      },
+      "c3f30838-a56e-44a4-a10c-b7ebcae7db0d": {
+        "position": {
+          "x": 750,
+          "y": 240
+        }
+      },
+      "cf8839a9-2e40-4901-af3b-a0f0811234f5": {
+        "position": {
+          "x": 1050,
+          "y": -560
+        }
+      },
+      "aa037c2a-8700-4c3e-8bdd-aa4df7ab0d1f": {
+        "position": {
+          "x": 1050,
+          "y": -160
+        }
+      },
+      "e2b427da-ef3c-4c0a-879a-23a75f2851b8": {
+        "position": {
+          "x": 1050,
+          "y": 160
+        }
+      },
+      "678ee670-4d7c-48a5-b68c-5c9eb8702a0c": {
+        "position": {
+          "x": 1050,
+          "y": 480
+        }
+      },
+      "b3a93004-6192-41d5-8fad-386ae2ef7c9a": {
+        "position": {
+          "x": 1050,
+          "y": 800
+        }
+      },
+      "440d6b40-d451-43ce-b9f0-8c23eaf711cf": {
+        "position": {
+          "x": 1350,
+          "y": -960
+        }
+      },
+      "6439daff-26e3-4f1c-bd37-80e50cdfca4f": {
+        "position": {
+          "x": 1350,
+          "y": -560
+        }
+      },
+      "6fd55535-f3b2-47ae-bdf3-2411960c9e62": {
+        "position": {
+          "x": 1350,
+          "y": -240
+        }
+      },
+      "94c42dfe-1748-4547-86ab-63109abece08": {
+        "position": {
+          "x": 1350,
+          "y": 80
+        }
+      },
+      "7064250e-2e88-4bbc-8fde-5b3192b0d3ca": {
+        "position": {
+          "x": 1350,
+          "y": 400
+        }
+      },
+      "5e7e885b-a5cd-4a14-b08d-b38f3df70ee6": {
+        "position": {
+          "x": 1350,
+          "y": 720
+        }
+      },
+      "41c973bd-082f-4c8c-8c41-378350a59fed": {
+        "position": {
+          "x": 1650,
+          "y": -560
+        }
+      },
+      "a55a2ded-2ef9-4c6f-ac2e-a63016b45d97": {
+        "position": {
+          "x": 1650,
+          "y": -160
+        }
+      }
+    },
+    "Annotations": []
+  },
+  "Actions": [
+    {
+      "Identifier": "17224508-4fa8-4f8c-affa-70b13da73538",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Welcome! This flow demonstrates hierarchical layout."
+      },
+      "Transitions": {
+        "NextAction": "1da912e5-b5ac-40de-8b10-bb062b8017fb"
+      }
+    },
+    {
+      "Identifier": "1da912e5-b5ac-40de-8b10-bb062b8017fb",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Press 1 for Sales, 2 for Support, 3 for Info, or 0 for Operator",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "10"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "7edb9dbd-034b-41ad-b29c-8ca9daef9bfd",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "0678fc8b-cf22-45be-b6cd-c2e3f19eede4",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "c3f30838-a56e-44a4-a10c-b7ebcae7db0d",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          },
+          {
+            "NextAction": "e2b427da-ef3c-4c0a-879a-23a75f2851b8",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "0"
+              ]
+            }
+          }
+        ],
+        "NextAction": "e2b427da-ef3c-4c0a-879a-23a75f2851b8",
+        "Errors": [
+          {
+            "NextAction": "e2b427da-ef3c-4c0a-879a-23a75f2851b8",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "e2b427da-ef3c-4c0a-879a-23a75f2851b8",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "e2b427da-ef3c-4c0a-879a-23a75f2851b8",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "7edb9dbd-034b-41ad-b29c-8ca9daef9bfd",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Sales department. Let me help you today."
+      },
+      "Transitions": {
+        "NextAction": "cf8839a9-2e40-4901-af3b-a0f0811234f5"
+      }
+    },
+    {
+      "Identifier": "cf8839a9-2e40-4901-af3b-a0f0811234f5",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Press 1 for New Business, 2 for Existing Account, or 3 for Billing",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "10"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "440d6b40-d451-43ce-b9f0-8c23eaf711cf",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "6439daff-26e3-4f1c-bd37-80e50cdfca4f",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "94c42dfe-1748-4547-86ab-63109abece08",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          }
+        ],
+        "NextAction": "41c973bd-082f-4c8c-8c41-378350a59fed",
+        "Errors": [
+          {
+            "NextAction": "41c973bd-082f-4c8c-8c41-378350a59fed",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "41c973bd-082f-4c8c-8c41-378350a59fed",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "41c973bd-082f-4c8c-8c41-378350a59fed",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "440d6b40-d451-43ce-b9f0-8c23eaf711cf",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Connecting you to New Business Sales..."
+      },
+      "Transitions": {
+        "NextAction": "41c973bd-082f-4c8c-8c41-378350a59fed"
+      }
+    },
+    {
+      "Identifier": "6439daff-26e3-4f1c-bd37-80e50cdfca4f",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Connecting you to Account Management..."
+      },
+      "Transitions": {
+        "NextAction": "41c973bd-082f-4c8c-8c41-378350a59fed"
+      }
+    },
+    {
+      "Identifier": "94c42dfe-1748-4547-86ab-63109abece08",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Connecting you to Sales Billing..."
+      },
+      "Transitions": {
+        "NextAction": "41c973bd-082f-4c8c-8c41-378350a59fed"
+      }
+    },
+    {
+      "Identifier": "41c973bd-082f-4c8c-8c41-378350a59fed",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "0678fc8b-cf22-45be-b6cd-c2e3f19eede4",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Technical Support. We're here to assist you."
+      },
+      "Transitions": {
+        "NextAction": "aa037c2a-8700-4c3e-8bdd-aa4df7ab0d1f"
+      }
+    },
+    {
+      "Identifier": "aa037c2a-8700-4c3e-8bdd-aa4df7ab0d1f",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Press 1 for Technical Issue, 2 for Account Help, or 3 for Cancellation",
+        "StoreInput": "False",
+        "InputTimeLimitSeconds": "10"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "6fd55535-f3b2-47ae-bdf3-2411960c9e62",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "7064250e-2e88-4bbc-8fde-5b3192b0d3ca",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "5e7e885b-a5cd-4a14-b08d-b38f3df70ee6",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          }
+        ],
+        "NextAction": "a55a2ded-2ef9-4c6f-ac2e-a63016b45d97",
+        "Errors": [
+          {
+            "NextAction": "a55a2ded-2ef9-4c6f-ac2e-a63016b45d97",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "a55a2ded-2ef9-4c6f-ac2e-a63016b45d97",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "a55a2ded-2ef9-4c6f-ac2e-a63016b45d97",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "6fd55535-f3b2-47ae-bdf3-2411960c9e62",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Connecting you to Technical Support..."
+      },
+      "Transitions": {
+        "NextAction": "a55a2ded-2ef9-4c6f-ac2e-a63016b45d97"
+      }
+    },
+    {
+      "Identifier": "7064250e-2e88-4bbc-8fde-5b3192b0d3ca",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Connecting you to Account Support..."
+      },
+      "Transitions": {
+        "NextAction": "a55a2ded-2ef9-4c6f-ac2e-a63016b45d97"
+      }
+    },
+    {
+      "Identifier": "5e7e885b-a5cd-4a14-b08d-b38f3df70ee6",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "We're sorry to see you go. Connecting to retention team..."
+      },
+      "Transitions": {
+        "NextAction": "a55a2ded-2ef9-4c6f-ac2e-a63016b45d97"
+      }
+    },
+    {
+      "Identifier": "a55a2ded-2ef9-4c6f-ac2e-a63016b45d97",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "c3f30838-a56e-44a4-a10c-b7ebcae7db0d",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "For general information, please visit our website at example.com"
+      },
+      "Transitions": {
+        "NextAction": "b3a93004-6192-41d5-8fad-386ae2ef7c9a"
+      }
+    },
+    {
+      "Identifier": "b3a93004-6192-41d5-8fad-386ae2ef7c9a",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    },
+    {
+      "Identifier": "e2b427da-ef3c-4c0a-879a-23a75f2851b8",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Connecting you to an operator. Please hold."
+      },
+      "Transitions": {
+        "NextAction": "678ee670-4d7c-48a5-b68c-5c9eb8702a0c"
+      }
+    },
+    {
+      "Identifier": "678ee670-4d7c-48a5-b68c-5c9eb8702a0c",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

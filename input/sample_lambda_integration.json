@@ -1,0 +1,331 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "4d36a741-bc87-4035-b3fa-9c8390e687ac",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 39,
+      "y": 15
+    },
+    "snapToGrid": false,
+    "name": "Sample Lambda integration",
+    "description": "Invokes a lambda function to determine information about the user.",
+    "type": "contactFlow",
+    "status": "published",
+    "hash": "909d39914dc5b859e4ac1453125e1ae171d976a0fa59bc061d45daa12508d998",
+    "ActionMetadata": {
+      "4d36a741-bc87-4035-b3fa-9c8390e687ac": {
+        "position": {
+          "x": 193,
+          "y": 50
+        },
+        "useDynamic": false
+      },
+      "7eefafd6-402f-4759-967c-b017ef5f3969": {
+        "position": {
+          "x": 150,
+          "y": 245
+        },
+        "dynamicMetadata": {},
+        "useDynamic": false
+      },
+      "431f29e2-cca7-44e4-a449-90a38c2d327b": {
+        "position": {
+          "x": 927,
+          "y": 566
+        },
+        "useDynamic": false
+      },
+      "7329da0c-3dcb-4661-a72e-95b6e841a4a4": {
+        "position": {
+          "x": 931,
+          "y": 361
+        },
+        "useDynamic": false
+      },
+      "35c77601-311e-4e0b-85a5-883381ac2655": {
+        "position": {
+          "x": 688,
+          "y": 388
+        },
+        "conditionMetadata": [
+          {
+            "id": "bd69bfb2-3df9-4d40-a16f-726604f9164c",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "unknown"
+          }
+        ]
+      },
+      "68f1b094-8c1c-4231-879d-b106e53de281": {
+        "position": {
+          "x": 441,
+          "y": 121
+        },
+        "conditionMetadata": [
+          {
+            "id": "399633d0-0000-4fd8-b36d-95c76c636ca3",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "CHAT"
+          },
+          {
+            "id": "78e8f1f1-6b7f-4f4c-a4e5-799781a386ba",
+            "operator": {
+              "name": "Equals",
+              "value": "Equals",
+              "shortDisplay": "="
+            },
+            "value": "TASK"
+          }
+        ]
+      },
+      "5d737fb6-6df3-4e27-beff-eb3395bada65": {
+        "position": {
+          "x": 685,
+          "y": 37
+        },
+        "useDynamic": false
+      },
+      "1b9a1e90-a330-450b-85a9-dcad8ef3b045": {
+        "position": {
+          "x": 1188,
+          "y": 73
+        },
+        "useDynamic": false
+      },
+      "75a15841-1848-42a0-8933-e6baccb5ffaf": {
+        "position": {
+          "x": 703.0078125,
+          "y": 187.015625
+        }
+      },
+      "94cd8c74-9a86-41bd-8fe2-d08bc8f9e41e": {
+        "position": {
+          "x": 1209,
+          "y": 337
+        },
+        "useDynamic": false,
+        "ContactFlow": {
+          "id": "arn:aws:connect:us-east-1:299145661157:instance/082e847c-8736-4d4d-b74b-2ca68376897a/contact-flow/bace5b35-18f0-423a-b358-7dbed1ca76ef",
+          "text": "Sample inbound flow (first contact experience)"
+        }
+      },
+      "31dd3a3e-7d66-4829-9252-8ea344160f5e": {
+        "position": {
+          "x": 1462,
+          "y": 385
+        },
+        "useDynamic": false
+      },
+      "96f62f74-1905-40cd-acca-714c0782717a": {
+        "position": {
+          "x": 1726,
+          "y": 448
+        }
+      }
+    }
+  },
+  "Actions": [
+    {
+      "Identifier": "4d36a741-bc87-4035-b3fa-9c8390e687ac",
+      "Parameters": {
+        "Text": "Now performing a data dip using AWS Lambda. Based on your phone number, we will lookup the state you are calling from if you are on a voice call or tell you a fun fact if you are on chat."
+      },
+      "Transitions": {
+        "NextAction": "7eefafd6-402f-4759-967c-b017ef5f3969",
+        "Errors": [],
+        "Conditions": []
+      },
+      "Type": "MessageParticipant"
+    },
+    {
+      "Identifier": "7eefafd6-402f-4759-967c-b017ef5f3969",
+      "Parameters": {
+        "LambdaFunctionARN": "arn:aws:lambda:us-east-1:613787477748:function:state-lookup",
+        "InvocationTimeLimitSeconds": "4"
+      },
+      "Transitions": {
+        "NextAction": "68f1b094-8c1c-4231-879d-b106e53de281",
+        "Errors": [
+          {
+            "NextAction": "431f29e2-cca7-44e4-a449-90a38c2d327b",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": []
+      },
+      "Type": "InvokeLambdaFunction"
+    },
+    {
+      "Identifier": "431f29e2-cca7-44e4-a449-90a38c2d327b",
+      "Parameters": {
+        "Text": "Sorry, we failed to find the state for your phone number's area code."
+      },
+      "Transitions": {
+        "NextAction": "1b9a1e90-a330-450b-85a9-dcad8ef3b045",
+        "Errors": [],
+        "Conditions": []
+      },
+      "Type": "MessageParticipant"
+    },
+    {
+      "Identifier": "7329da0c-3dcb-4661-a72e-95b6e841a4a4",
+      "Parameters": {
+        "Text": "Based on the number you are calling from, your area code is located in $.External.State"
+      },
+      "Transitions": {
+        "NextAction": "1b9a1e90-a330-450b-85a9-dcad8ef3b045",
+        "Errors": [],
+        "Conditions": []
+      },
+      "Type": "MessageParticipant"
+    },
+    {
+      "Identifier": "35c77601-311e-4e0b-85a5-883381ac2655",
+      "Parameters": {
+        "ComparisonValue": "$.External.State"
+      },
+      "Transitions": {
+        "NextAction": "7329da0c-3dcb-4661-a72e-95b6e841a4a4",
+        "Errors": [
+          {
+            "NextAction": "7329da0c-3dcb-4661-a72e-95b6e841a4a4",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ],
+        "Conditions": [
+          {
+            "NextAction": "431f29e2-cca7-44e4-a449-90a38c2d327b",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "unknown"
+              ]
+            }
+          }
+        ]
+      },
+      "Type": "Compare"
+    },
+    {
+      "Identifier": "68f1b094-8c1c-4231-879d-b106e53de281",
+      "Parameters": {
+        "ComparisonValue": "$.Channel"
+      },
+      "Transitions": {
+        "NextAction": "35c77601-311e-4e0b-85a5-883381ac2655",
+        "Errors": [
+          {
+            "NextAction": "35c77601-311e-4e0b-85a5-883381ac2655",
+            "ErrorType": "NoMatchingCondition"
+          }
+        ],
+        "Conditions": [
+          {
+            "NextAction": "5d737fb6-6df3-4e27-beff-eb3395bada65",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "CHAT"
+              ]
+            }
+          },
+          {
+            "NextAction": "75a15841-1848-42a0-8933-e6baccb5ffaf",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "TASK"
+              ]
+            }
+          }
+        ]
+      },
+      "Type": "Compare"
+    },
+    {
+      "Identifier": "5d737fb6-6df3-4e27-beff-eb3395bada65",
+      "Parameters": {
+        "Text": "Here is your fun fact: $.External.Fact"
+      },
+      "Transitions": {
+        "NextAction": "1b9a1e90-a330-450b-85a9-dcad8ef3b045",
+        "Errors": [],
+        "Conditions": []
+      },
+      "Type": "MessageParticipant"
+    },
+    {
+      "Identifier": "1b9a1e90-a330-450b-85a9-dcad8ef3b045",
+      "Parameters": {
+        "Text": "Now returning you to the main menu."
+      },
+      "Transitions": {
+        "NextAction": "94cd8c74-9a86-41bd-8fe2-d08bc8f9e41e",
+        "Errors": [],
+        "Conditions": []
+      },
+      "Type": "MessageParticipant"
+    },
+    {
+      "Identifier": "75a15841-1848-42a0-8933-e6baccb5ffaf",
+      "Parameters": {
+        "Attributes": {
+          "FunFact": "Here is your fun fact: $.External.Fact"
+        }
+      },
+      "Transitions": {
+        "NextAction": "94cd8c74-9a86-41bd-8fe2-d08bc8f9e41e",
+        "Errors": [
+          {
+            "NextAction": "94cd8c74-9a86-41bd-8fe2-d08bc8f9e41e",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": []
+      },
+      "Type": "UpdateContactAttributes"
+    },
+    {
+      "Identifier": "94cd8c74-9a86-41bd-8fe2-d08bc8f9e41e",
+      "Parameters": {
+        "ContactFlowId": "arn:aws:connect:us-east-1:299145661157:instance/082e847c-8736-4d4d-b74b-2ca68376897a/contact-flow/bace5b35-18f0-423a-b358-7dbed1ca76ef"
+      },
+      "Transitions": {
+        "NextAction": "31dd3a3e-7d66-4829-9252-8ea344160f5e",
+        "Errors": [
+          {
+            "NextAction": "31dd3a3e-7d66-4829-9252-8ea344160f5e",
+            "ErrorType": "NoMatchingError"
+          }
+        ],
+        "Conditions": []
+      },
+      "Type": "TransferToFlow"
+    },
+    {
+      "Identifier": "31dd3a3e-7d66-4829-9252-8ea344160f5e",
+      "Parameters": {
+        "Text": "Failed to transfer back to main flow"
+      },
+      "Transitions": {
+        "NextAction": "96f62f74-1905-40cd-acca-714c0782717a",
+        "Errors": [],
+        "Conditions": []
+      },
+      "Type": "MessageParticipant"
+    },
+    {
+      "Identifier": "96f62f74-1905-40cd-acca-714c0782717a",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

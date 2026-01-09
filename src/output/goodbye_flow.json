@@ -1,0 +1,44 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "e75d2ab4-18b6-419e-a3be-fa8a89be0a90",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "e75d2ab4-18b6-419e-a3be-fa8a89be0a90": {
+        "position": {
+          "x": 150,
+          "y": 40
+        }
+      },
+      "78231f97-2cd5-4072-a4d1-bdf42c5d5dbf": {
+        "position": {
+          "x": 150,
+          "y": 290
+        }
+      }
+    },
+    "Annotations": []
+  },
+  "Actions": [
+    {
+      "Identifier": "e75d2ab4-18b6-419e-a3be-fa8a89be0a90",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Goodbye! Thank you for using our system. Have a great day!"
+      },
+      "Transitions": {
+        "NextAction": "78231f97-2cd5-4072-a4d1-bdf42c5d5dbf"
+      }
+    },
+    {
+      "Identifier": "78231f97-2cd5-4072-a4d1-bdf42c5d5dbf",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}
