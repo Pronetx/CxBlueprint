@@ -29,11 +29,24 @@ T = TypeVar('T', bound=FlowBlock) # Generic FlowBlock type for method returns
 class ContactFlowBuilder:
     """Build contact flows programmatically with BFS-based layout."""
     
-    # Layout constants
-    BLOCK_SIZE = 180
-    HORIZONTAL_SPACING = 50  # Left-to-right spacing between sibling blocks
-    VERTICAL_SPACING = 250   # Top-to-bottom spacing between levels
-    COLLISION_PADDING = 200  # Minimum safe distance (block + spacing)
+    # Layout constants - Grid-based model (all positions are center-based)
+    GRID_UNIT = 19.2
+    
+    BLOCK_WIDTH_STANDARD = 8 * GRID_UNIT              # 153.6
+    BLOCK_HEIGHT_STANDARD = 4 * GRID_UNIT             # 76.8
+    
+    HORIZONTAL_CENTER_SPACING = 12.0833 * GRID_UNIT  # 232.0 (center to center)
+    
+    # Vertical spacing for conditionals
+    VERTICAL_SPACING_COND_EMPTY = 8.4167 * GRID_UNIT      # 161.6
+    VERTICAL_SPACING_COND_1_OPT = 10.1667 * GRID_UNIT     # 195.2
+    VERTICAL_SPACING_PER_OPTION = 2 * GRID_UNIT           # ~38.4 per extra condition
+    
+    # General vertical spacing (non-conditional)
+    VERTICAL_SPACING = VERTICAL_SPACING_COND_1_OPT
+    
+    COLLISION_PADDING = HORIZONTAL_CENTER_SPACING  # Minimum safe distance
+    
     START_X = 150
     START_Y = 40
     
@@ -227,7 +240,7 @@ class ContactFlowBuilder:
         for _ in range(max_attempts):
             if not self._has_collision(positions, x, y):
                 return (x, y)
-            x += self.HORIZONTAL_SPACING
+            x += self.HORIZONTAL_CENTER_SPACING
         
         # If still colliding, try next row
         return (start_x, y + self.VERTICAL_SPACING)
@@ -266,9 +279,9 @@ class ContactFlowBuilder:
                 # Find safe position for this block
                 x, y = self._find_safe_position(positions, suggested_x, level_y)
                 
-                # Round to grid
-                x = round(x / 10) * 10
-                y = round(y / 10) * 10
+                # Round to grid unit (19.2)
+                x = round(x / self.GRID_UNIT) * self.GRID_UNIT
+                y = round(y / self.GRID_UNIT) * self.GRID_UNIT
                 
                 positions[block_id] = {"x": x, "y": y}
                 
