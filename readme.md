@@ -19,12 +19,21 @@ welcome.then(menu)
 
 classic = flow.play_prompt("You selected Classic Burger. Your order is confirmed!")
 veggie = flow.play_prompt("You selected Veggie Burger. Your order is confirmed!")
-
-menu.when("1", classic).when("2", veggie)
+error_msg = flow.play_prompt("Invalid selection. Goodbye.")
 
 disconnect = flow.disconnect()
+
+# Chain menu options with error handling
+menu.when("1", classic) \
+    .when("2", veggie) \
+    .otherwise(error_msg) \
+    .on_error("InputTimeLimitExceeded", error_msg) \
+    .on_error("NoMatchingCondition", error_msg) \
+    .on_error("NoMatchingError", error_msg)
+
 classic.then(disconnect)
 veggie.then(disconnect)
+error_msg.then(disconnect)
 
 flow.compile_to_file("burger_order.json")
 ```
