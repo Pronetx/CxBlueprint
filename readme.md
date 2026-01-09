@@ -67,8 +67,8 @@ flow.compile_to_file("counter_flow.json")
 ## Quick Start
 
 ```bash
-# See full example
-cd full_example
+# See Terraform example
+cd terraform_example
 python flow_generator.py
 
 # Deploy with Terraform
@@ -85,14 +85,14 @@ src/
   decompiler.py         # JSON to Python
   blocks/               # All Connect block types
 examples/               # Sample flows
-full_example/           # Complete deployment example
+terraform_example/      # Complete deployment example
 docs/                   # API reference
 ```
 
 ## Documentation
 
 - [API Reference](docs/API_REFERENCE.md)
-- [Full Example](full_example/README.md)
+- [Terraform Example](terraform_example/README.md)
 
 ## Requirements
 

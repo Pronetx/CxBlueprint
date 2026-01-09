@@ -40,15 +40,15 @@ htmlcov/
 examples/*.json
 examples/output/
 
-# Full example
-full_example/counter_flow.json
-full_example/terraform/.terraform/
-full_example/terraform/*.tfstate
-full_example/terraform/*.tfstate.*
-full_example/terraform/*.tfplan
-full_example/terraform/*.tfvars
-full_example/terraform/counter_lambda.zip
-full_example/terraform/.terraform.lock.hcl
+# Terraform example
+terraform_example/counter_flow.json
+terraform_example/terraform/.terraform/
+terraform_example/terraform/*.tfstate
+terraform_example/terraform/*.tfstate.*
+terraform_example/terraform/*.tfplan
+terraform_example/terraform/*.tfvars
+terraform_example/terraform/counter_lambda.zip
+terraform_example/terraform/.terraform.lock.hcl
 
 # Terraform
 *.tfstate
