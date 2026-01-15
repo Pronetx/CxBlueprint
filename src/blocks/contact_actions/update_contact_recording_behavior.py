@@ -18,6 +18,12 @@ class UpdateContactRecordingBehavior(FlowBlock):
         if self.recording_behavior and "RecordingBehavior" not in self.parameters:
             self.parameters["RecordingBehavior"] = self.recording_behavior
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        if self.recording_behavior:
+            return "UpdateContactRecordingBehavior(configured)"
+        return "UpdateContactRecordingBehavior()"
+
     def to_dict(self) -> dict:
         data = super().to_dict()
         if self.recording_behavior:

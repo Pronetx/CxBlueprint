@@ -14,6 +14,10 @@ class CheckHoursOfOperation(FlowBlock):
     def __post_init__(self):
         self.type = "CheckHoursOfOperation"
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        return "CheckHoursOfOperation()"
+
     @classmethod
     def from_dict(cls, data: dict) -> 'CheckHoursOfOperation':
         params = data.get("Parameters", {})

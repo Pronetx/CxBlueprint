@@ -47,8 +47,8 @@ class GetParticipantInput(FlowBlock):
     media: Optional[Media] = None
 
     # Required parameters
-    input_time_limit_seconds: str = "5"
-    store_input: str = "False"
+    input_time_limit_seconds: int = 5
+    store_input: bool = False
 
     # Optional validation/encryption
     input_validation: Optional[InputValidation] = None
@@ -73,9 +73,9 @@ class GetParticipantInput(FlowBlock):
         if self.media is not None:
             params["Media"] = self.media.to_dict()
 
-        # Required parameters
-        params["InputTimeLimitSeconds"] = self.input_time_limit_seconds
-        params["StoreInput"] = self.store_input
+        # Required parameters (convert to string format AWS expects)
+        params["InputTimeLimitSeconds"] = str(self.input_time_limit_seconds)
+        params["StoreInput"] = str(self.store_input)
 
         # Optional parameters
         if self.input_validation is not None:
@@ -106,6 +106,15 @@ class GetParticipantInput(FlowBlock):
         self.transitions["NextAction"] = next_block.identifier
         return self
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        if self.text:
+            text_preview = self.text[:40] + '...' if len(self.text) > 40 else self.text
+            return f"GetParticipantInput(text='{text_preview}', timeout={self.input_time_limit_seconds})"
+        elif self.prompt_id:
+            return f"GetParticipantInput(prompt_id='{self.prompt_id}', timeout={self.input_time_limit_seconds})"
+        return f"GetParticipantInput(timeout={self.input_time_limit_seconds})"
+
     def to_dict(self) -> dict:
         self._build_parameters()
         return super().to_dict()
@@ -120,14 +129,22 @@ class GetParticipantInput(FlowBlock):
         input_encryption_data = params.get("InputEncryption")
         dtmf_config_data = params.get("DTMFConfiguration")
 
+        # Parse timeout as int
+        timeout_str = params.get("InputTimeLimitSeconds", "5")
+        timeout = int(timeout_str) if timeout_str else 5
+
+        # Parse store_input as bool
+        store_str = params.get("StoreInput", "False")
+        store_bool = store_str == "True" if isinstance(store_str, str) else bool(store_str)
+
         return cls(
             identifier=data.get("Identifier", str(uuid.uuid4())),
             text=params.get("Text"),
             prompt_id=params.get("PromptId"),
             ssml=params.get("SSML"),
             media=Media.from_dict(media_data) if media_data else None,
-            input_time_limit_seconds=params.get("InputTimeLimitSeconds", "5"),
-            store_input=params.get("StoreInput", "False"),
+            input_time_limit_seconds=timeout,
+            store_input=store_bool,
             input_validation=InputValidation.from_dict(input_validation_data) if input_validation_data else None,
             input_encryption=InputEncryption.from_dict(input_encryption_data) if input_encryption_data else None,
             dtmf_configuration=DTMFConfiguration.from_dict(dtmf_config_data) if dtmf_config_data else None,

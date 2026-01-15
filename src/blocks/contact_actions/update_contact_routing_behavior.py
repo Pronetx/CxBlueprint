@@ -14,6 +14,10 @@ class UpdateContactRoutingBehavior(FlowBlock):
     def __post_init__(self):
         self.type = "UpdateContactRoutingBehavior"
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        return "UpdateContactRoutingBehavior()"
+
     @classmethod
     def from_dict(cls, data: dict) -> 'UpdateContactRoutingBehavior':
         params = data.get("Parameters", {})

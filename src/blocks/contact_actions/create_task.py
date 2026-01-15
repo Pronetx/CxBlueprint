@@ -14,6 +14,10 @@ class CreateTask(FlowBlock):
     def __post_init__(self):
         self.type = "CreateTask"
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        return "CreateTask()"
+
     @classmethod
     def from_dict(cls, data: dict) -> 'CreateTask':
         params = data.get("Parameters", {})

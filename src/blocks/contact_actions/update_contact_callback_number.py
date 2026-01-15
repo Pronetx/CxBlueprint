@@ -14,6 +14,10 @@ class UpdateContactCallbackNumber(FlowBlock):
     def __post_init__(self):
         self.type = "UpdateContactCallbackNumber"
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        return "UpdateContactCallbackNumber()"
+
     @classmethod
     def from_dict(cls, data: dict) -> 'UpdateContactCallbackNumber':
         params = data.get("Parameters", {})

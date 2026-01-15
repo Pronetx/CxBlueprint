@@ -34,7 +34,7 @@ class ShowView(FlowBlock):
         - Combined inputs and contact attributes must be <= 16KB
     """
     view_resource: Optional[ViewResource] = None
-    invocation_time_limit_seconds: Optional[str] = None  # Default: 400
+    invocation_time_limit_seconds: Optional[int] = None  # Default: 400
     view_data: Optional[Dict[str, Any]] = None
     sensitive_data_configuration: Optional[Dict[str, List[str]]] = None  # {"HideResponseOn": ["TRANSCRIPT"]}
 
@@ -49,13 +49,21 @@ class ShowView(FlowBlock):
         if self.view_resource is not None:
             params["ViewResource"] = self.view_resource.to_dict()
         if self.invocation_time_limit_seconds is not None:
-            params["InvocationTimeLimitSeconds"] = self.invocation_time_limit_seconds
+            params["InvocationTimeLimitSeconds"] = str(self.invocation_time_limit_seconds)
         if self.view_data is not None:
             params["ViewData"] = self.view_data
         if self.sensitive_data_configuration is not None:
             params["SensitiveDataConfiguration"] = self.sensitive_data_configuration
 
         self.parameters = params
+
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        if self.view_resource:
+            view_id = getattr(self.view_resource, 'view_id', 'Unknown')
+            timeout = self.invocation_time_limit_seconds or 400
+            return f"ShowView(view_id='{view_id}', timeout={timeout})"
+        return "ShowView()"
 
     def on_action(self, action_name: str, next_block: FlowBlock) -> 'Self':
         """Add a condition: when user selects this action, go to next_block."""
@@ -82,10 +90,14 @@ class ShowView(FlowBlock):
         # Parse nested objects
         view_resource_data = params.get("ViewResource")
 
+        # Parse timeout as int
+        timeout_str = params.get("InvocationTimeLimitSeconds")
+        timeout = int(timeout_str) if timeout_str else None
+
         return cls(
             identifier=data.get("Identifier", str(uuid.uuid4())),
             view_resource=ViewResource.from_dict(view_resource_data) if view_resource_data else None,
-            invocation_time_limit_seconds=params.get("InvocationTimeLimitSeconds"),
+            invocation_time_limit_seconds=timeout,
             view_data=params.get("ViewData"),
             sensitive_data_configuration=params.get("SensitiveDataConfiguration"),
             parameters=params,

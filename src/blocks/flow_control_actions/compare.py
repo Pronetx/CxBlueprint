@@ -17,6 +17,13 @@ class Compare(FlowBlock):
         if self.comparison_value and "ComparisonValue" not in self.parameters:
             self.parameters["ComparisonValue"] = self.comparison_value
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        if self.comparison_value:
+            value_preview = self.comparison_value[:30] + '...' if len(self.comparison_value) > 30 else self.comparison_value
+            return f"Compare(value='{value_preview}')"
+        return "Compare()"
+
     def to_dict(self) -> dict:
         data = super().to_dict()
         if self.comparison_value:

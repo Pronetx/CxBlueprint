@@ -50,6 +50,19 @@ class MessageParticipant(FlowBlock):
             params["Media"] = self.media.to_dict()
         self.parameters = params
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        if self.text:
+            text_preview = self.text[:40] + '...' if len(self.text) > 40 else self.text
+            return f"MessageParticipant(text='{text_preview}')"
+        elif self.prompt_id:
+            return f"MessageParticipant(prompt_id='{self.prompt_id}')"
+        elif self.ssml:
+            return "MessageParticipant(ssml='...')"
+        elif self.media:
+            return f"MessageParticipant(media='{self.media.uri}')"
+        return "MessageParticipant()"
+
     def to_dict(self) -> dict:
         self._build_parameters()
         return super().to_dict()

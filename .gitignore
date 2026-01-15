@@ -67,8 +67,7 @@ terraform_example/terraform/.terraform.lock.hcl
 # Logs
 *.log
 
-# Documentation
-CLAUDE.md
+# Documentation (none currently ignored)
 
 # Input/output directories (keep example.json only)
 input/*

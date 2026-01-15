@@ -34,6 +34,10 @@ class FlowBlock:
         })
         return self
 
+    def __repr__(self) -> str:
+        """Return readable representation of block."""
+        return f"{self.type}(id={self.identifier[:8]}...)"
+
     def to_dict(self) -> dict:
         """Serialize block to AWS Connect JSON format."""
         return {

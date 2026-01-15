@@ -14,6 +14,10 @@ class UpdateContactTargetQueue(FlowBlock):
     def __post_init__(self):
         self.type = "UpdateContactTargetQueue"
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        return "UpdateContactTargetQueue()"
+
     @classmethod
     def from_dict(cls, data: dict) -> 'UpdateContactTargetQueue':
         params = data.get("Parameters", {})

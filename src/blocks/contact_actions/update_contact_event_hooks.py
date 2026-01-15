@@ -14,6 +14,10 @@ class UpdateContactEventHooks(FlowBlock):
     def __post_init__(self):
         self.type = "UpdateContactEventHooks"
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        return "UpdateContactEventHooks()"
+
     @classmethod
     def from_dict(cls, data: dict) -> 'UpdateContactEventHooks':
         params = data.get("Parameters", {})

@@ -14,6 +14,10 @@ class EndFlowExecution(FlowBlock):
     def __post_init__(self):
         self.type = "EndFlowExecution"
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        return "EndFlowExecution()"
+
     @classmethod
     def from_dict(cls, data: dict) -> 'EndFlowExecution':
         return cls(

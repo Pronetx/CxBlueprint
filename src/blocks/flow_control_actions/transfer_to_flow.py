@@ -17,6 +17,13 @@ class TransferToFlow(FlowBlock):
         if self.contact_flow_id and "ContactFlowId" not in self.parameters:
             self.parameters["ContactFlowId"] = self.contact_flow_id
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        flow_id = self.contact_flow_id or "None"
+        if len(flow_id) > 40:
+            flow_id = "..." + flow_id[-37:]
+        return f"TransferToFlow(flow_id='{flow_id}')"
+
     def to_dict(self) -> dict:
         data = super().to_dict()
         if self.contact_flow_id:

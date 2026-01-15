@@ -14,6 +14,10 @@ class TransferContactToQueue(FlowBlock):
     def __post_init__(self):
         self.type = "TransferContactToQueue"
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        return "TransferContactToQueue()"
+
     @classmethod
     def from_dict(cls, data: dict) -> 'TransferContactToQueue':
         return cls(

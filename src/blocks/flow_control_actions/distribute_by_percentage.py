@@ -14,6 +14,10 @@ class DistributeByPercentage(FlowBlock):
     def __post_init__(self):
         self.type = "DistributeByPercentage"
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        return "DistributeByPercentage()"
+
     @classmethod
     def from_dict(cls, data: dict) -> 'DistributeByPercentage':
         params = data.get("Parameters", {})

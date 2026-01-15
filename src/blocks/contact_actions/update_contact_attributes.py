@@ -18,6 +18,16 @@ class UpdateContactAttributes(FlowBlock):
         if self.attributes and "Attributes" not in self.parameters:
             self.parameters["Attributes"] = self.attributes
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        if not self.attributes:
+            return "UpdateContactAttributes()"
+        num_attrs = len(self.attributes)
+        if num_attrs <= 3:
+            attr_keys = ", ".join(self.attributes.keys())
+            return f"UpdateContactAttributes({attr_keys})"
+        return f"UpdateContactAttributes({num_attrs} attributes)"
+
     def to_dict(self) -> dict:
         data = super().to_dict()
         if self.attributes:

@@ -99,6 +99,19 @@ class ConnectParticipantWithLexBot(FlowBlock):
         })
         return self
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        if self.text:
+            text_preview = self.text[:30] + '...' if len(self.text) > 30 else self.text
+            return f"ConnectParticipantWithLexBot(text='{text_preview}')"
+        elif self.lex_v2_bot:
+            bot_name = getattr(self.lex_v2_bot, 'bot_name', 'Unknown')
+            return f"ConnectParticipantWithLexBot(bot='{bot_name}')"
+        elif self.lex_bot:
+            bot_name = getattr(self.lex_bot, 'name', 'Unknown')
+            return f"ConnectParticipantWithLexBot(bot='{bot_name}')"
+        return "ConnectParticipantWithLexBot()"
+
     def to_dict(self) -> dict:
         self._build_parameters()
         return super().to_dict()

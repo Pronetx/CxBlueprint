@@ -14,6 +14,10 @@ class CheckMetricData(FlowBlock):
     def __post_init__(self):
         self.type = "CheckMetricData"
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        return "CheckMetricData()"
+
     @classmethod
     def from_dict(cls, data: dict) -> 'CheckMetricData':
         params = data.get("Parameters", {})

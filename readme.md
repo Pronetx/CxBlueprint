@@ -92,6 +92,13 @@ Here's what the generated flows look like in the Amazon Connect console:
 - Majority of Amazon Connect block types supported
 - Shell scripts to download, validate, and test flows against Connect
 
+
+## Possible Future Uses/Ideas:
+- Compliance Checking, check flow structures for best practices, encryption, etc.
+- Optimization Suggestions, analyze flows for efficiency improvements.
+- Output to diagram formats for other visualization tools.
+- Template library of common flow patterns.
+
 ## Quick Start
 
 ```bash

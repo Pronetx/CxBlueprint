@@ -29,6 +29,10 @@ class DisconnectParticipant(FlowBlock):
     def __post_init__(self):
         self.type = "DisconnectParticipant"
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        return "DisconnectParticipant()"
+
     @classmethod
     def from_dict(cls, data: dict) -> 'DisconnectParticipant':
         return cls(

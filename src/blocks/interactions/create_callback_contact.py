@@ -14,6 +14,10 @@ class CreateCallbackContact(FlowBlock):
     def __post_init__(self):
         self.type = "CreateCallbackContact"
 
+    def __repr__(self) -> str:
+        """Return readable representation."""
+        return "CreateCallbackContact()"
+
     @classmethod
     def from_dict(cls, data: dict) -> 'CreateCallbackContact':
         params = data.get("Parameters", {})
