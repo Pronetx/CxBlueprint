@@ -1,11 +1,6 @@
 # CxBlueprint
 
-Programmatic Amazon Connect contact flow generation using Python.
-
-## What It Does
-
-Generate Amazon Connect flows from Python code instead of the visual editor.
-
+Programmatic Amazon Connect contact flow generation using Python. Allows for Ai models to generate contact flows based on human languages **way** easier than writing JSON as majority of the time it will fail to generate a valid contact flow from scratch.
 ### Simple Example
 
 ```python
