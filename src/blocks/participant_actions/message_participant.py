@@ -2,11 +2,13 @@
 MessageParticipant - Play prompt / send message to participant.
 https://docs.aws.amazon.com/connect/latest/APIReference/participant-actions-messageparticipant.html
 """
+
 from dataclasses import dataclass
 from typing import Optional, Dict, Any
 import uuid
 from ..base import FlowBlock
 from ..types import Media
+from ..serialization import serialize_optional
 
 
 @dataclass
@@ -27,6 +29,7 @@ class MessageParticipant(FlowBlock):
         - Text: All channels
         - Not supported in hold flows
     """
+
     text: Optional[str] = None
     prompt_id: Optional[str] = None
     ssml: Optional[str] = None
@@ -40,20 +43,22 @@ class MessageParticipant(FlowBlock):
         """Build parameters dict from typed attributes."""
         # Clear and rebuild to ensure consistency
         params = {}
-        if self.text is not None:
-            params["Text"] = self.text
-        if self.prompt_id is not None:
-            params["PromptId"] = self.prompt_id
-        if self.ssml is not None:
-            params["SSML"] = self.ssml
+
+        # Use serialization helpers
+        params.update(serialize_optional("Text", self.text))
+        params.update(serialize_optional("PromptId", self.prompt_id))
+        params.update(serialize_optional("SSML", self.ssml))
+
+        # Media parameter
         if self.media is not None:
             params["Media"] = self.media.to_dict()
+
         self.parameters = params
 
     def __repr__(self) -> str:
         """Return readable representation."""
         if self.text:
-            text_preview = self.text[:40] + '...' if len(self.text) > 40 else self.text
+            text_preview = self.text[:40] + "..." if len(self.text) > 40 else self.text
             return f"MessageParticipant(text='{text_preview}')"
         elif self.prompt_id:
             return f"MessageParticipant(prompt_id='{self.prompt_id}')"
@@ -68,7 +73,7 @@ class MessageParticipant(FlowBlock):
         return super().to_dict()
 
     @classmethod
-    def from_dict(cls, data: dict) -> 'MessageParticipant':
+    def from_dict(cls, data: dict) -> "MessageParticipant":
         params = data.get("Parameters", {})
         media_data = params.get("Media")
         return cls(
@@ -78,5 +83,5 @@ class MessageParticipant(FlowBlock):
             ssml=params.get("SSML"),
             media=Media.from_dict(media_data) if media_data else None,
             parameters=params,
-            transitions=data.get("Transitions", {})
+            transitions=data.get("Transitions", {}),
         )

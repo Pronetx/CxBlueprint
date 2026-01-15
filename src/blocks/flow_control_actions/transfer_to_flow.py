@@ -2,6 +2,7 @@
 TransferToFlow - Transfer to another contact flow.
 https://docs.aws.amazon.com/connect/latest/APIReference/flow-control-actions-transfertoflow.html
 """
+
 from dataclasses import dataclass
 import uuid
 from ..base import FlowBlock
@@ -10,6 +11,7 @@ from ..base import FlowBlock
 @dataclass
 class TransferToFlow(FlowBlock):
     """Transfer to another contact flow."""
+
     contact_flow_id: str = ""
 
     def __post_init__(self):
@@ -31,11 +33,11 @@ class TransferToFlow(FlowBlock):
         return data
 
     @classmethod
-    def from_dict(cls, data: dict) -> 'TransferToFlow':
+    def from_dict(cls, data: dict) -> "TransferToFlow":
         params = data.get("Parameters", {})
         return cls(
             identifier=data.get("Identifier", str(uuid.uuid4())),
             contact_flow_id=params.get("ContactFlowId", ""),
             parameters=params,
-            transitions=data.get("Transitions", {})
+            transitions=data.get("Transitions", {}),
         )

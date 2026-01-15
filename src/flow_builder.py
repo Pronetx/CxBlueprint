@@ -4,7 +4,7 @@ Flow - Unified flow builder and decompiler
 
 from pathlib import Path
 import json
-from typing import List, Optional, Dict, Set, Tuple, TypeVar, Type
+from typing import List, Optional, Dict, Set, Tuple, TypeVar, Type, Any
 import uuid
 from canvas_layout import CanvasLayoutEngine
 from flow_analyzer import FlowAnalyzer, FlowValidationError
@@ -87,7 +87,7 @@ class Flow:
         self.debug = debug
         self.layout_engine = CanvasLayoutEngine(debug)
         # Statistics tracking
-        self._block_stats = {}
+        self._block_stats: dict[str, int] = {}
 
         if debug:
             print(f"Building flow: {name}")
@@ -130,7 +130,7 @@ class Flow:
             >>> updated_json = flow.compile_to_json()
         """
         # Load JSON
-        with open(filepath, 'r') as f:
+        with open(filepath, "r") as f:
             flow_json = json.load(f)
 
         # Create Flow instance
@@ -156,7 +156,9 @@ class Flow:
             instance.blocks.append(block)
 
         if unknown_types and debug:
-            print(f"[SUMMARY] Found {len(unknown_types)} unknown block type(s): {', '.join(sorted(unknown_types))}\n")
+            print(
+                f"[SUMMARY] Found {len(unknown_types)} unknown block type(s): {', '.join(sorted(unknown_types))}\n"
+            )
 
         # Set start action
         if flow_json.get("StartAction"):
@@ -241,9 +243,9 @@ class Flow:
 
     def lex_bot(
         self,
-        text: str = None,
-        lex_v2_bot: LexV2Bot = None,
-        lex_bot: LexBot = None,
+        text: str | None = None,
+        lex_v2_bot: LexV2Bot | None = None,
+        lex_bot: LexBot | None = None,
         **kwargs,
     ) -> ConnectParticipantWithLexBot:
         """Create a Lex bot interaction block.
@@ -282,7 +284,7 @@ class Flow:
         return self._register_block(block)
 
     def check_hours(
-        self, hours_of_operation_id: str = None, **kwargs
+        self, hours_of_operation_id: str | None = None, **kwargs
     ) -> CheckHoursOfOperation:
         """Create a business hours check block.
 
@@ -328,7 +330,7 @@ class Flow:
 
     # Compilation
 
-    def analyze(self) -> Dict[str, any]:
+    def analyze(self) -> Dict[str, Any]:
         """Analyze flow for structural issues."""
         if not self._start_action:
             return {
@@ -342,6 +344,82 @@ class Flow:
             "orphaned_blocks": analyzer.find_orphaned_blocks(),
             "missing_error_handlers": analyzer.find_missing_error_handlers(),
             "unterminated_paths": analyzer.find_unterminated_paths(),
+        }
+
+    def stats(self) -> Dict[str, Any]:
+        """
+        Get comprehensive flow statistics.
+
+        Returns:
+            Dictionary containing:
+            - total_blocks: Total number of blocks
+            - block_types: Count of each block type
+            - error_handler_coverage: Error handler statistics
+            - canvas_dimensions: Width and height of canvas
+            - validation_status: "passed" or "failed"
+
+        Example:
+            >>> flow = Flow.build("Test")
+            >>> stats = flow.stats()
+            >>> print(f"Total blocks: {stats['total_blocks']}")
+        """
+        # Basic counts
+        total_blocks = len(self.blocks)
+        block_types = dict(self._block_stats)
+
+        # Error handler coverage
+        blocks_requiring_handlers = sum(
+            1 for block in self.blocks if block.type == "GetParticipantInput"
+        )
+        blocks_with_handlers = 0
+        if blocks_requiring_handlers > 0:
+            analyzer = (
+                FlowAnalyzer(self.blocks, self._start_action)
+                if self._start_action
+                else None
+            )
+            if analyzer:
+                missing = analyzer.find_missing_error_handlers()
+                blocks_with_handlers = blocks_requiring_handlers - len(missing)
+
+        coverage_percent = (
+            (blocks_with_handlers / blocks_requiring_handlers * 100)
+            if blocks_requiring_handlers > 0
+            else 100.0
+        )
+
+        # Canvas dimensions
+        canvas_width = 0
+        canvas_height = 0
+        if self._start_action:
+            positions = self.layout_engine.calculate_positions(
+                self.blocks, self._start_action
+            )
+            if positions:
+                x_coords = [pos["x"] for pos in positions.values()]
+                y_coords = [pos["y"] for pos in positions.values()]
+                canvas_width = max(x_coords) - min(x_coords) + 200  # Add block width
+                canvas_height = max(y_coords) - min(y_coords) + 100  # Add block height
+
+        # Validation status
+        validation_status = "unknown"
+        if self._start_action:
+            analyzer = FlowAnalyzer(self.blocks, self._start_action)
+            validation_status = "failed" if analyzer.has_issues() else "passed"
+
+        return {
+            "total_blocks": total_blocks,
+            "block_types": block_types,
+            "error_handler_coverage": {
+                "blocks_with_handlers": blocks_with_handlers,
+                "blocks_requiring_handlers": blocks_requiring_handlers,
+                "coverage_percent": round(coverage_percent, 1),
+            },
+            "canvas_dimensions": {
+                "width": canvas_width,
+                "height": canvas_height,
+            },
+            "validation_status": validation_status,
         }
 
     def validate(self) -> bool:

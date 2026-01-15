@@ -138,4 +138,36 @@ class FlowAnalyzer:
 class FlowValidationError(Exception):
     """Raised when flow validation fails."""
 
-    pass
+    # Error codes
+    ORPHANED_BLOCKS = "ORPHANED_BLOCKS"
+    MISSING_ERROR_HANDLERS = "MISSING_ERROR_HANDLERS"
+    UNTERMINATED_PATHS = "UNTERMINATED_PATHS"
+
+    def __init__(
+        self, message: str, error_code: str | None = None, details: dict | None = None
+    ):
+        """
+        Initialize validation error with detailed information.
+
+        Args:
+            message: Human-readable error message
+            error_code: Machine-readable error code (e.g., ORPHANED_BLOCKS)
+            details: Additional error details (block IDs, missing handlers, etc.)
+        """
+        super().__init__(message)
+        self.error_code = error_code
+        self.details = details or {}
+        self.details = details or {}
+
+    def __str__(self):
+        """Return formatted error message with suggestions."""
+        base_message = super().__str__()
+
+        suggestions = {
+            self.ORPHANED_BLOCKS: "\nSuggestion: Ensure all blocks are reachable from the start action. Remove unused blocks or connect them to the flow.",
+            self.MISSING_ERROR_HANDLERS: "\nSuggestion: Add error handlers using .on_error(error_type, handler_block) for all required error types.",
+            self.UNTERMINATED_PATHS: "\nSuggestion: Ensure all non-terminal blocks have a .then(next_block) or conditional routing. Flows must end with DisconnectParticipant, EndFlowExecution, TransferToFlow, or TransferContactToQueue.",
+        }
+
+        suggestion = suggestions.get(self.error_code, "") if self.error_code else ""
+        return f"{base_message}{suggestion}"

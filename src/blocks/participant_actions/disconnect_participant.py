@@ -2,6 +2,7 @@
 DisconnectParticipant - Disconnect/hang up the participant.
 https://docs.aws.amazon.com/connect/latest/APIReference/participant-actions-disconnectparticipant.html
 """
+
 from dataclasses import dataclass
 import uuid
 from ..base import FlowBlock
@@ -34,9 +35,9 @@ class DisconnectParticipant(FlowBlock):
         return "DisconnectParticipant()"
 
     @classmethod
-    def from_dict(cls, data: dict) -> 'DisconnectParticipant':
+    def from_dict(cls, data: dict) -> "DisconnectParticipant":
         return cls(
             identifier=data.get("Identifier", str(uuid.uuid4())),
             parameters=data.get("Parameters", {}),
-            transitions=data.get("Transitions", {})
+            transitions=data.get("Transitions", {}),
         )

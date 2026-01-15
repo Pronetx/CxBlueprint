@@ -2,6 +2,7 @@
 Participant Actions - blocks that run in the context of a participant.
 https://docs.aws.amazon.com/connect/latest/APIReference/participant-actions.html
 """
+
 from .disconnect_participant import DisconnectParticipant
 from .get_participant_input import GetParticipantInput
 from .message_participant import MessageParticipant

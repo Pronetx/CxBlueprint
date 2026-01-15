@@ -2,6 +2,7 @@
 UpdateContactRoutingBehavior - Update contact routing behavior.
 https://docs.aws.amazon.com/connect/latest/APIReference/contact-actions-updatecontactroutingbehavior.html
 """
+
 from dataclasses import dataclass
 import uuid
 from ..base import FlowBlock
@@ -19,10 +20,10 @@ class UpdateContactRoutingBehavior(FlowBlock):
         return "UpdateContactRoutingBehavior()"
 
     @classmethod
-    def from_dict(cls, data: dict) -> 'UpdateContactRoutingBehavior':
+    def from_dict(cls, data: dict) -> "UpdateContactRoutingBehavior":
         params = data.get("Parameters", {})
         return cls(
             identifier=data.get("Identifier", str(uuid.uuid4())),
             parameters=params,
-            transitions=data.get("Transitions", {})
+            transitions=data.get("Transitions", {}),
         )

@@ -2,6 +2,7 @@
 EndFlowExecution - End flow execution block.
 https://docs.aws.amazon.com/connect/latest/APIReference/flow-control-actions-endflowexecution.html
 """
+
 from dataclasses import dataclass
 import uuid
 from ..base import FlowBlock
@@ -19,9 +20,9 @@ class EndFlowExecution(FlowBlock):
         return "EndFlowExecution()"
 
     @classmethod
-    def from_dict(cls, data: dict) -> 'EndFlowExecution':
+    def from_dict(cls, data: dict) -> "EndFlowExecution":
         return cls(
             identifier=data.get("Identifier", str(uuid.uuid4())),
             parameters=data.get("Parameters", {}),
-            transitions=data.get("Transitions", {})
+            transitions=data.get("Transitions", {}),
         )

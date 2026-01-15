@@ -203,8 +203,10 @@ class CanvasLayoutEngine:
         for block_id, level in levels.items():
             level_groups[level].append(block_id)
 
-        rows = {}
-        used_rows_per_level = defaultdict(set)  # Track used rows at each level
+        rows: dict[str, int] = {}
+        used_rows_per_level: dict[int, set[int]] = defaultdict(
+            set
+        )  # Track used rows at each level
 
         # Process levels in order
         for level in sorted(level_groups.keys()):

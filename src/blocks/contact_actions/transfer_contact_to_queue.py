@@ -2,6 +2,7 @@
 TransferContactToQueue - Transfer contact to a queue.
 https://docs.aws.amazon.com/connect/latest/APIReference/contact-actions-transfercontacttoqueue.html
 """
+
 from dataclasses import dataclass
 import uuid
 from ..base import FlowBlock
@@ -19,9 +20,9 @@ class TransferContactToQueue(FlowBlock):
         return "TransferContactToQueue()"
 
     @classmethod
-    def from_dict(cls, data: dict) -> 'TransferContactToQueue':
+    def from_dict(cls, data: dict) -> "TransferContactToQueue":
         return cls(
             identifier=data.get("Identifier", str(uuid.uuid4())),
             parameters=data.get("Parameters", {}),
-            transitions=data.get("Transitions", {})
+            transitions=data.get("Transitions", {}),
         )

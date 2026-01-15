@@ -2,6 +2,7 @@
 ShowView - Display a view in the agent workspace.
 https://docs.aws.amazon.com/connect/latest/APIReference/participant-actions-showview.html
 """
+
 from dataclasses import dataclass
 from typing import Optional, Dict, Any, List, TYPE_CHECKING
 import uuid
@@ -33,10 +34,13 @@ class ShowView(FlowBlock):
         - Supported in: Inbound flows, Customer queue flows
         - Combined inputs and contact attributes must be <= 16KB
     """
+
     view_resource: Optional[ViewResource] = None
     invocation_time_limit_seconds: Optional[int] = None  # Default: 400
     view_data: Optional[Dict[str, Any]] = None
-    sensitive_data_configuration: Optional[Dict[str, List[str]]] = None  # {"HideResponseOn": ["TRANSCRIPT"]}
+    sensitive_data_configuration: Optional[Dict[str, List[str]]] = (
+        None  # {"HideResponseOn": ["TRANSCRIPT"]}
+    )
 
     def __post_init__(self):
         self.type = "ShowView"
@@ -49,7 +53,9 @@ class ShowView(FlowBlock):
         if self.view_resource is not None:
             params["ViewResource"] = self.view_resource.to_dict()
         if self.invocation_time_limit_seconds is not None:
-            params["InvocationTimeLimitSeconds"] = str(self.invocation_time_limit_seconds)
+            params["InvocationTimeLimitSeconds"] = str(
+                self.invocation_time_limit_seconds
+            )
         if self.view_data is not None:
             params["ViewData"] = self.view_data
         if self.sensitive_data_configuration is not None:
@@ -60,23 +66,22 @@ class ShowView(FlowBlock):
     def __repr__(self) -> str:
         """Return readable representation."""
         if self.view_resource:
-            view_id = getattr(self.view_resource, 'view_id', 'Unknown')
+            view_id = getattr(self.view_resource, "view_id", "Unknown")
             timeout = self.invocation_time_limit_seconds or 400
             return f"ShowView(view_id='{view_id}', timeout={timeout})"
         return "ShowView()"
 
-    def on_action(self, action_name: str, next_block: FlowBlock) -> 'Self':
+    def on_action(self, action_name: str, next_block: FlowBlock) -> "Self":
         """Add a condition: when user selects this action, go to next_block."""
         if "Conditions" not in self.transitions:
             self.transitions["Conditions"] = []
 
-        self.transitions["Conditions"].append({
-            "NextAction": next_block.identifier,
-            "Condition": {
-                "Operator": "Equals",
-                "Operands": [action_name]
+        self.transitions["Conditions"].append(
+            {
+                "NextAction": next_block.identifier,
+                "Condition": {"Operator": "Equals", "Operands": [action_name]},
             }
-        })
+        )
         return self
 
     def to_dict(self) -> dict:
@@ -84,7 +89,7 @@ class ShowView(FlowBlock):
         return super().to_dict()
 
     @classmethod
-    def from_dict(cls, data: dict) -> 'ShowView':
+    def from_dict(cls, data: dict) -> "ShowView":
         params = data.get("Parameters", {})
 
         # Parse nested objects
@@ -96,10 +101,14 @@ class ShowView(FlowBlock):
 
         return cls(
             identifier=data.get("Identifier", str(uuid.uuid4())),
-            view_resource=ViewResource.from_dict(view_resource_data) if view_resource_data else None,
+            view_resource=(
+                ViewResource.from_dict(view_resource_data)
+                if view_resource_data
+                else None
+            ),
             invocation_time_limit_seconds=timeout,
             view_data=params.get("ViewData"),
             sensitive_data_configuration=params.get("SensitiveDataConfiguration"),
             parameters=params,
-            transitions=data.get("Transitions", {})
+            transitions=data.get("Transitions", {}),
         )

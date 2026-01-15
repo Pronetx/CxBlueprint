@@ -2,6 +2,7 @@
 Amazon Connect Flow Blocks
 https://docs.aws.amazon.com/connect/latest/APIReference/contact-actions.html
 """
+
 # Base class
 from .base import FlowBlock
 

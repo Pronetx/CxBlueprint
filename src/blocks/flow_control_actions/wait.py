@@ -2,6 +2,7 @@
 Wait - Wait block for pausing flow execution.
 https://docs.aws.amazon.com/connect/latest/APIReference/flow-control-actions-wait.html
 """
+
 from dataclasses import dataclass
 from typing import List, Optional
 import uuid
@@ -11,6 +12,7 @@ from ..base import FlowBlock
 @dataclass
 class Wait(FlowBlock):
     """Wait block for pausing flow execution."""
+
     time_limit_seconds: int = 60
     events: Optional[List[str]] = None
 
@@ -34,7 +36,7 @@ class Wait(FlowBlock):
         return data
 
     @classmethod
-    def from_dict(cls, data: dict) -> 'Wait':
+    def from_dict(cls, data: dict) -> "Wait":
         params = data.get("Parameters", {})
 
         # Parse time limit as int
@@ -46,5 +48,5 @@ class Wait(FlowBlock):
             time_limit_seconds=time_limit,
             events=params.get("Events", []),
             parameters=params,
-            transitions=data.get("Transitions", {})
+            transitions=data.get("Transitions", {}),
         )

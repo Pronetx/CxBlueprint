@@ -2,6 +2,7 @@
 Flow Control Actions - blocks that control flow behavior.
 https://docs.aws.amazon.com/connect/latest/APIReference/flow-control-actions.html
 """
+
 from .check_hours_of_operation import CheckHoursOfOperation
 from .check_metric_data import CheckMetricData
 from .compare import Compare

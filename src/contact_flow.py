@@ -7,6 +7,7 @@ from blocks.base import FlowBlock
 @dataclass
 class ContactFlow:
     """Top-level contact flow containing all blocks."""
+
     version: str = "2019-10-30"
     start_action: str = ""
     metadata: Dict[str, Any] = field(default_factory=dict)
@@ -18,7 +19,7 @@ class ContactFlow:
             "Version": self.version,
             "StartAction": self.start_action,
             "Metadata": self.metadata,
-            "Actions": [action.to_dict() for action in self.actions]
+            "Actions": [action.to_dict() for action in self.actions],
         }
 
     def to_json(self, indent: int = 2) -> str:

@@ -2,6 +2,7 @@
 ConnectParticipantWithLexBot - Connect participant to a Lex bot.
 https://docs.aws.amazon.com/connect/latest/APIReference/participant-actions-connectparticipantwithlexbot.html
 """
+
 from dataclasses import dataclass
 from typing import Optional, Dict, Any, TYPE_CHECKING
 import uuid
@@ -36,6 +37,7 @@ class ConnectParticipantWithLexBot(FlowBlock):
         - Not supported in whisper flows or hold flows
         - LexInitializationData (InitialMessage): Chat channel only
     """
+
     # Prompt parameters (mutually exclusive)
     text: Optional[str] = None
     prompt_id: Optional[str] = None
@@ -48,7 +50,9 @@ class ConnectParticipantWithLexBot(FlowBlock):
 
     # Optional parameters
     lex_session_attributes: Optional[Dict[str, str]] = None
-    lex_initialization_data: Optional[Dict[str, str]] = None  # {"InitialMessage": "..."}
+    lex_initialization_data: Optional[Dict[str, str]] = (
+        None  # {"InitialMessage": "..."}
+    )
     lex_timeout_seconds: Optional[Dict[str, str]] = None  # {"Text": "..."}
 
     def __post_init__(self):
@@ -85,30 +89,29 @@ class ConnectParticipantWithLexBot(FlowBlock):
 
         self.parameters = params
 
-    def on_intent(self, intent_name: str, next_block: FlowBlock) -> 'Self':
+    def on_intent(self, intent_name: str, next_block: FlowBlock) -> "Self":
         """Add a condition: when bot returns this intent, go to next_block."""
         if "Conditions" not in self.transitions:
             self.transitions["Conditions"] = []
 
-        self.transitions["Conditions"].append({
-            "NextAction": next_block.identifier,
-            "Condition": {
-                "Operator": "Equals",
-                "Operands": [intent_name]
+        self.transitions["Conditions"].append(
+            {
+                "NextAction": next_block.identifier,
+                "Condition": {"Operator": "Equals", "Operands": [intent_name]},
             }
-        })
+        )
         return self
 
     def __repr__(self) -> str:
         """Return readable representation."""
         if self.text:
-            text_preview = self.text[:30] + '...' if len(self.text) > 30 else self.text
+            text_preview = self.text[:30] + "..." if len(self.text) > 30 else self.text
             return f"ConnectParticipantWithLexBot(text='{text_preview}')"
         elif self.lex_v2_bot:
-            bot_name = getattr(self.lex_v2_bot, 'bot_name', 'Unknown')
+            bot_name = getattr(self.lex_v2_bot, "bot_name", "Unknown")
             return f"ConnectParticipantWithLexBot(bot='{bot_name}')"
         elif self.lex_bot:
-            bot_name = getattr(self.lex_bot, 'name', 'Unknown')
+            bot_name = getattr(self.lex_bot, "name", "Unknown")
             return f"ConnectParticipantWithLexBot(bot='{bot_name}')"
         return "ConnectParticipantWithLexBot()"
 
@@ -117,7 +120,7 @@ class ConnectParticipantWithLexBot(FlowBlock):
         return super().to_dict()
 
     @classmethod
-    def from_dict(cls, data: dict) -> 'ConnectParticipantWithLexBot':
+    def from_dict(cls, data: dict) -> "ConnectParticipantWithLexBot":
         params = data.get("Parameters", {})
 
         # Parse nested objects
@@ -137,5 +140,5 @@ class ConnectParticipantWithLexBot(FlowBlock):
             lex_initialization_data=params.get("LexInitializationData"),
             lex_timeout_seconds=params.get("LexTimeoutSeconds"),
             parameters=params,
-            transitions=data.get("Transitions", {})
+            transitions=data.get("Transitions", {}),
         )

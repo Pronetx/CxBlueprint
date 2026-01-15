@@ -2,6 +2,7 @@
 MessageParticipantIteratively - Play multiple messages in sequence (loop prompts).
 https://docs.aws.amazon.com/connect/latest/APIReference/participant-actions-messageparticipantiteratively.html
 """
+
 from dataclasses import dataclass
 from typing import Optional, List, Dict, Any
 import uuid
@@ -28,6 +29,7 @@ class MessageParticipantIteratively(FlowBlock):
         - PromptId: Voice channel only
         - Chat channel: Action immediately takes error branch
     """
+
     messages: Optional[List[Dict[str, Any]]] = None
     interrupt_frequency_seconds: Optional[str] = None
 
@@ -49,12 +51,12 @@ class MessageParticipantIteratively(FlowBlock):
         return super().to_dict()
 
     @classmethod
-    def from_dict(cls, data: dict) -> 'MessageParticipantIteratively':
+    def from_dict(cls, data: dict) -> "MessageParticipantIteratively":
         params = data.get("Parameters", {})
         return cls(
             identifier=data.get("Identifier", str(uuid.uuid4())),
             messages=params.get("Messages"),
             interrupt_frequency_seconds=params.get("InterruptFrequencySeconds"),
             parameters=params,
-            transitions=data.get("Transitions", {})
+            transitions=data.get("Transitions", {}),
         )

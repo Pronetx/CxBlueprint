@@ -2,6 +2,7 @@
 UpdateContactCallbackNumber - Update the callback number for a contact.
 https://docs.aws.amazon.com/connect/latest/APIReference/contact-actions-updatecontactcallbacknumber.html
 """
+
 from dataclasses import dataclass
 import uuid
 from ..base import FlowBlock
@@ -19,10 +20,10 @@ class UpdateContactCallbackNumber(FlowBlock):
         return "UpdateContactCallbackNumber()"
 
     @classmethod
-    def from_dict(cls, data: dict) -> 'UpdateContactCallbackNumber':
+    def from_dict(cls, data: dict) -> "UpdateContactCallbackNumber":
         params = data.get("Parameters", {})
         return cls(
             identifier=data.get("Identifier", str(uuid.uuid4())),
             parameters=params,
-            transitions=data.get("Transitions", {})
+            transitions=data.get("Transitions", {}),
         )

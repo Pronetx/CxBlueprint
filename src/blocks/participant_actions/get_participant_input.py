@@ -2,11 +2,18 @@
 GetParticipantInput - Gather customer input (DTMF or text).
 https://docs.aws.amazon.com/connect/latest/APIReference/participant-actions-getparticipantinput.html
 """
+
 from dataclasses import dataclass
 from typing import Optional, Dict, Any, TYPE_CHECKING
 import uuid
 from ..base import FlowBlock
 from ..types import Media, InputValidation, InputEncryption, DTMFConfiguration
+from ..serialization import (
+    serialize_optional,
+    build_parameters,
+    to_aws_int,
+    to_aws_bool,
+)
 
 if TYPE_CHECKING:
     from typing import Self
@@ -40,6 +47,7 @@ class GetParticipantInput(FlowBlock):
         - Voice channel only
         - Not supported in whisper flows or hold flows
     """
+
     # Prompt parameters (mutually exclusive)
     text: Optional[str] = None
     prompt_id: Optional[str] = None
@@ -63,19 +71,18 @@ class GetParticipantInput(FlowBlock):
         """Build parameters dict from typed attributes."""
         params = {}
 
-        # Prompt parameters
-        if self.text is not None:
-            params["Text"] = self.text
-        if self.prompt_id is not None:
-            params["PromptId"] = self.prompt_id
-        if self.ssml is not None:
-            params["SSML"] = self.ssml
+        # Prompt parameters (using serialize_optional)
+        params.update(serialize_optional("Text", self.text))
+        params.update(serialize_optional("PromptId", self.prompt_id))
+        params.update(serialize_optional("SSML", self.ssml))
+
+        # Media parameter
         if self.media is not None:
             params["Media"] = self.media.to_dict()
 
-        # Required parameters (convert to string format AWS expects)
-        params["InputTimeLimitSeconds"] = str(self.input_time_limit_seconds)
-        params["StoreInput"] = str(self.store_input)
+        # Required parameters (using conversion helpers)
+        params["InputTimeLimitSeconds"] = to_aws_int(self.input_time_limit_seconds)
+        params["StoreInput"] = to_aws_bool(self.store_input)
 
         # Optional parameters
         if self.input_validation is not None:
@@ -87,21 +94,22 @@ class GetParticipantInput(FlowBlock):
 
         self.parameters = params
 
-    def when(self, value: str, next_block: FlowBlock, operator: str = "Equals") -> 'Self':
+    def when(
+        self, value: str, next_block: FlowBlock, operator: str = "Equals"
+    ) -> "Self":
         """Add a condition: when input matches value, go to next_block."""
         if "Conditions" not in self.transitions:
             self.transitions["Conditions"] = []
 
-        self.transitions["Conditions"].append({
-            "NextAction": next_block.identifier,
-            "Condition": {
-                "Operator": operator,
-                "Operands": [value]
+        self.transitions["Conditions"].append(
+            {
+                "NextAction": next_block.identifier,
+                "Condition": {"Operator": operator, "Operands": [value]},
             }
-        })
+        )
         return self
 
-    def otherwise(self, next_block: FlowBlock) -> 'Self':
+    def otherwise(self, next_block: FlowBlock) -> "Self":
         """Set the default action when no conditions match."""
         self.transitions["NextAction"] = next_block.identifier
         return self
@@ -109,7 +117,7 @@ class GetParticipantInput(FlowBlock):
     def __repr__(self) -> str:
         """Return readable representation."""
         if self.text:
-            text_preview = self.text[:40] + '...' if len(self.text) > 40 else self.text
+            text_preview = self.text[:40] + "..." if len(self.text) > 40 else self.text
             return f"GetParticipantInput(text='{text_preview}', timeout={self.input_time_limit_seconds})"
         elif self.prompt_id:
             return f"GetParticipantInput(prompt_id='{self.prompt_id}', timeout={self.input_time_limit_seconds})"
@@ -120,7 +128,7 @@ class GetParticipantInput(FlowBlock):
         return super().to_dict()
 
     @classmethod
-    def from_dict(cls, data: dict) -> 'GetParticipantInput':
+    def from_dict(cls, data: dict) -> "GetParticipantInput":
         params = data.get("Parameters", {})
 
         # Parse nested objects
@@ -135,7 +143,9 @@ class GetParticipantInput(FlowBlock):
 
         # Parse store_input as bool
         store_str = params.get("StoreInput", "False")
-        store_bool = store_str == "True" if isinstance(store_str, str) else bool(store_str)
+        store_bool = (
+            store_str == "True" if isinstance(store_str, str) else bool(store_str)
+        )
 
         return cls(
             identifier=data.get("Identifier", str(uuid.uuid4())),
@@ -145,9 +155,21 @@ class GetParticipantInput(FlowBlock):
             media=Media.from_dict(media_data) if media_data else None,
             input_time_limit_seconds=timeout,
             store_input=store_bool,
-            input_validation=InputValidation.from_dict(input_validation_data) if input_validation_data else None,
-            input_encryption=InputEncryption.from_dict(input_encryption_data) if input_encryption_data else None,
-            dtmf_configuration=DTMFConfiguration.from_dict(dtmf_config_data) if dtmf_config_data else None,
+            input_validation=(
+                InputValidation.from_dict(input_validation_data)
+                if input_validation_data
+                else None
+            ),
+            input_encryption=(
+                InputEncryption.from_dict(input_encryption_data)
+                if input_encryption_data
+                else None
+            ),
+            dtmf_configuration=(
+                DTMFConfiguration.from_dict(dtmf_config_data)
+                if dtmf_config_data
+                else None
+            ),
             parameters=params,
-            transitions=data.get("Transitions", {})
+            transitions=data.get("Transitions", {}),
         )

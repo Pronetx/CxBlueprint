@@ -2,6 +2,7 @@
 Contact Actions - blocks that manipulate contact data.
 https://docs.aws.amazon.com/connect/latest/APIReference/contact-actions.html
 """
+
 from .create_task import CreateTask
 from .transfer_contact_to_queue import TransferContactToQueue
 from .update_contact_attributes import UpdateContactAttributes
