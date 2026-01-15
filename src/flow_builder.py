@@ -1,16 +1,17 @@
 """
-Contact Flow Builder - Programmatic flow generation
+Flow - Unified flow builder and decompiler
 """
 
 from pathlib import Path
 import json
-from typing import List, Optional, Dict, Set, Tuple, TypeVar
+from typing import List, Optional, Dict, Set, Tuple, TypeVar, Type
 import uuid
 from canvas_layout import CanvasLayoutEngine
 from flow_analyzer import FlowAnalyzer, FlowValidationError
 from blocks.base import FlowBlock
 from blocks.participant_actions import (
     MessageParticipant,
+    MessageParticipantIteratively,
     DisconnectParticipant,
     GetParticipantInput,
     ConnectParticipantWithLexBot,
@@ -20,16 +21,63 @@ from blocks.flow_control_actions import (
     TransferToFlow,
     CheckHoursOfOperation,
     EndFlowExecution,
+    Compare,
+    Wait,
+    DistributeByPercentage,
+    CheckMetricData,
 )
-from blocks.interactions import InvokeLambdaFunction
-from blocks.contact_actions import UpdateContactAttributes
+from blocks.interactions import (
+    InvokeLambdaFunction,
+    CreateCallbackContact,
+)
+from blocks.contact_actions import (
+    UpdateContactAttributes,
+    UpdateContactTargetQueue,
+    TransferContactToQueue,
+    UpdateContactRecordingBehavior,
+    UpdateContactCallbackNumber,
+    UpdateContactEventHooks,
+    UpdateContactRoutingBehavior,
+    CreateTask,
+)
 from blocks.types import LexV2Bot, LexBot, ViewResource, Media
 
 T = TypeVar("T", bound=FlowBlock)  # Generic FlowBlock type for method returns
 
+# Map AWS block types to Python classes (for decompilation)
+BLOCK_TYPE_MAP: Dict[str, Type[FlowBlock]] = {
+    # Participant Actions
+    "DisconnectParticipant": DisconnectParticipant,
+    "MessageParticipant": MessageParticipant,
+    "MessageParticipantIteratively": MessageParticipantIteratively,
+    "GetParticipantInput": GetParticipantInput,
+    "ConnectParticipantWithLexBot": ConnectParticipantWithLexBot,
+    "ShowView": ShowView,
+    # Flow Control Actions
+    "EndFlowExecution": EndFlowExecution,
+    "TransferToFlow": TransferToFlow,
+    "Compare": Compare,
+    "CheckHoursOfOperation": CheckHoursOfOperation,
+    "Wait": Wait,
+    "DistributeByPercentage": DistributeByPercentage,
+    "CheckMetricData": CheckMetricData,
+    # Interactions
+    "InvokeLambdaFunction": InvokeLambdaFunction,
+    "CreateCallbackContact": CreateCallbackContact,
+    # Contact Actions
+    "UpdateContactRecordingBehavior": UpdateContactRecordingBehavior,
+    "UpdateContactAttributes": UpdateContactAttributes,
+    "UpdateContactTargetQueue": UpdateContactTargetQueue,
+    "TransferContactToQueue": TransferContactToQueue,
+    "UpdateContactCallbackNumber": UpdateContactCallbackNumber,
+    "UpdateContactEventHooks": UpdateContactEventHooks,
+    "UpdateContactRoutingBehavior": UpdateContactRoutingBehavior,
+    "CreateTask": CreateTask,
+}
 
-class ContactFlowBuilder:
-    """Build contact flows programmatically."""
+
+class Flow:
+    """Unified flow builder and decompiler for AWS Connect flows."""
 
     def __init__(self, name: str, debug: bool = False):
         self.name = name
@@ -43,6 +91,81 @@ class ContactFlowBuilder:
 
         if debug:
             print(f"Building flow: {name}")
+
+    @classmethod
+    def build(cls, name: str, description: str = "", debug: bool = False) -> "Flow":
+        """
+        Create a new flow builder.
+
+        Args:
+            name: The name of the contact flow
+            description: Optional description (currently unused but reserved)
+            debug: Enable debug output
+
+        Returns:
+            Flow instance for building
+
+        Example:
+            >>> flow = Flow.build("Customer Service Flow")
+            >>> flow.play_prompt("Hello!")
+            >>> json_output = flow.compile_to_json()
+        """
+        return cls(name, debug)
+
+    @classmethod
+    def decompile(cls, filepath: str, debug: bool = False) -> "Flow":
+        """
+        Decompile an AWS Connect flow JSON file.
+
+        Args:
+            filepath: Path to the JSON file
+            debug: Enable debug output
+
+        Returns:
+            Flow instance with loaded blocks
+
+        Example:
+            >>> flow = Flow.decompile("existing_flow.json")
+            >>> # Modify flow...
+            >>> updated_json = flow.compile_to_json()
+        """
+        # Load JSON
+        with open(filepath, 'r') as f:
+            flow_json = json.load(f)
+
+        # Create Flow instance
+        flow_name = flow_json.get("Name", "Decompiled Flow")
+        instance = cls(flow_name, debug)
+
+        # Track unknown block types
+        unknown_types = set()
+
+        # Decompile blocks using BLOCK_TYPE_MAP
+        actions = flow_json.get("Actions", [])
+        for action_data in actions:
+            block_type = action_data.get("Type")
+
+            if block_type not in BLOCK_TYPE_MAP:
+                unknown_types.add(block_type)
+                if debug:
+                    print(f"[WARNING] Unknown block type: {block_type}")
+                    print(f"   Block data: {json.dumps(action_data, indent=2)}\n")
+
+            block_class = BLOCK_TYPE_MAP.get(block_type, FlowBlock)
+            block = block_class.from_dict(action_data)
+            instance.blocks.append(block)
+
+        if unknown_types and debug:
+            print(f"[SUMMARY] Found {len(unknown_types)} unknown block type(s): {', '.join(sorted(unknown_types))}\n")
+
+        # Set start action
+        if flow_json.get("StartAction"):
+            instance._start_action = flow_json["StartAction"]
+
+        if debug:
+            print(f"Decompiled flow: {flow_name} ({len(instance.blocks)} blocks)")
+
+        return instance
 
     def _track_block_type(self, block: FlowBlock):
         """Track block type statistics."""

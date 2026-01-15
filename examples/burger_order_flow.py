@@ -5,13 +5,13 @@ Example: Complex burger ordering flow with multiple menus
 import sys
 
 sys.path.insert(0, "../src")
-from flow_builder import ContactFlowBuilder
+from flow_builder import Flow
 
 
 def create_burger_order_flow():
     """Create a comprehensive burger ordering flow."""
 
-    flow = ContactFlowBuilder("Burger Order Flow", debug=True)
+    flow = Flow.build("Burger Order Flow", debug=True)
 
     # Welcome
     welcome = flow.play_prompt("Welcome to Burger Palace! Thank you for calling.")

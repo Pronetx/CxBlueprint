@@ -7,10 +7,10 @@ The flow builder enables creating Amazon Connect contact flows programmatically 
 ## Quick Start
 
 ```python
-from flow_builder import ContactFlowBuilder
+from flow_builder import Flow
 
 # Create a new flow
-flow = ContactFlowBuilder("My Flow")
+flow = Flow.build("My Flow")
 
 # Add blocks
 welcome = flow.play_prompt("Hello, welcome to our service")
@@ -23,10 +23,10 @@ welcome.then(disconnect).on_error("NoMatchingError", disconnect)
 flow.compile_to_file("output/my_flow.json")
 ```
 
-## ContactFlowBuilder API
+## Flow API
 
 ### Constructor
-- `ContactFlowBuilder(name: str)` - Create a new flow builder
+- `Flow(name: str)` - Create a new flow builder
 
 ### Block Creation Methods
 - `play_prompt(text: str) -> MessageParticipant` - Play a text-to-speech prompt
@@ -87,7 +87,7 @@ menu.when("1", option1) \
 
 ### Simple Flow
 ```python
-flow = ContactFlowBuilder("Simple Flow")
+flow = Flow.build("Simple Flow")
 
 prompt = flow.play_prompt("Created from code")
 disconnect = flow.disconnect()
@@ -99,7 +99,7 @@ flow.compile_to_file("output/simple.json")
 
 ### Menu Flow with Clean Canvas Wiring
 ```python
-flow = ContactFlowBuilder("Menu Flow")
+flow = Flow.build("Menu Flow")
 
 welcome = flow.play_prompt("Thank you for calling")
 menu = flow.get_input("Please press 1 or 2", timeout=8)

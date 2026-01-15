@@ -5,14 +5,14 @@ Example: Creating a simple flow from code
 import sys
 
 sys.path.insert(0, "../src")
-from flow_builder import ContactFlowBuilder
+from flow_builder import Flow
 
 
 def create_simple_flow():
     """Create a simple flow that says 'Created from code' and disconnects."""
 
     # Create a new flow
-    flow = ContactFlowBuilder("Simple Code Generated Flow")
+    flow = Flow.build("Simple Code Generated Flow")
 
     # Add blocks
     welcome = flow.play_prompt("Created from code")

@@ -5,7 +5,7 @@ import os
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from flow_builder import ContactFlowBuilder
+from flow_builder import Flow
 
 
 def create_loan_center_main_menu():
@@ -18,7 +18,7 @@ def create_loan_center_main_menu():
     - Retry logic for failed inputs
     """
 
-    flow = ContactFlowBuilder("Loan Center Main Menu", debug=True)
+    flow = Flow.build("Loan Center Main Menu", debug=True)
 
     # Welcome message and set initial attributes
     welcome = flow.play_prompt("Thank you for calling federal student aid")

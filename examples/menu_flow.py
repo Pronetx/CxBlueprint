@@ -5,14 +5,14 @@ Example: Creating a menu flow with input options
 import sys
 
 sys.path.insert(0, "../src")
-from flow_builder import ContactFlowBuilder
+from flow_builder import Flow
 
 
 def create_menu_flow():
     """Create a flow with a menu that asks caller to press 1 or 2."""
 
     # Create a new flow
-    flow = ContactFlowBuilder("Menu Selection Flow")
+    flow = Flow.build("Menu Selection Flow")
 
     # Add blocks
     welcome = flow.play_prompt("Thank you for calling")

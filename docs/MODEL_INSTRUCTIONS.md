@@ -54,9 +54,9 @@ menu.when("1", sales)
 CxBlueprint generates Amazon Connect contact flow JSON from Python code.
 
 ```python
-from flow_builder import ContactFlowBuilder
+from flow_builder import Flow
 
-flow = ContactFlowBuilder("My Flow Name", debug=True)
+flow = Flow.build("My Flow Name", debug=True)
 # ... create and connect blocks ...
 flow.compile_to_file("output/my_flow.json")
 ```
@@ -161,9 +161,9 @@ menu.when("1", sales) \
 **Requirement:** "Create an IVR where callers press 1 for account balance, 2 for payments, or 3 for an agent. Handle invalid input and timeout."
 
 ```python
-from flow_builder import ContactFlowBuilder
+from flow_builder import Flow
 
-flow = ContactFlowBuilder("Account Services IVR", debug=True)
+flow = Flow.build("Account Services IVR", debug=True)
 
 # Create all blocks first
 welcome = flow.play_prompt("Thank you for calling Account Services.")
@@ -207,7 +207,7 @@ flow.compile_to_file("output/account_services.json")
 When creating nested menus, each `get_input()` contains its own prompt:
 
 ```python
-flow = ContactFlowBuilder("Department Menu")
+flow = Flow.build("Department Menu")
 
 # Main menu - prompt is IN the get_input
 main = flow.get_input("Press 1 for Sales, 2 for Support", timeout=10)
@@ -263,7 +263,7 @@ flow.compile_to_file("output/department_menu.json")
 To allow retries on invalid input:
 
 ```python
-flow = ContactFlowBuilder("Menu with Retry")
+flow = Flow.build("Menu with Retry")
 
 # First attempt
 main_menu = flow.get_input("Press 1 for Sales, 2 for Support", timeout=10)
@@ -310,7 +310,7 @@ flow.compile_to_file("output/menu_with_retry.json")
 ## Pattern: Press 9 to Repeat Menu
 
 ```python
-flow = ContactFlowBuilder("Repeating Menu")
+flow = Flow.build("Repeating Menu")
 
 # Menu introduction (only played once at start)
 intro = flow.play_prompt("Welcome to our service.")
@@ -345,7 +345,7 @@ flow.compile_to_file("output/repeating_menu.json")
 ## Pattern: Business Hours Check
 
 ```python
-flow = ContactFlowBuilder("Hours Check")
+flow = Flow.build("Hours Check")
 
 hours = flow.check_hours(hours_of_operation_id="${HOURS_OF_OPERATION_ID}")
 
@@ -379,7 +379,7 @@ flow.compile_to_file("output/hours_check.json")
 ## Pattern: Lambda Integration
 
 ```python
-flow = ContactFlowBuilder("Account Lookup")
+flow = Flow.build("Account Lookup")
 
 # Check account (Lambda returns customer type as attribute)
 lookup = flow.invoke_lambda(function_arn="${ACCOUNT_LAMBDA_ARN}")
@@ -409,7 +409,7 @@ flow.compile_to_file("output/account_lookup.json")
 ## Pattern: Store and Use Attributes
 
 ```python
-flow = ContactFlowBuilder("Attribute Example")
+flow = Flow.build("Attribute Example")
 
 menu = flow.get_input("Press 1 for Sales, 2 for Support", timeout=10)
 
@@ -508,7 +508,7 @@ When converting user requirements to code:
 
 ```python
 # Initialize
-flow = ContactFlowBuilder("Name", debug=True)
+flow = Flow.build("Name", debug=True)
 
 # Basic blocks
 msg = flow.play_prompt("text")           # Announcement only

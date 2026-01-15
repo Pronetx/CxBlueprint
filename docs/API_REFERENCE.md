@@ -1,8 +1,8 @@
-# ContactFlowBuilder API Reference
+# Flow API Reference
 
 ## Overview
 
-The `ContactFlowBuilder` provides three ways to add blocks to your flow:
+The `Flow` provides three ways to add blocks to your flow:
 
 1. **Fluent API** - Simple methods for common blocks
 2. **Convenience Methods** - Helper methods for complex blocks
@@ -243,13 +243,13 @@ content = templatefile("flow.json", {
 ## Example: Complete Flow
 
 ```python
-from flow_builder import ContactFlowBuilder
+from flow_builder import Flow
 from blocks.types import LexV2Bot
 from blocks.contact_actions import CreateTask
 import uuid
 
 # Create flow
-flow = ContactFlowBuilder("Customer Support")
+flow = Flow.build("Customer Support")
 
 # Welcome
 welcome = flow.play_prompt("Welcome to customer support")

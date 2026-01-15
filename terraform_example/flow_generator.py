@@ -1,10 +1,10 @@
 """
-Generate the counter flow - Simple example using ContactFlowBuilder as a library
+Generate the counter flow - Simple example using Flow as a library
 """
 import sys
 sys.path.insert(0, '../src')
 
-from flow_builder import ContactFlowBuilder
+from flow_builder import Flow
 import json
 from pathlib import Path
 
@@ -13,7 +13,7 @@ def generate_counter_flow():
     """Generate a flow that invokes a counter Lambda and speaks the result."""
     
     # Create the flow builder
-    flow = ContactFlowBuilder("Counter Flow")
+    flow = Flow.build("Counter Flow")
     
     # Step 1: Welcome message (entry point)
     welcome = flow.play_prompt("Thank you for calling!")
@@ -21,7 +21,7 @@ def generate_counter_flow():
     # Step 2: Invoke Lambda (template placeholder - resolved by Terraform)
     invoke_counter = flow.invoke_lambda(
         function_arn="${COUNTER_LAMBDA_ARN}",
-        timeout_seconds="8"
+        timeout_seconds=8
     )
     welcome.then(invoke_counter)
     

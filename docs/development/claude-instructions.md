@@ -6,16 +6,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 CxBlueprint is a Python DSL for creating and editing Amazon Connect contact flows. It provides two core capabilities:
 
-1. **Decompiler**: Parse AWS Connect JSON into Python block objects
-2. **Flow Builder**: Programmatically create contact flows with a fluent API
+1. **Flow Builder**: Programmatically create contact flows with a fluent API
+2. **Flow Decompiler**: Parse AWS Connect JSON into Flow objects for modification
+
+Both capabilities are unified in the `Flow` class:
+- `Flow.build(name)` - Create new flows
+- `Flow.decompile(filepath)` - Load and modify existing flows
 
 ## Commands
-
-### Run the decompiler (batch process all flows)
-```bash
-cd src && python main.py
-```
-This reads JSON files from `input/`, decompiles them to Python objects, recompiles them, and writes to `output/` with `Cx_` prefix.
 
 ### Run a flow builder example
 ```bash
@@ -38,11 +36,9 @@ Requires AWS CLI configured with profile `cxforge` and access to the Connect ins
 
 ### Core Components
 
-- **`src/flow_builder.py`** - `ContactFlowBuilder` class for programmatic flow creation. Auto-generates UUIDs, sets entry points, calculates block positions using BFS layout algorithm.
+- **`src/flow_builder.py`** - `Flow` class for programmatic flow creation and decompilation. Auto-generates UUIDs, sets entry points, calculates block positions using BFS layout algorithm. Includes `Flow.build()` for creating flows and `Flow.decompile()` for loading existing flows.
 
-- **`src/decompiler.py`** - `FlowDecompiler` class that maps AWS block types to Python classes and parses JSON into `ContactFlow` objects.
-
-- **`src/contact_flow.py`** - `ContactFlow` container that holds actions and serializes back to AWS JSON.
+- **`src/contact_flow.py`** - `ContactFlow` container that holds actions and serializes back to AWS JSON (used internally by decompilation).
 
 - **`src/blocks/base.py`** - `FlowBlock` dataclass base with fluent API methods (`then()`, `on_error()`) and serialization.
 
@@ -52,7 +48,7 @@ Requires AWS CLI configured with profile `cxforge` and access to the Connect ins
 
 Blocks are created via factory methods, then wired with chained calls:
 ```python
-flow = ContactFlowBuilder("My Flow")
+flow = Flow.build("My Flow")
 welcome = flow.play_prompt("Hello")
 menu = flow.get_input("Press 1 or 2")
 disconnect = flow.disconnect()
@@ -70,14 +66,14 @@ menu.when("1", option1).when("2", option2).otherwise(disconnect)
 
 ### Layout Algorithm
 
-`ContactFlowBuilder._calculate_positions_bfs()` uses breadth-first search to position blocks level-by-level for the AWS Connect visual canvas. Collision detection prevents overlapping blocks.
+`Flow._calculate_positions_bfs()` uses breadth-first search to position blocks level-by-level for the AWS Connect visual canvas. Collision detection prevents overlapping blocks.
 
 ## Data Flow
 
 ```
-JSON files (input/) → FlowDecompiler → ContactFlow → FlowBlock objects
+JSON files → Flow.decompile() → Flow instance with FlowBlock objects
                                                     ↓
-ContactFlowBuilder → FlowBlock objects → compile() → JSON (output/)
+Flow → FlowBlock objects → compile() → JSON (output/)
 ```
 
 ## Adding New Block Types
@@ -86,5 +82,5 @@ ContactFlowBuilder → FlowBlock objects → compile() → JSON (output/)
 2. Set `type` class attribute to match AWS block type name
 3. Implement `from_dict()` if custom parameter parsing needed
 4. Add to `src/blocks/__init__.py` exports
-5. Add to `FlowDecompiler.BLOCK_TYPE_MAP` in `src/decompiler.py`
-6. Optionally add factory method to `ContactFlowBuilder`
+5. Add to `BLOCK_TYPE_MAP` in `src/flow_builder.py`
+6. Optionally add factory method to `Flow`

@@ -2,9 +2,9 @@ import sys
 import os
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "src"))
-from flow_builder import ContactFlowBuilder
+from flow_builder import Flow
 
-flow = ContactFlowBuilder("Loan Center Main Menu", debug=True)
+flow = Flow.build("Loan Center Main Menu", debug=True)
 
 # Welcome message
 welcome = flow.play_prompt("Thank you for calling federal student aid")

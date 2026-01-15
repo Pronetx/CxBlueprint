@@ -11,10 +11,10 @@ import sys
 
 sys.path.insert(0, "../src")
 
-from flow_builder import ContactFlowBuilder
+from flow_builder import Flow
 
 # Create flow with debug
-flow = ContactFlowBuilder("Student Loan IVR", debug=True)
+flow = Flow.build("Student Loan IVR", debug=True)
 
 # Entry
 welcome = flow.play_prompt(

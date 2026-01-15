@@ -9,9 +9,9 @@ Generate Amazon Connect flows from Python code instead of the visual editor.
 ### Simple Example
 
 ```python
-from flow_builder import ContactFlowBuilder
+from flow_builder import Flow
 
-flow = ContactFlowBuilder("Burger Order")
+flow = Flow.build("Burger Order")
 
 welcome = flow.play_prompt("Welcome to Burger Palace!")
 menu = flow.get_input("Press 1 for Classic Burger or 2 for Veggie Burger", timeout=10)
@@ -51,9 +51,9 @@ flow.compile_to_file("burger_order.json")
 Use placeholders for dynamic resource ARNs:
 
 ```python
-from flow_builder import ContactFlowBuilder
+from flow_builder import Flow
 
-flow = ContactFlowBuilder("Counter Flow")
+flow = Flow.build("Counter Flow")
 
 welcome = flow.play_prompt("Thank you for calling!")
 invoke_counter = flow.invoke_lambda(
