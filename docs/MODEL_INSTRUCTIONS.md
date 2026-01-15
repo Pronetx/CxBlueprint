@@ -61,6 +61,15 @@ flow = Flow.build("My Flow Name", debug=True)
 flow.compile_to_file("output/my_flow.json")
 ```
 
+### Debug Mode
+Setting `debug=True` prints helpful information during flow construction:
+- Each block added to the flow
+- Validation results (orphaned blocks, missing error handlers)
+- Canvas layout dimensions
+- Compilation summary
+
+Use debug mode when developing flows to catch issues early.
+
 ---
 
 ## Block Types and When to Use Them
@@ -70,8 +79,10 @@ flow.compile_to_file("output/my_flow.json")
 | Method | Use When | Example |
 |--------|----------|---------|
 | `flow.play_prompt(text)` | Play a message with NO user response expected | Announcements, confirmations, goodbye messages |
-| `flow.get_input(text, timeout)` | Collect DTMF keypress from caller | Menus, PIN entry, confirmations |
+| `flow.get_input(text, timeout=5)` | Collect DTMF keypress from caller | Menus, PIN entry, confirmations |
 | `flow.disconnect()` | End the call | Final block in most paths |
+
+**Note on timeout**: Default is 5 seconds. For menus, use 8-10 seconds to give users time to listen and respond.
 
 ### Integration Blocks
 
@@ -146,6 +157,61 @@ menu.when("1", sales) \
 
 ---
 
+## Block Reuse vs Creating New Blocks
+
+### When to Reuse Blocks
+You can reuse the same block in multiple paths:
+
+```python
+disconnect = flow.disconnect()
+
+# Reuse same disconnect block
+sales.then(disconnect)
+support.then(disconnect)
+error.then(disconnect)
+```
+
+**Advantages**: Fewer total blocks, simpler flow structure
+
+### When to Create New Blocks
+Sometimes you need separate instances of the same block type:
+
+```python
+disconnect_success = flow.disconnect()
+disconnect_error = flow.disconnect()
+
+# Different endpoints for success vs error
+order_complete.then(disconnect_success)
+invalid_input.then(disconnect_error)
+```
+
+**When to use separate blocks**:
+- When you need different metadata/tracking for different paths
+- When AWS Connect reporting needs to distinguish between different exit points
+- When the flow logic makes it clearer (e.g., "error disconnect" vs "success disconnect")
+
+**Rule of thumb**: Reuse blocks when they're truly identical. Create new blocks when the semantic meaning differs, even if the block type is the same.
+
+---
+
+## Error Handlers on play_prompt Blocks
+
+Most `play_prompt()` blocks don't need error handlers, but you CAN add them:
+
+```python
+welcome = flow.play_prompt("Welcome!")
+welcome.on_error("NoMatchingError", disconnect)
+```
+
+**When to add error handlers to play_prompt**:
+- For consistency in complex flows (easier to reason about)
+- When the prompt contains dynamic content that might fail
+- As a defensive practice (catches unexpected AWS errors)
+
+**Common practice**: Add `.on_error("NoMatchingError", disconnect)` to all blocks in production flows for robustness.
+
+---
+
 ## Common Error Types
 
 | Error Type | Trigger |
@@ -199,6 +265,153 @@ error_msg.then(disconnect)
 # Generate the flow JSON
 flow.compile_to_file("output/account_services.json")
 ```
+
+---
+
+## Real-World Complex Flow Example
+
+**Requirement:** "Create a burger ordering system where customers can place orders (choosing burger type and size), track existing orders, or speak with an agent."
+
+**Analysis:**
+1. **Entry point**: Welcome message
+2. **Main menu**: 3 options (order, track, agent)
+3. **Order path**: Choose burger type → Choose size → Confirmation
+4. **Track path**: Status message → Thank you
+5. **Agent path**: Transfer message → Thank you
+6. **All paths end at disconnect**
+
+**Key decisions:**
+- Create separate disconnect blocks for order vs track vs agent (for reporting clarity)
+- Add error handlers to all blocks (production robustness)
+- Use intermediate confirmation messages (better UX)
+
+```python
+from flow_builder import Flow
+
+flow = Flow.build("Burger Order Flow", debug=True)
+
+# Entry
+welcome = flow.play_prompt("Welcome to Burger Palace! Thank you for calling.")
+
+# Main menu
+main_menu = flow.get_input(
+    "Press 1 to place an order, 2 to track your order, or 3 to speak with an agent",
+    timeout=10
+)
+
+# Order path blocks
+order_welcome = flow.play_prompt("Great! Let's get your order started.")
+burger_menu = flow.get_input(
+    "Press 1 for Classic Burger, 2 for Deluxe Burger, or 3 for Veggie Burger",
+    timeout=10
+)
+
+# Burger size menus (separate for each type)
+classic_size = flow.get_input(
+    "You selected Classic Burger. Press 1 for Small, 2 for Medium, or 3 for Large",
+    timeout=10
+)
+deluxe_size = flow.get_input(
+    "You selected Deluxe Burger. Press 1 for Small, 2 for Medium, or 3 for Large",
+    timeout=10
+)
+veggie_size = flow.get_input(
+    "You selected Veggie Burger. Press 1 for Small, 2 for Medium, or 3 for Large",
+    timeout=10
+)
+
+# Confirmations
+classic_confirm = flow.play_prompt("Perfect! Your Classic Burger has been added.")
+deluxe_confirm = flow.play_prompt("Excellent! Your Deluxe Burger has been added.")
+veggie_confirm = flow.play_prompt("Great! Your Veggie Burger has been added.")
+order_thanks = flow.play_prompt("Thank you for your order! You will receive a confirmation text.")
+
+# Track path
+track_msg = flow.play_prompt("Please hold while we look up your order status.")
+track_result = flow.play_prompt("Your order is being prepared and will be ready in 15 minutes.")
+track_thanks = flow.play_prompt("Thank you for calling Burger Palace!")
+
+# Agent path
+transfer_msg = flow.play_prompt("Please hold while we connect you to an agent.")
+agent_thanks = flow.play_prompt("Thank you for calling. Goodbye.")
+
+# Separate disconnects for tracking
+disconnect_order = flow.disconnect()
+disconnect_track = flow.disconnect()
+disconnect_agent = flow.disconnect()
+disconnect_error = flow.disconnect()
+
+# Wire main menu
+welcome.then(main_menu)
+
+main_menu.when("1", order_welcome) \
+    .when("2", track_msg) \
+    .when("3", transfer_msg) \
+    .otherwise(disconnect_error) \
+    .on_error("InputTimeLimitExceeded", disconnect_error) \
+    .on_error("NoMatchingCondition", disconnect_error) \
+    .on_error("NoMatchingError", disconnect_error)
+
+# Order flow
+order_welcome.then(burger_menu)
+
+burger_menu.when("1", classic_size) \
+    .when("2", deluxe_size) \
+    .when("3", veggie_size) \
+    .otherwise(disconnect_error) \
+    .on_error("InputTimeLimitExceeded", disconnect_error) \
+    .on_error("NoMatchingCondition", disconnect_error) \
+    .on_error("NoMatchingError", disconnect_error)
+
+# Wire each burger type's size selection
+# Classic: all three sizes go to same confirmation
+classic_size.when("1", classic_confirm) \
+    .when("2", classic_confirm) \
+    .when("3", classic_confirm) \
+    .otherwise(disconnect_error) \
+    .on_error("InputTimeLimitExceeded", disconnect_error) \
+    .on_error("NoMatchingCondition", disconnect_error)
+
+# Deluxe: all three sizes go to same confirmation
+deluxe_size.when("1", deluxe_confirm) \
+    .when("2", deluxe_confirm) \
+    .when("3", deluxe_confirm) \
+    .otherwise(disconnect_error) \
+    .on_error("InputTimeLimitExceeded", disconnect_error) \
+    .on_error("NoMatchingCondition", disconnect_error)
+
+# Veggie: all three sizes go to same confirmation
+veggie_size.when("1", veggie_confirm) \
+    .when("2", veggie_confirm) \
+    .when("3", veggie_confirm) \
+    .otherwise(disconnect_error) \
+    .on_error("InputTimeLimitExceeded", disconnect_error) \
+    .on_error("NoMatchingCondition", disconnect_error)
+
+# All confirmations lead to thank you message
+classic_confirm.then(order_thanks)
+deluxe_confirm.then(order_thanks)
+veggie_confirm.then(order_thanks)
+order_thanks.then(disconnect_order)
+
+# Track path
+track_msg.then(track_result)
+track_result.then(track_thanks)
+track_thanks.then(disconnect_track)
+
+# Agent path
+transfer_msg.then(agent_thanks)
+agent_thanks.then(disconnect_agent)
+
+flow.compile_to_file("output/burger_order.json")
+```
+
+**Key patterns demonstrated:**
+- Multi-level nested menus (main → burger type → size)
+- Reusing confirmation blocks (all 3 sizes for classic go to same confirmation)
+- Separate disconnect blocks for different logical endpoints
+- Consistent error handling throughout
+- Clear variable naming for complex flows
 
 ---
 
@@ -480,24 +693,32 @@ hours_block = flow.check_hours(hours_of_operation_id="${HOURS_ID}")
 
 When converting user requirements to code:
 
-1. **Identify all blocks needed**
+1. **Analyze the requirement**
+   - What are the user's choices/options? (These become `get_input` blocks)
+   - What information is just announcements? (These become `play_prompt` blocks)
+   - What are the logical paths through the flow?
+   - Where does each path end?
+   - Are there nested menus (menu within menu)?
+   - Are there conditional branches (business hours, Lambda results)?
+
+2. **Identify all blocks needed**
    - Prompts (play_prompt for announcements only)
    - Menus (get_input with the menu text INSIDE)
    - Endpoints (disconnect, queue, flow transfer)
 
-2. **Identify flow structure**
+3. **Identify flow structure**
    - Entry point (first block)
    - Decision points (get_input, check_hours, lambda)
    - Branches (where does each option go?)
    - Exit points (where do paths end?)
 
-3. **Map connections**
+4. **Map connections**
    - Sequential: use `.then()`
    - Conditional: use `.when(value, block)`
    - Default: use `.otherwise(block)`
    - Errors: use `.on_error(type, block)`
 
-4. **Verify completeness**
+5. **Verify completeness**
    - Every get_input has all error handlers
    - Every path ends at disconnect or transfer
    - No orphan blocks
@@ -526,8 +747,16 @@ block.when("value", target)              # Conditional
 block.otherwise(fallback)                # Default
 block.on_error("Type", handler)          # Error
 
+# Validation (optional but recommended)
+flow.validate()                          # Checks for issues, raises error if found
+
 # Output
 flow.compile_to_file("path.json")
+
+# Block reuse
+disconnect = flow.disconnect()           # Create once
+block1.then(disconnect)                  # Reuse
+block2.then(disconnect)                  # Reuse again
 ```
 
 ---
@@ -548,7 +777,11 @@ flow.compile_to_file("path.json")
 
 1. **`get_input()` is self-prompting** - it plays its text then waits for input
 2. **`play_prompt()` is for announcements** - messages where no response is expected
-3. **Always handle errors** - timeout, no match, and catch-all
+3. **Always handle errors** - timeout, no match, and catch-all (especially on `get_input`)
 4. **Always end paths** - disconnect or transfer
 5. **Use strings for DTMF** - "1" not 1
 6. **Chain connections** - use method chaining for clean code
+7. **Reuse blocks when identical** - create separate blocks when semantically different
+8. **Use debug mode** - `Flow.build("Name", debug=True)` helps catch issues early
+9. **Set appropriate timeouts** - 8-10 seconds for menus, 5 seconds default is too short
+10. **Analyze before coding** - break down requirements into blocks and paths first
