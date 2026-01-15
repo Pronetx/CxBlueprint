@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Validate all flows in the output directory
+# Loops through an output directory to check all flows using validate_flow.sh
 # Usage: ./validate_all_flows.sh
 
 OUTPUT_DIR="./output"

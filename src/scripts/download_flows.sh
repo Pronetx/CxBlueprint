@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Download contact flows from Amazon Connect to input/ directory
+#  I use this script to download all flows from a connect instance to test my decompiler/compiler.
 # Usage: ./download_flows.sh
 
 INSTANCE_ID="e1587ab3-b10f-405d-b621-8f8a26669655"
