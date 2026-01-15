@@ -9,7 +9,7 @@ Demonstrates:
 """
 import sys
 
-sys.path.insert(0, "../src")
+sys.path.insert(0, "../../src")
 
 from flow_builder import Flow
 
@@ -198,7 +198,7 @@ print("  • Graceful fallback to representative")
 print("  • Return to main menu or end call options")
 print("\n")
 
-flow.compile_to_file("../src/output/student_loan_ivr.json")
+flow.compile_to_file("../../src/output/student_loan_ivr.json")
 
 print("Generated flow: Student Loan IVR")
 print(f"Total blocks: {len(flow.blocks)}")
@@ -211,7 +211,7 @@ print("=================")
 
 import json
 
-with open("../src/output/student_loan_ivr.json") as f:
+with open("../../src/output/student_loan_ivr.json") as f:
     data = json.load(f)
 
 metadata = data["Metadata"]["ActionMetadata"]

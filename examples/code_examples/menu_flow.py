@@ -4,7 +4,7 @@ Example: Creating a menu flow with input options
 
 import sys
 
-sys.path.insert(0, "../src")
+sys.path.insert(0, "../../src")
 from flow_builder import Flow
 
 
@@ -35,7 +35,7 @@ def create_menu_flow():
     option_apples.then(disconnect).on_error("NoMatchingError", disconnect)
 
     # Compile to file
-    flow.compile_to_file("../src/output/menu.json")
+    flow.compile_to_file("../../src/output/menu.json")
 
     return flow
 

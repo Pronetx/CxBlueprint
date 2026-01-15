@@ -4,7 +4,7 @@ Example: Creating a simple flow from code
 
 import sys
 
-sys.path.insert(0, "../src")
+sys.path.insert(0, "../../src")
 from flow_builder import Flow
 
 
@@ -22,7 +22,7 @@ def create_simple_flow():
     welcome.then(disconnect).on_error("NoMatchingError", disconnect)
 
     # Compile to file
-    flow.compile_to_file("../src/output/simple.json")
+    flow.compile_to_file("../../src/output/simple.json")
 
     return flow
 

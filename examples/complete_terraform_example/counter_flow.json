@@ -1,0 +1,192 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "c3daf167-a7b2-4d31-a167-313780a302f2",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "snapToGrid": false,
+    "ActionMetadata": {
+      "c3daf167-a7b2-4d31-a167-313780a302f2": {
+        "position": {
+          "x": 150,
+          "y": 50
+        }
+      },
+      "874a7e50-fcbd-4693-a16a-188943bf0a82": {
+        "position": {
+          "x": 430,
+          "y": 50
+        }
+      },
+      "cf39b69f-5c69-46b1-acbc-c35f366eb994": {
+        "position": {
+          "x": 710,
+          "y": 50
+        }
+      },
+      "d5f968b6-b782-429a-ace1-009a7f6d6191": {
+        "position": {
+          "x": 710,
+          "y": 380
+        }
+      },
+      "5eb96eee-8f9a-4966-a86e-dd62c6ef0d31": {
+        "position": {
+          "x": 990,
+          "y": 50
+        }
+      },
+      "bf28cdce-ad1c-4017-b89f-70ffa3b3d395": {
+        "position": {
+          "x": 1270,
+          "y": 50
+        }
+      },
+      "6cb5d4f9-ada2-4375-bbaa-e5cab20d25a2": {
+        "position": {
+          "x": 1270,
+          "y": 380
+        }
+      },
+      "26adf48b-68cd-4dbf-9a2b-e992e6bb7ae5": {
+        "position": {
+          "x": 1270,
+          "y": 560
+        }
+      }
+    },
+    "Annotations": []
+  },
+  "Actions": [
+    {
+      "Identifier": "c3daf167-a7b2-4d31-a167-313780a302f2",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Thank you for calling!"
+      },
+      "Transitions": {
+        "NextAction": "874a7e50-fcbd-4693-a16a-188943bf0a82"
+      }
+    },
+    {
+      "Identifier": "874a7e50-fcbd-4693-a16a-188943bf0a82",
+      "Type": "InvokeLambdaFunction",
+      "Parameters": {
+        "LambdaFunctionARN": "${COUNTER_LAMBDA_ARN}",
+        "InvocationTimeLimitSeconds": "8"
+      },
+      "Transitions": {
+        "NextAction": "cf39b69f-5c69-46b1-acbc-c35f366eb994",
+        "Errors": [
+          {
+            "NextAction": "d5f968b6-b782-429a-ace1-009a7f6d6191",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "cf39b69f-5c69-46b1-acbc-c35f366eb994",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "You are caller number $.External.count"
+      },
+      "Transitions": {
+        "NextAction": "5eb96eee-8f9a-4966-a86e-dd62c6ef0d31"
+      }
+    },
+    {
+      "Identifier": "5eb96eee-8f9a-4966-a86e-dd62c6ef0d31",
+      "Type": "GetParticipantInput",
+      "Parameters": {
+        "Text": "Please rate your experience. Press 1 for excellent, 2 for good, or 3 for poor",
+        "InputTimeLimitSeconds": "10",
+        "StoreInput": "False"
+      },
+      "Transitions": {
+        "Conditions": [
+          {
+            "NextAction": "bf28cdce-ad1c-4017-b89f-70ffa3b3d395",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "1"
+              ]
+            }
+          },
+          {
+            "NextAction": "6cb5d4f9-ada2-4375-bbaa-e5cab20d25a2",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "2"
+              ]
+            }
+          },
+          {
+            "NextAction": "26adf48b-68cd-4dbf-9a2b-e992e6bb7ae5",
+            "Condition": {
+              "Operator": "Equals",
+              "Operands": [
+                "3"
+              ]
+            }
+          }
+        ],
+        "NextAction": "d5f968b6-b782-429a-ace1-009a7f6d6191",
+        "Errors": [
+          {
+            "NextAction": "d5f968b6-b782-429a-ace1-009a7f6d6191",
+            "ErrorType": "InputTimeLimitExceeded"
+          },
+          {
+            "NextAction": "d5f968b6-b782-429a-ace1-009a7f6d6191",
+            "ErrorType": "NoMatchingCondition"
+          },
+          {
+            "NextAction": "d5f968b6-b782-429a-ace1-009a7f6d6191",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Identifier": "bf28cdce-ad1c-4017-b89f-70ffa3b3d395",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Thank you for your excellent rating!"
+      },
+      "Transitions": {
+        "NextAction": "d5f968b6-b782-429a-ace1-009a7f6d6191"
+      }
+    },
+    {
+      "Identifier": "6cb5d4f9-ada2-4375-bbaa-e5cab20d25a2",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "Thank you for your feedback!"
+      },
+      "Transitions": {
+        "NextAction": "d5f968b6-b782-429a-ace1-009a7f6d6191"
+      }
+    },
+    {
+      "Identifier": "26adf48b-68cd-4dbf-9a2b-e992e6bb7ae5",
+      "Type": "MessageParticipant",
+      "Parameters": {
+        "Text": "We apologize. Your feedback helps us improve."
+      },
+      "Transitions": {
+        "NextAction": "d5f968b6-b782-429a-ace1-009a7f6d6191"
+      }
+    },
+    {
+      "Identifier": "d5f968b6-b782-429a-ace1-009a7f6d6191",
+      "Type": "DisconnectParticipant",
+      "Parameters": {},
+      "Transitions": {}
+    }
+  ]
+}

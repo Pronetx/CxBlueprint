@@ -4,7 +4,7 @@ Example: Complex burger ordering flow with multiple menus
 
 import sys
 
-sys.path.insert(0, "../src")
+sys.path.insert(0, "../../src")
 from flow_builder import Flow
 
 
@@ -158,7 +158,7 @@ def create_burger_order_flow():
     agent_thanks.then(disconnect_agent).on_error("NoMatchingError", disconnect_agent)
 
     # Compile
-    flow.compile_to_file("../src/output/burger.json")
+    flow.compile_to_file("../../src/output/burger.json")
 
     return flow
 
