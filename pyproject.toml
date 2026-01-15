@@ -7,14 +7,14 @@ dependencies = []
 readme = "readme.md"
 license = {text = "MIT"}
 authors = [
-    {name = "CxBlueprint Contributors"}
+    {name = "Nicholas Conn"}
 ]
 keywords = ["amazon-connect", "ivr", "contact-flow", "terraform", "cdk"]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/CxBlueprint"
-Documentation = "https://github.com/yourusername/CxBlueprint/tree/main/docs"
-Repository = "https://github.com/yourusername/CxBlueprint"
+Homepage = "https://github.com/Pronetx/CxBlueprint"
+Documentation = "https://github.com/Pronetx/CxBlueprint/tree/main/docs"
+Repository = "https://github.com/Pronetx/CxBlueprint"
 
 [tool.mypy]
 python_version = "3.11"
