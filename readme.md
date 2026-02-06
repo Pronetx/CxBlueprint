@@ -1,7 +1,10 @@
 # CxBlueprint
 
-Programmatic Amazon Connect contact flow generation using Python. Allows for Ai models to generate contact flows based on human languages **way** easier than writing JSON as majority of the time it will fail to generate a valid contact flow from scratch.
-### Simple Example
+Programmatic Amazon Connect contact flow generation using Python. Lets AI models and developers build contact flows from plain English instead of hand-writing JSON.
+
+**23 of 54 AWS Connect block types supported (43%)** — covers all common IVR, routing, A/B testing, and queue transfer patterns. Includes an [MCP server](#mcp-server) for AI-assisted flow generation with Claude Desktop, Cursor, and VS Code.
+
+## Simple Example
 
 ```python
 from cxblueprint import Flow
@@ -18,21 +21,12 @@ error_msg = flow.play_prompt("Invalid selection. Goodbye.")
 
 disconnect = flow.disconnect()
 
-# Chain menu options with error handling
 menu.when("1", classic) \
     .when("2", veggie) \
     .otherwise(error_msg) \
     .on_error("InputTimeLimitExceeded", error_msg) \
     .on_error("NoMatchingCondition", error_msg) \
     .on_error("NoMatchingError", error_msg)
-
-# Or without chaining:
-# menu.when("1", classic)
-# menu.when("2", veggie)
-# menu.otherwise(error_msg)
-# menu.on_error("InputTimeLimitExceeded", error_msg)
-# menu.on_error("NoMatchingCondition", error_msg)
-# menu.on_error("NoMatchingError", error_msg)
 
 classic.then(disconnect)
 veggie.then(disconnect)
@@ -75,13 +69,18 @@ Here's what the generated flows look like in the Amazon Connect console:
 
 ![Example Generated Flow 2](docs/example_generate_flow2.png)
 
-## MCP Server (AI Integration)
-
-CxBlueprint includes an MCP server that lets AI tools (Claude Desktop, Cursor, VS Code) build contact flows conversationally.
+## Installation
 
 ```bash
+pip install cxblueprint
+
+# With MCP server for AI integration
 pip install cxblueprint[mcp]
 ```
+
+## MCP Server
+
+CxBlueprint includes an MCP server that lets AI tools (Claude Desktop, Cursor, VS Code) build contact flows conversationally.
 
 Configure Claude Desktop (`~/Library/Application Support/Claude/claude_desktop_config.json`):
 
@@ -99,53 +98,34 @@ Then ask Claude: *"Build me an IVR with a welcome message and 3 menu options for
 
 The AI reads the bundled documentation automatically and uses the `compile_flow` tool to generate valid Amazon Connect JSON.
 
+## Block Coverage
+
+**23 / 54 block types implemented (43%)**
+
+| Category | Implemented | Total | Coverage |
+|----------|-------------|-------|----------|
+| [Participant Actions](src/cxblueprint/blocks/participant_actions/) | 6 | 6 | **100%** |
+| [Contact Actions](src/cxblueprint/blocks/contact_actions/) | 8 | 25 | 32% |
+| [Flow Control Actions](src/cxblueprint/blocks/flow_control_actions/) | 7 | 15 | 47% |
+| [Interactions](src/cxblueprint/blocks/interactions/) | 2 | 8 | 25% |
+
+See each category's README for the full per-block breakdown.
+
 ## Features
 
 - Fluent Python API for building flows
 - MCP server for AI-assisted flow generation
-- Naive block positioning for AWS Connect visual canvas
+- Canvas layout positioning for AWS Connect visual editor
 - Automatic UUID generation for blocks
-- Error/Conditional handling support
-- Integration with AWS Lambda and lexv2 bots
+- Conditional branching and error handling
+- AWS Lambda and Lex V2 bot integration
 - Template placeholder support for Terraform/IaC
-- Decompile existing flows to Python
-- Majority of Amazon Connect block types supported
-- Shell scripts to download, validate, and test flows against Connect
-
-
-## Possible Future Uses/Ideas:
-- Compliance Checking, check flow structures for best practices, encryption, etc.
-- Optimization Suggestions, analyze flows for efficiency improvements.
-- Output to diagram formats for other visualization tools.
-- Template library of common flow patterns.
-
-## Installation
-
-```bash
-pip install cxblueprint
-
-# With MCP server for AI integration
-pip install cxblueprint[mcp]
-```
-
-## Quick Start
-
-```bash
-# See Terraform example
-cd terraform_example
-python flow_generator.py
-
-# Deploy with Terraform
-cd terraform
-terraform init
-terraform apply
-```
+- Decompile existing flows back to Python
 
 ## Project Structure
 
 ```
 src/cxblueprint/
-  __init__.py           # Package exports
   flow_builder.py       # Main builder API
   flow_analyzer.py      # Flow validation
   mcp_server.py         # MCP server for AI integration
