@@ -94,26 +94,6 @@ class GetParticipantInput(FlowBlock):
 
         self.parameters = params
 
-    def when(
-        self, value: str, next_block: FlowBlock, operator: str = "Equals"
-    ) -> "Self":
-        """Add a condition: when input matches value, go to next_block."""
-        if "Conditions" not in self.transitions:
-            self.transitions["Conditions"] = []
-
-        self.transitions["Conditions"].append(
-            {
-                "NextAction": next_block.identifier,
-                "Condition": {"Operator": operator, "Operands": [value]},
-            }
-        )
-        return self
-
-    def otherwise(self, next_block: FlowBlock) -> "Self":
-        """Set the default action when no conditions match."""
-        self.transitions["NextAction"] = next_block.identifier
-        return self
-
     def __repr__(self) -> str:
         """Return readable representation."""
         if self.text:

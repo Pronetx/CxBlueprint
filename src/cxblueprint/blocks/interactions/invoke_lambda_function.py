@@ -19,6 +19,11 @@ class InvokeLambdaFunction(FlowBlock):
 
     def __post_init__(self):
         self.type = "InvokeLambdaFunction"
+        if self.invocation_time_limit_seconds > 8:
+            raise ValueError(
+                f"Lambda timeout cannot exceed 8 seconds (got {self.invocation_time_limit_seconds}). "
+                "This is an AWS Connect limit."
+            )
         if not self.parameters:
             self.parameters = {}
 

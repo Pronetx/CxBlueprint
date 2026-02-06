@@ -18,11 +18,15 @@ from .blocks.types import (
     PhoneNumberValidation,
     CustomValidation,
 )
+from .blocks.contact_actions import TransferContactToQueue, CreateTask
+from .blocks.flow_control_actions import Compare, Wait, DistributeByPercentage
+from .blocks.interactions import CreateCallbackContact
 
 __all__ = [
     "Flow",
     "FlowAnalyzer",
     "FlowValidationError",
+    # Types
     "LexV2Bot",
     "LexBot",
     "ViewResource",
@@ -32,4 +36,11 @@ __all__ = [
     "DTMFConfiguration",
     "PhoneNumberValidation",
     "CustomValidation",
+    # Common blocks (for flow.add())
+    "TransferContactToQueue",
+    "CreateTask",
+    "Compare",
+    "Wait",
+    "DistributeByPercentage",
+    "CreateCallbackContact",
 ]

@@ -8,6 +8,14 @@ The `Flow` provides three ways to add blocks to your flow:
 2. **Convenience Methods** - Helper methods for complex blocks
 3. **Generic `add()`** - Full control for specialized blocks
 
+### Class Methods
+
+| Method | Description |
+|--------|-------------|
+| `Flow.build(name, debug=False)` | Create a new flow |
+| `Flow.decompile(filepath, debug=False)` | Load an existing AWS Connect flow JSON |
+| `Flow.load(filepath, debug=False)` | Alias for `decompile()` |
+
 ---
 
 ## 1. Fluent API (Common Blocks)
@@ -79,7 +87,7 @@ Check if within business hours.
 
 ```python
 hours = flow.check_hours("{{HOURS_ID}}")
-# Note: Requires manual condition setup via transitions
+hours.when("True", open_path).when("False", closed_path)
 ```
 
 ### `update_attributes(**attributes) -> UpdateContactAttributes`
@@ -109,6 +117,60 @@ End the flow execution.
 
 ```python
 end = flow.end_flow()
+```
+
+### `transfer_to_queue() -> TransferContactToQueue`
+Transfer contact to a queue. Queue must be set beforehand via `UpdateContactTargetQueue`.
+
+```python
+queue_xfer = flow.transfer_to_queue()
+queue_xfer.on_error("QueueAtCapacity", overflow_handler)
+queue_xfer.on_error("NoMatchingError", error_handler)
+```
+
+### `wait(seconds: int = 60) -> Wait`
+Pause flow execution for specified duration.
+
+```python
+pause = flow.wait(seconds=30)
+pause.then(next_step)
+```
+
+### `pause_recording() -> UpdateContactRecordingBehavior`
+Pause call recording (PCI compliance).
+
+```python
+pause_rec = flow.pause_recording()
+```
+
+### `resume_recording() -> UpdateContactRecordingBehavior`
+Resume call recording after pausing.
+
+```python
+resume_rec = flow.resume_recording()
+```
+
+### `compare(comparison_value: str) -> Compare`
+Branch based on a JSONPath expression (e.g. contact attributes).
+
+```python
+branch = flow.compare("$.Attributes.customer_tier")
+branch.when("premium", vip_path) \
+    .when("standard", normal_path) \
+    .otherwise(default_path) \
+    .on_error("NoMatchingCondition", default_path)
+```
+
+### `distribute_by_percentage(percentages: list[int]) -> DistributeByPercentage`
+A/B test or percentage-based traffic routing. Percentages must sum to 100.
+
+```python
+split = flow.distribute_by_percentage([50, 50])
+split.branch(0, path_a).branch(1, path_b)
+
+# 3-way split
+split = flow.distribute_by_percentage([30, 40, 30])
+split.branch(0, path_a).branch(1, path_b).branch(2, path_c)
 ```
 
 ---
@@ -180,19 +242,29 @@ block.on_error("Timeout", timeout_handler)
 block.on_error("NoMatchError", error_handler)
 ```
 
-### `when(value: str, next_block) -> Self`
-Branch based on DTMF input (GetParticipantInput only).
+### `when(value: str, next_block, operator: str = "Equals") -> Self`
+Branch based on a condition value (available on **all blocks**).
 
 ```python
-menu.when("1", option1)
-menu.when("2", option2)
+# DTMF input
+menu.when("1", option1).when("2", option2)
+
+# Business hours
+hours.when("True", open_path).when("False", closed_path)
+
+# Compare attribute
+branch.when("premium", vip_path).when("standard", normal_path)
+
+# Lambda result
+lookup.when("found", success).when("not_found", error)
 ```
 
 ### `otherwise(next_block) -> Self`
-Default branch when no condition matches (GetParticipantInput only).
+Default branch when no condition matches (available on **all blocks**).
 
 ```python
 menu.otherwise(invalid_input_handler)
+branch.otherwise(default_path)
 ```
 
 ### `on_intent(intent_name: str, next_block) -> Self`

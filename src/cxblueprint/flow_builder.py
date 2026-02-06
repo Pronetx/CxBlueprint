@@ -154,6 +154,7 @@ class Flow:
             block_class = BLOCK_TYPE_MAP.get(block_type, FlowBlock)
             block = block_class.from_dict(action_data)
             instance.blocks.append(block)
+            instance._track_block_type(block)
 
         if unknown_types and debug:
             print(
@@ -168,6 +169,11 @@ class Flow:
             print(f"Decompiled flow: {flow_name} ({len(instance.blocks)} blocks)")
 
         return instance
+
+    @classmethod
+    def load(cls, filepath: str, debug: bool = False) -> "Flow":
+        """Load an AWS Connect flow from a JSON file. Alias for decompile()."""
+        return cls.decompile(filepath, debug)
 
     def _track_block_type(self, block: FlowBlock):
         """Track block type statistics."""
@@ -328,6 +334,72 @@ class Flow:
         block = EndFlowExecution(identifier=str(uuid.uuid4()))
         return self._register_block(block)
 
+    def transfer_to_queue(self) -> TransferContactToQueue:
+        """Create a transfer to queue block.
+
+        The target queue must be set beforehand via update_target_queue()
+        or UpdateContactTargetQueue.
+        """
+        block = TransferContactToQueue(identifier=str(uuid.uuid4()))
+        return self._register_block(block)
+
+    def wait(self, seconds: int = 60) -> Wait:
+        """Create a wait block.
+
+        Args:
+            seconds: Time to wait in seconds (default: 60)
+        """
+        block = Wait(identifier=str(uuid.uuid4()), time_limit_seconds=seconds)
+        return self._register_block(block)
+
+    def pause_recording(self) -> UpdateContactRecordingBehavior:
+        """Pause call recording (PCI compliance)."""
+        block = UpdateContactRecordingBehavior(
+            identifier=str(uuid.uuid4()),
+            recording_behavior={"RecordedParticipants": []},
+        )
+        return self._register_block(block)
+
+    def resume_recording(self) -> UpdateContactRecordingBehavior:
+        """Resume call recording."""
+        block = UpdateContactRecordingBehavior(
+            identifier=str(uuid.uuid4()),
+            recording_behavior={"RecordedParticipants": ["Agent", "Customer"]},
+        )
+        return self._register_block(block)
+
+    def compare(self, comparison_value: str) -> Compare:
+        """Create a compare/branch block for conditional logic.
+
+        Args:
+            comparison_value: JSONPath expression to evaluate
+                (e.g. '$.Attributes.customer_tier')
+        """
+        block = Compare(
+            identifier=str(uuid.uuid4()), comparison_value=comparison_value
+        )
+        return self._register_block(block)
+
+    def distribute_by_percentage(
+        self, percentages: list[int]
+    ) -> DistributeByPercentage:
+        """Create a percentage-based distribution block for A/B testing.
+
+        Args:
+            percentages: List of percentages that must sum to 100.
+                e.g. [50, 50] for 50/50, [30, 40, 30] for 3-way split.
+
+        Example:
+            split = flow.distribute_by_percentage([50, 50])
+            split.branch(0, path_a).otherwise(path_b)
+        """
+        if sum(percentages) != 100:
+            raise ValueError(f"Percentages must sum to 100, got {sum(percentages)}")
+        block = DistributeByPercentage(
+            identifier=str(uuid.uuid4()), percentages=percentages
+        )
+        return self._register_block(block)
+
     # Compilation
 
     def analyze(self) -> Dict[str, Any]:
@@ -457,8 +529,20 @@ class Flow:
             self.blocks, self._start_action
         )
 
+        # Build a lookup from block identifier to block object
+        blocks_by_id = {block.identifier: block for block in self.blocks}
+
         for block_id, position in positions.items():
-            metadata["ActionMetadata"][block_id] = {"position": position}
+            action_meta: Dict[str, Any] = {"position": position}
+
+            # Enrich DistributeByPercentage with conditionMetadata
+            block = blocks_by_id.get(block_id)
+            if isinstance(block, DistributeByPercentage) and block.percentages:
+                conditions, condition_metadata = block.build_condition_metadata()
+                action_meta["conditions"] = conditions
+                action_meta["conditionMetadata"] = condition_metadata
+
+            metadata["ActionMetadata"][block_id] = action_meta
 
         return metadata
 

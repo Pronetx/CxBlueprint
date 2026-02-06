@@ -28,11 +28,12 @@ class CanvasLayoutEngine:
     # Layout constants based on AWS Connect canvas analysis
     BLOCK_WIDTH = 200  # Estimated block width in pixels
     BLOCK_HEIGHT_BASE = 100  # Base block height (no conditions)
-    BLOCK_HEIGHT_PER_BRANCH = 25  # Additional height per condition/error branch
+    BLOCK_HEIGHT_PER_BRANCH = 20  # Additional height per condition/error branch
     HORIZONTAL_SPACING = 280  # Pixels between columns (left edge to left edge)
-    VERTICAL_SPACING_MIN = 180  # Minimum vertical spacing between rows
+    VERTICAL_SPACING_MIN = 150  # Minimum vertical spacing between rows
     START_X = 150  # X position of first column
     START_Y = 50  # Y position of first row
+    ROW_PADDING = 50  # Padding added to block height for row calculation
 
     def __init__(self, debug: bool = False):
         self.debug = debug
@@ -68,7 +69,7 @@ class CanvasLayoutEngine:
             max_height = self.VERTICAL_SPACING_MIN
             for block_id in block_ids:
                 block = self._get_block(blocks, block_id)
-                block_height = self._get_block_height(block) + 80  # Add padding
+                block_height = self._get_block_height(block) + self.ROW_PADDING
                 max_height = max(max_height, block_height)
             row_heights[row] = max_height
 

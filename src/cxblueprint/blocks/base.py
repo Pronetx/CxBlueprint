@@ -25,6 +25,25 @@ class FlowBlock:
         self.transitions["NextAction"] = next_block.identifier
         return self
 
+    def when(
+        self, value: str, next_block: "FlowBlock", operator: str = "Equals"
+    ) -> "Self":
+        """Add a condition: when value matches, go to next_block."""
+        if "Conditions" not in self.transitions:
+            self.transitions["Conditions"] = []
+        self.transitions["Conditions"].append(
+            {
+                "NextAction": next_block.identifier,
+                "Condition": {"Operator": operator, "Operands": [value]},
+            }
+        )
+        return self
+
+    def otherwise(self, next_block: "FlowBlock") -> "Self":
+        """Set the default action when no conditions match."""
+        self.transitions["NextAction"] = next_block.identifier
+        return self
+
     def on_error(self, error_type: str, next_block: "FlowBlock") -> "Self":
         """Add an error handler for this block."""
         if "Errors" not in self.transitions:

@@ -125,7 +125,7 @@ def test_invoke_lambda_block():
     """Test creating Lambda invocation blocks."""
     flow = Flow.build("Test Flow")
     lambda_block = flow.invoke_lambda(
-        function_arn="arn:aws:lambda:us-east-1:123:function:test", timeout_seconds=10
+        function_arn="arn:aws:lambda:us-east-1:123:function:test", timeout_seconds=8
     )
 
     assert len(flow.blocks) == 1
@@ -133,7 +133,7 @@ def test_invoke_lambda_block():
     assert (
         lambda_block.lambda_function_arn == "arn:aws:lambda:us-east-1:123:function:test"
     )
-    assert lambda_block.invocation_time_limit_seconds == 10
+    assert lambda_block.invocation_time_limit_seconds == 8
 
 
 def test_check_hours_block():
@@ -270,3 +270,149 @@ def test_block_repr():
     assert "MessageParticipant" in repr_str
     # Check that the text parameter appears in the repr
     assert "Test message" in repr_str
+
+
+# ---- New tests for QA-identified gaps ----
+
+
+def test_transfer_to_queue_block():
+    """Test creating transfer to queue blocks."""
+    flow = Flow.build("Test Flow")
+    xfer = flow.transfer_to_queue()
+
+    assert len(flow.blocks) == 1
+    assert xfer.type == "TransferContactToQueue"
+
+
+def test_wait_block():
+    """Test creating wait blocks with seconds parameter."""
+    flow = Flow.build("Test Flow")
+    w = flow.wait(seconds=30)
+
+    assert len(flow.blocks) == 1
+    assert w.type == "Wait"
+    assert w.time_limit_seconds == 30
+
+
+def test_pause_recording_block():
+    """Test pause recording creates correct RecordedParticipants=[]."""
+    flow = Flow.build("Test Flow")
+    pause = flow.pause_recording()
+
+    assert pause.type == "UpdateContactRecordingBehavior"
+    assert pause.recording_behavior == {"RecordedParticipants": []}
+
+
+def test_resume_recording_block():
+    """Test resume recording creates correct RecordedParticipants."""
+    flow = Flow.build("Test Flow")
+    resume = flow.resume_recording()
+
+    assert resume.type == "UpdateContactRecordingBehavior"
+    assert resume.recording_behavior == {
+        "RecordedParticipants": ["Agent", "Customer"]
+    }
+
+
+def test_compare_block():
+    """Test compare block propagates comparison_value."""
+    flow = Flow.build("Test Flow")
+    branch = flow.compare("$.Attributes.customer_tier")
+
+    assert branch.type == "Compare"
+    assert branch.comparison_value == "$.Attributes.customer_tier"
+
+
+def test_flow_load_alias(tmp_path):
+    """Test that Flow.load() works as alias for Flow.decompile()."""
+    # Create a minimal flow and save it
+    flow = Flow.build("Original")
+    welcome = flow.play_prompt("Hello")
+    disconnect = flow.disconnect()
+    welcome.then(disconnect)
+
+    output_file = tmp_path / "test_load.json"
+    flow.compile_to_file(str(output_file))
+
+    # Load via alias
+    loaded = Flow.load(str(output_file))
+    assert len(loaded.blocks) == 2
+    assert loaded._start_action is not None
+
+
+def test_when_on_check_hours():
+    """Test .when() works on CheckHoursOfOperation (inherited from base)."""
+    flow = Flow.build("Test Flow")
+    hours = flow.check_hours(hours_of_operation_id="test-hours")
+    open_path = flow.play_prompt("We are open")
+    closed_path = flow.play_prompt("We are closed")
+
+    hours.when("True", open_path).when("False", closed_path)
+
+    conditions = hours.transitions["Conditions"]
+    assert len(conditions) == 2
+    assert conditions[0]["Condition"]["Operands"] == ["True"]
+    assert conditions[0]["NextAction"] == open_path.identifier
+    assert conditions[1]["Condition"]["Operands"] == ["False"]
+    assert conditions[1]["NextAction"] == closed_path.identifier
+
+
+def test_when_on_compare():
+    """Test .when() + .otherwise() on Compare block."""
+    flow = Flow.build("Test Flow")
+    branch = flow.compare("$.Attributes.tier")
+    premium = flow.play_prompt("VIP")
+    standard = flow.play_prompt("Standard")
+    default = flow.play_prompt("Default")
+
+    branch.when("premium", premium).when("standard", standard).otherwise(default)
+
+    conditions = branch.transitions["Conditions"]
+    assert len(conditions) == 2
+    assert conditions[0]["Condition"]["Operands"] == ["premium"]
+    assert branch.transitions["NextAction"] == default.identifier
+
+
+def test_otherwise_on_lex_bot():
+    """Test .otherwise() on ConnectParticipantWithLexBot."""
+    from cxblueprint.blocks.types import LexV2Bot
+
+    flow = Flow.build("Test Flow")
+    bot = flow.lex_bot(
+        text="How can I help?",
+        lex_v2_bot=LexV2Bot(alias_arn="arn:aws:lex:us-east-1:123:bot-alias/test"),
+    )
+    fallback = flow.play_prompt("I didn't understand")
+
+    bot.on_intent("CheckBalance", flow.play_prompt("Checking balance"))
+    bot.otherwise(fallback)
+
+    assert bot.transitions["NextAction"] == fallback.identifier
+    assert len(bot.transitions["Conditions"]) == 1
+
+
+def test_decompile_stats_tracking(tmp_path):
+    """Test that decompiled flows have populated _block_stats."""
+    # Create and save a flow
+    flow = Flow.build("Stats Test")
+    flow.play_prompt("Hello")
+    flow.play_prompt("World")
+    flow.get_input("Press 1", timeout=5)
+    disconnect = flow.disconnect()
+
+    # Wire minimally for compilation
+    flow.blocks[0].then(flow.blocks[1])
+    flow.blocks[1].then(flow.blocks[2])
+    flow.blocks[2].then(disconnect)
+    flow.blocks[2].on_error("InputTimeLimitExceeded", disconnect)
+    flow.blocks[2].on_error("NoMatchingCondition", disconnect)
+    flow.blocks[2].on_error("NoMatchingError", disconnect)
+
+    output_file = tmp_path / "stats_test.json"
+    flow.compile_to_file(str(output_file))
+
+    # Decompile and check stats
+    loaded = Flow.decompile(str(output_file))
+    assert loaded._block_stats["MessageParticipant"] == 2
+    assert loaded._block_stats["GetParticipantInput"] == 1
+    assert loaded._block_stats["DisconnectParticipant"] == 1

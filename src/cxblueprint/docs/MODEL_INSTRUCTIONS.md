@@ -88,7 +88,7 @@ Use debug mode when developing flows to catch issues early.
 
 | Method | Use When | Example |
 |--------|----------|---------|
-| `flow.invoke_lambda(arn)` | Call external logic/APIs | Account lookup, data validation |
+| `flow.invoke_lambda(arn, timeout_seconds=8)` | Call external logic/APIs (max 8s timeout) | Account lookup, data validation |
 | `flow.check_hours(id)` | Route by business hours | Open/closed routing |
 | `flow.lex_bot(text, lex_v2_bot)` | Natural language input | Voice assistants |
 
@@ -98,12 +98,28 @@ Use debug mode when developing flows to catch issues early.
 |--------|----------|---------|
 | `flow.update_attributes(**attrs)` | Store data for later | Customer type, session data |
 
-### Flow Control Blocks
+### Queue & Transfer Blocks
 
 | Method | Use When | Example |
 |--------|----------|---------|
 | `flow.transfer_to_flow(id)` | Jump to another flow | Sub-flows, error flows |
+| `flow.transfer_to_queue()` | Send caller to queue | Agent routing (set queue first) |
 | `flow.end_flow()` | End without disconnect | Module completion |
+
+### Flow Control Blocks
+
+| Method | Use When | Example |
+|--------|----------|---------|
+| `flow.compare(value)` | Branch on attribute value | Route by customer tier, language |
+| `flow.wait(seconds)` | Pause flow execution | Delay before retry, hold music gap |
+| `flow.distribute_by_percentage([50, 50])` | A/B test or percentage routing | Split traffic between paths |
+
+### Recording Control
+
+| Method | Use When | Example |
+|--------|----------|---------|
+| `flow.pause_recording()` | Stop recording (PCI) | Before credit card entry |
+| `flow.resume_recording()` | Restart recording | After sensitive data collected |
 
 ---
 
@@ -119,19 +135,35 @@ welcome.then(menu)
 ```
 
 ### `.when(value, block)` - Conditional Branch
-Routes based on user input or block output:
+Routes based on user input or block output. Available on **all blocks**:
 
 ```python
+# DTMF menu
 menu = flow.get_input("Press 1 for Sales, 2 for Support", timeout=10)
-menu.when("1", sales_block)
-menu.when("2", support_block)
+menu.when("1", sales_block).when("2", support_block)
+
+# Business hours
+hours = flow.check_hours("${HOURS_ID}")
+hours.when("True", open_path).when("False", closed_path)
+
+# Compare attribute
+branch = flow.compare("$.Attributes.customer_tier")
+branch.when("premium", vip_path).when("standard", normal_path)
+
+# Lambda result - Lambda does NOT support .when() conditions.
+# Use a Compare block to inspect $.External.* attributes:
+lookup = flow.invoke_lambda("${LAMBDA_ARN}")
+check = flow.compare("$.External.lookupResult")
+lookup.then(check)
+check.when("found", success_path).when("not_found", error_path)
 ```
 
 ### `.otherwise(block)` - Default Branch
-Fallback when no conditions match:
+Fallback when no conditions match (available on **all blocks**):
 
 ```python
 menu.otherwise(error_block)
+branch.otherwise(default_path)
 ```
 
 ### `.on_error(error_type, block)` - Error Handler
@@ -619,6 +651,63 @@ flow.compile_to_file("output/account_lookup.json")
 
 ---
 
+## Pattern: Compare / Attribute Branching
+
+Use `flow.compare()` to branch based on contact attributes (set by Lambda or `update_attributes`):
+
+```python
+flow = Flow.build("Tier Routing")
+
+# Lambda sets $.Attributes.customer_tier
+lookup = flow.invoke_lambda("${LOOKUP_LAMBDA_ARN}")
+
+branch = flow.compare("$.Attributes.customer_tier")
+lookup.then(branch)
+
+premium = flow.play_prompt("Welcome back, premium member!")
+standard = flow.play_prompt("Welcome! Connecting you now.")
+unknown = flow.play_prompt("Welcome! Let us look up your account.")
+disconnect = flow.disconnect()
+
+branch.when("premium", premium) \
+    .when("standard", standard) \
+    .otherwise(unknown) \
+    .on_error("NoMatchingCondition", unknown)
+
+premium.then(disconnect)
+standard.then(disconnect)
+unknown.then(disconnect)
+
+flow.compile_to_file("output/tier_routing.json")
+```
+
+---
+
+## Pattern: Recording Control (PCI Compliance)
+
+Pause recording before collecting sensitive data:
+
+```python
+flow = Flow.build("Payment Flow")
+
+prompt = flow.play_prompt("Please enter your card number.")
+pause = flow.pause_recording()
+card_input = flow.get_input("Enter your 16-digit card number", timeout=30)
+resume = flow.resume_recording()
+confirm = flow.play_prompt("Thank you. Your payment is being processed.")
+disconnect = flow.disconnect()
+
+prompt.then(pause)
+pause.then(card_input)
+card_input.then(resume)
+resume.then(confirm)
+confirm.then(disconnect)
+
+flow.compile_to_file("output/payment_flow.json")
+```
+
+---
+
 ## Pattern: Store and Use Attributes
 
 ```python
@@ -651,29 +740,16 @@ For blocks not covered by convenience methods:
 
 ```python
 import uuid
-from cxblueprint.blocks.contact_actions import TransferContactToQueue
-from cxblueprint.blocks.flow_control_actions import DistributeByPercentage, Wait
+from cxblueprint import DistributeByPercentage, CreateCallbackContact
 
-# Queue transfer
-queue = TransferContactToQueue(
-    identifier=str(uuid.uuid4()),
-    queue_id="${QUEUE_ARN}"
-)
-flow.add(queue)
-
-# A/B testing
-ab_test = DistributeByPercentage(
-    identifier=str(uuid.uuid4()),
-    percentages=[50, 50]  # 50/50 split
-)
+# A/B testing (prefer flow.distribute_by_percentage() convenience method)
+ab_test = DistributeByPercentage(identifier=str(uuid.uuid4()), percentages=[50, 50])
 flow.add(ab_test)
+ab_test.branch(0, path_a).branch(1, path_b)
 
-# Wait/pause
-wait = Wait(
-    identifier=str(uuid.uuid4()),
-    seconds="5"
-)
-flow.add(wait)
+# Callback
+callback = CreateCallbackContact(identifier=str(uuid.uuid4()))
+flow.add(callback)
 ```
 
 ---
@@ -731,32 +807,98 @@ When converting user requirements to code:
 # Initialize
 flow = Flow.build("Name", debug=True)
 
+# Load existing flow
+flow = Flow.load("existing_flow.json")     # Alias for Flow.decompile()
+
 # Basic blocks
-msg = flow.play_prompt("text")           # Announcement only
-menu = flow.get_input("prompt", timeout) # Menu WITH prompt
-dc = flow.disconnect()                   # End call
+msg = flow.play_prompt("text")             # Announcement only
+menu = flow.get_input("prompt", timeout)   # Menu WITH prompt
+dc = flow.disconnect()                     # End call
 
 # Integrations
-lam = flow.invoke_lambda(arn)            # Lambda
-hrs = flow.check_hours(id)               # Hours check
-attrs = flow.update_attributes(k=v)      # Store data
+lam = flow.invoke_lambda(arn)              # Lambda
+hrs = flow.check_hours(id)                 # Hours check
+attrs = flow.update_attributes(k=v)        # Store data
 
-# Connections
-block.then(next)                         # Sequential
-block.when("value", target)              # Conditional
-block.otherwise(fallback)                # Default
-block.on_error("Type", handler)          # Error
+# Flow control
+branch = flow.compare("$.Attributes.x")   # Branch on attribute
+w = flow.wait(seconds=60)                  # Pause execution
+split = flow.distribute_by_percentage([50, 50])  # A/B test
+
+# Queue & transfer
+xfer = flow.transfer_to_queue()            # Transfer to queue
+flow.transfer_to_flow(id)                  # Transfer to flow
+
+# Recording
+flow.pause_recording()                     # PCI: stop recording
+flow.resume_recording()                    # PCI: restart recording
+
+# Connections (available on ALL blocks)
+block.then(next)                           # Sequential
+block.when("value", target)                # Conditional
+block.otherwise(fallback)                  # Default
+block.on_error("Type", handler)            # Error
 
 # Validation (optional but recommended)
-flow.validate()                          # Checks for issues, raises error if found
+flow.validate()                            # Checks for issues, raises error if found
 
 # Output
 flow.compile_to_file("path.json")
 
 # Block reuse
-disconnect = flow.disconnect()           # Create once
-block1.then(disconnect)                  # Reuse
-block2.then(disconnect)                  # Reuse again
+disconnect = flow.disconnect()             # Create once
+block1.then(disconnect)                    # Reuse
+block2.then(disconnect)                    # Reuse again
+```
+
+---
+
+## Pattern: Lambda Result Routing
+
+Lambda blocks do NOT support `.when()` conditions. Use a Compare block after:
+
+```python
+lookup = flow.invoke_lambda("${LAMBDA_ARN}", timeout_seconds=8)
+check = flow.compare("$.External.lookupResult")
+lookup.then(check)
+lookup.on_error("NoMatchingError", error_msg)
+
+check.when("found", found_msg) \
+    .when("not_found", not_found_msg) \
+    .on_error("NoMatchingCondition", error_msg)
+```
+
+**Note:** AWS Connect limits Lambda timeouts to 8 seconds maximum.
+
+---
+
+## Pattern: A/B Testing with Percentage Distribution
+
+```python
+split = flow.distribute_by_percentage([50, 50])
+split.branch(0, path_a).branch(1, path_b)
+
+# 3-way split:
+split = flow.distribute_by_percentage([30, 40, 30])
+split.branch(0, path_a).branch(1, path_b).branch(2, path_c)
+```
+
+---
+
+## Pattern: Cross-Flow References
+
+Flows reference each other by ARN. Since ARNs are assigned at deploy time,
+use template placeholders:
+
+```python
+transfer = flow.transfer_to_flow("${GREETING_FLOW_ARN}")
+```
+
+Resolve at deploy time with Terraform:
+```hcl
+content = templatefile("main_flow.json", {
+  GREETING_FLOW_ARN = aws_connect_contact_flow.greeting.arn
+})
 ```
 
 ---
@@ -770,6 +912,8 @@ block2.then(disconnect)                  # Reuse again
 | Integer condition values | Use strings: "1" not 1 |
 | No disconnect at end of paths | Every path must end |
 | Blocks not connected | Use .then() to connect sequential blocks |
+| Lambda with `.when()` conditions | Lambda does NOT support conditions; use Compare block after |
+| Lambda timeout > 8 seconds | AWS Connect limits Lambda to 8s max |
 
 ---
 
