@@ -75,9 +75,34 @@ Here's what the generated flows look like in the Amazon Connect console:
 
 ![Example Generated Flow 2](docs/example_generate_flow2.png)
 
+## MCP Server (AI Integration)
+
+CxBlueprint includes an MCP server that lets AI tools (Claude Desktop, Cursor, VS Code) build contact flows conversationally.
+
+```bash
+pip install cxblueprint[mcp]
+```
+
+Configure Claude Desktop (`~/Library/Application Support/Claude/claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "cxblueprint": {
+      "command": "cxblueprint-mcp"
+    }
+  }
+}
+```
+
+Then ask Claude: *"Build me an IVR with a welcome message and 3 menu options for sales, support, and billing"*
+
+The AI reads the bundled documentation automatically and uses the `compile_flow` tool to generate valid Amazon Connect JSON.
+
 ## Features
 
 - Fluent Python API for building flows
+- MCP server for AI-assisted flow generation
 - Naive block positioning for AWS Connect visual canvas
 - Automatic UUID generation for blocks
 - Error/Conditional handling support
@@ -93,6 +118,15 @@ Here's what the generated flows look like in the Amazon Connect console:
 - Optimization Suggestions, analyze flows for efficiency improvements.
 - Output to diagram formats for other visualization tools.
 - Template library of common flow patterns.
+
+## Installation
+
+```bash
+pip install cxblueprint
+
+# With MCP server for AI integration
+pip install cxblueprint[mcp]
+```
 
 ## Quick Start
 
@@ -110,21 +144,14 @@ terraform apply
 ## Project Structure
 
 ```
-src/
+src/cxblueprint/
+  __init__.py           # Package exports
   flow_builder.py       # Main builder API
-  decompiler.py         # JSON to Python
+  flow_analyzer.py      # Flow validation
+  mcp_server.py         # MCP server for AI integration
   blocks/               # All Connect block types
-    contact_actions/    # Actions like CreateTask
-      readme.md         # Contains progress on supported blocks
-     flow_control_actions/ # Flow control blocks
-      readme.md         # Contains progress on supported blocks
-     interactions/      # Interaction blocks
-      readme.md         # Contains progress on supported blocks
-     participant_actions/  # Participant blocks
-      readme.md         # Contains progress on supported blocks
 examples/               # Sample flows
-terraform_example/      # Complete deployment example
-docs/                   # API reference
+docs/                   # API reference & AI instructions
 ```
 
 ## Documentation

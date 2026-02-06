@@ -16,7 +16,11 @@ authors = [
 keywords = ["amazon-connect", "ivr", "contact-flow", "terraform", "cdk"]
 
 [project.optional-dependencies]
+mcp = ["mcp>=1.26.0"]
 web = ["fastapi>=0.104.0", "uvicorn[standard]>=0.24.0", "httpx>=0.25.0"]
+
+[project.scripts]
+cxblueprint-mcp = "cxblueprint.mcp_server:main"
 
 [project.urls]
 Homepage = "https://github.com/Pronetx/CxBlueprint"
