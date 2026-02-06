@@ -1,11 +1,6 @@
 #!/usr/bin/env python3
 
-import sys
-import os
-
-sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "src"))
-
-from flow_builder import Flow
+from cxblueprint import Flow
 
 
 def create_loan_center_main_menu():

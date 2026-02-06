@@ -5,7 +5,7 @@ Analyzes flow structure to detect common issues before deployment.
 """
 
 from typing import Set, List, Dict
-from blocks.base import FlowBlock
+from .blocks.base import FlowBlock
 
 
 class FlowAnalyzer:

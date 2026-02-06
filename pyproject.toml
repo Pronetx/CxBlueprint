@@ -1,6 +1,10 @@
+[build-system]
+requires = ["setuptools>=68.0", "setuptools-scm>=8.0"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "cxblueprint"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Python DSL for Amazon Connect contact flow generation"
 requires-python = ">=3.11"
 dependencies = []
@@ -11,10 +15,22 @@ authors = [
 ]
 keywords = ["amazon-connect", "ivr", "contact-flow", "terraform", "cdk"]
 
+[project.optional-dependencies]
+web = ["fastapi>=0.104.0", "uvicorn[standard]>=0.24.0", "httpx>=0.25.0"]
+
 [project.urls]
 Homepage = "https://github.com/Pronetx/CxBlueprint"
 Documentation = "https://github.com/Pronetx/CxBlueprint/tree/main/docs"
 Repository = "https://github.com/Pronetx/CxBlueprint"
+
+[tool.setuptools_scm]
+version_file = "src/cxblueprint/_version.py"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+cxblueprint = ["docs/*.md"]
 
 [tool.mypy]
 python_version = "3.11"
@@ -29,7 +45,7 @@ strict_equality = true
 
 # Ignore missing imports for third-party libraries we don't control
 [[tool.mypy.overrides]]
-module = "canvas_layout.*"
+module = "cxblueprint.canvas_layout.*"
 ignore_missing_imports = true
 
 [tool.black]

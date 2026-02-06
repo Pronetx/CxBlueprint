@@ -9,7 +9,7 @@ from typing import Dict, List, Tuple, Optional, Set, TYPE_CHECKING
 from collections import deque, defaultdict
 
 if TYPE_CHECKING:
-    from blocks.base import FlowBlock
+    from .blocks.base import FlowBlock
 
 
 class CanvasLayoutEngine:

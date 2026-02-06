@@ -4,17 +4,10 @@ Tests for Flow builder functionality.
 Tests the main Flow class for building contact flows.
 """
 
-import sys
-from pathlib import Path
 import pytest
 import json
 
-# Add src to path
-src_path = Path(__file__).parent.parent / "src"
-sys.path.insert(0, str(src_path))
-
-from flow_builder import Flow
-from flow_analyzer import FlowValidationError
+from cxblueprint import Flow, FlowValidationError
 
 
 def test_flow_initialization():

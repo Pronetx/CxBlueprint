@@ -7,11 +7,7 @@ Demonstrates:
 - Multi-level menu navigation
 - Multiple error handling paths
 """
-import sys
-
-sys.path.insert(0, "../../src")
-
-from flow_builder import Flow
+from cxblueprint import Flow
 
 # Create flow with debug
 flow = Flow.build("Student Loan IVR", debug=True)

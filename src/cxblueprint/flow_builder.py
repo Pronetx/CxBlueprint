@@ -6,10 +6,10 @@ from pathlib import Path
 import json
 from typing import List, Optional, Dict, Set, Tuple, TypeVar, Type, Any
 import uuid
-from canvas_layout import CanvasLayoutEngine
-from flow_analyzer import FlowAnalyzer, FlowValidationError
-from blocks.base import FlowBlock
-from blocks.participant_actions import (
+from .canvas_layout import CanvasLayoutEngine
+from .flow_analyzer import FlowAnalyzer, FlowValidationError
+from .blocks.base import FlowBlock
+from .blocks.participant_actions import (
     MessageParticipant,
     MessageParticipantIteratively,
     DisconnectParticipant,
@@ -17,7 +17,7 @@ from blocks.participant_actions import (
     ConnectParticipantWithLexBot,
     ShowView,
 )
-from blocks.flow_control_actions import (
+from .blocks.flow_control_actions import (
     TransferToFlow,
     CheckHoursOfOperation,
     EndFlowExecution,
@@ -26,11 +26,11 @@ from blocks.flow_control_actions import (
     DistributeByPercentage,
     CheckMetricData,
 )
-from blocks.interactions import (
+from .blocks.interactions import (
     InvokeLambdaFunction,
     CreateCallbackContact,
 )
-from blocks.contact_actions import (
+from .blocks.contact_actions import (
     UpdateContactAttributes,
     UpdateContactTargetQueue,
     TransferContactToQueue,
@@ -40,7 +40,7 @@ from blocks.contact_actions import (
     UpdateContactRoutingBehavior,
     CreateTask,
 )
-from blocks.types import LexV2Bot, LexBot, ViewResource, Media
+from .blocks.types import LexV2Bot, LexBot, ViewResource, Media
 
 T = TypeVar("T", bound=FlowBlock)  # Generic FlowBlock type for method returns
 

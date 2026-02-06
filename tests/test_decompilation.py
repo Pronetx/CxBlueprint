@@ -4,17 +4,13 @@ Tests for Flow decompilation functionality.
 Tests the ability to convert AWS Connect JSON back to Flow objects.
 """
 
-import sys
 from pathlib import Path
+
 import pytest
 import json
 import tempfile
 
-# Add src to path
-src_path = Path(__file__).parent.parent / "src"
-sys.path.insert(0, str(src_path))
-
-from flow_builder import Flow
+from cxblueprint import Flow
 
 
 def test_decompile_simple_flow():

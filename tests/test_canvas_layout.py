@@ -4,15 +4,9 @@ Tests for CanvasLayoutEngine positioning logic.
 Tests the layered BFS layout algorithm for positioning flow blocks.
 """
 
-import sys
-from pathlib import Path
 import pytest
 
-# Add src to path
-src_path = Path(__file__).parent.parent / "src"
-sys.path.insert(0, str(src_path))
-
-from canvas_layout import CanvasLayoutEngine
+from cxblueprint.canvas_layout import CanvasLayoutEngine
 
 
 def test_canvas_engine_initialization():
@@ -38,7 +32,7 @@ def test_calculate_positions_single_block(simple_flow):
     engine = CanvasLayoutEngine()
 
     # Create a single isolated block for testing
-    from flow_builder import Flow
+    from cxblueprint import Flow
 
     single_flow = Flow.build("Single Block Test")
     block = single_flow.play_prompt("Single block")

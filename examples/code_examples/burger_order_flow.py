@@ -2,10 +2,7 @@
 Example: Complex burger ordering flow with multiple menus
 """
 
-import sys
-
-sys.path.insert(0, "../../src")
-from flow_builder import Flow
+from cxblueprint import Flow
 
 
 def create_burger_order_flow():

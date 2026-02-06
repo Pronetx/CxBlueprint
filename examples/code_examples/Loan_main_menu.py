@@ -1,8 +1,4 @@
-import sys
-import os
-
-sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "src"))
-from flow_builder import Flow
+from cxblueprint import Flow
 
 flow = Flow.build("Loan Center Main Menu", debug=True)
 

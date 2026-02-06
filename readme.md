@@ -4,7 +4,7 @@ Programmatic Amazon Connect contact flow generation using Python. Allows for Ai 
 ### Simple Example
 
 ```python
-from flow_builder import Flow
+from cxblueprint import Flow
 
 flow = Flow.build("Burger Order")
 
@@ -46,7 +46,7 @@ flow.compile_to_file("burger_order.json")
 Use placeholders for dynamic resource ARNs:
 
 ```python
-from flow_builder import Flow
+from cxblueprint import Flow
 
 flow = Flow.build("Counter Flow")
 

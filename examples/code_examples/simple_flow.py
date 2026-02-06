@@ -2,10 +2,7 @@
 Example: Creating a simple flow from code
 """
 
-import sys
-
-sys.path.insert(0, "../../src")
-from flow_builder import Flow
+from cxblueprint import Flow
 
 
 def create_simple_flow():

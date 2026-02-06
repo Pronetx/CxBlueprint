@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Dict, List, Any
 import json
-from blocks.base import FlowBlock
+from .blocks.base import FlowBlock
 
 
 @dataclass

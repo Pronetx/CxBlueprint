@@ -2,21 +2,15 @@
 Shared test fixtures for CxBlueprint tests.
 """
 
-import sys
-from pathlib import Path
 import pytest
 
-# Add src to path so imports work
-src_path = Path(__file__).parent.parent / "src"
-sys.path.insert(0, str(src_path))
-
-from flow_builder import Flow
-from blocks.participant_actions import (
+from cxblueprint import Flow
+from cxblueprint.blocks.participant_actions import (
     MessageParticipant,
     DisconnectParticipant,
     GetParticipantInput,
 )
-from blocks.flow_control_actions import EndFlowExecution
+from cxblueprint.blocks.flow_control_actions import EndFlowExecution
 
 
 @pytest.fixture

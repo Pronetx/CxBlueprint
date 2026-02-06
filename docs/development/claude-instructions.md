@@ -319,7 +319,7 @@ def from_dict(cls, data: dict) -> 'BlockType':
 ```python
 from dataclasses import dataclass, field
 from typing import Optional, Dict, Any
-from blocks.base import FlowBlock
+from cxblueprint.blocks.base import FlowBlock
 
 @dataclass
 class NewBlockType(FlowBlock):

@@ -1,10 +1,7 @@
 """
 Generate the counter flow - Simple example using Flow as a library
 """
-import sys
-sys.path.insert(0, '../../src')
-
-from flow_builder import Flow
+from cxblueprint import Flow
 import json
 from pathlib import Path
 

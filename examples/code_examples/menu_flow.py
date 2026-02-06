@@ -2,10 +2,7 @@
 Example: Creating a menu flow with input options
 """
 
-import sys
-
-sys.path.insert(0, "../../src")
-from flow_builder import Flow
+from cxblueprint import Flow
 
 
 def create_menu_flow():
