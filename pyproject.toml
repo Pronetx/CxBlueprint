@@ -25,6 +25,8 @@ Repository = "https://github.com/Pronetx/CxBlueprint"
 
 [tool.setuptools_scm]
 version_file = "src/cxblueprint/_version.py"
+version_scheme = "post-release"
+local_scheme = "no-local-version"
 
 [tool.setuptools.packages.find]
 where = ["src"]
