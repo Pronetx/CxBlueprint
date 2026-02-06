@@ -40,6 +40,7 @@ htmlcov/
 # Examples output
 examples/*.json
 examples/output/
+examples/code_examples/src/
 
 # Source output (ignore all except specific examples)
 src/output/*
